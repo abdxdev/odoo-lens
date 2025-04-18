@@ -4,76 +4,70 @@ import { DataTable } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { DataTableToolbar } from "@/components/data-table-toolbar";
  
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useDataTable } from "@/hooks/use-data-table";
  
 import type { Column, ColumnDef } from "@tanstack/react-table";
-import {
-  CheckCircle,
-  CheckCircle2,
-  DollarSign,
-  Text,
-  XCircle,
-} from "lucide-react";
+import { MoreHorizontal, User, Phone, Calendar, Tags } from "lucide-react";
 import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import * as React from "react";
  
-interface Project {
-  id: string;
-  title: string;
-  status: "active" | "inactive";
-  budget: number;
+interface Faculty {
+  id: number;
+  name: string;
+  res_group_id: Array<string>;
+  contact_number1: string;
+  login: string;
+  joining_date: string;
 }
  
-const data: Project[] = [
+const data: Faculty[] = [
   {
-    id: "1",
-    title: "Project Alpha",
-    status: "active",
-    budget: 50000,
+    id: 1,
+    name: "John Doe",
+    res_group_id: ["Teacher", "HOD"],
+    contact_number1: "+92 300 1234567",
+    login: "john.doe",
+    joining_date: "2024-01-01",
   },
   {
-    id: "2",
-    title: "Project Beta",
-    status: "inactive",
-    budget: 75000,
-  },
-  {
-    id: "3",
-    title: "Project Gamma",
-    status: "active",
-    budget: 25000,
-  },
-  {
-    id: "4",
-    title: "Project Delta",
-    status: "active",
-    budget: 100000,
+    id: 2,
+    name: "Jane Smith",
+    res_group_id: ["Teacher"],
+    contact_number1: "+92 300 7654321",
+    login: "jane.smith",
+    joining_date: "2024-02-15",
   },
 ];
  
 export function DataTableDemo() {
-  const [title] = useQueryState("title", parseAsString.withDefault(""));
-  const [status] = useQueryState(
-    "status",
+  const [name] = useQueryState("name", parseAsString.withDefault(""));
+  const [login] = useQueryState(
+    "login",
     parseAsArrayOf(parseAsString).withDefault([]),
   );
  
-  // Ideally we would filter the data server-side, but for the sake of this example, we'll filter the data client-side
   const filteredData = React.useMemo(() => {
-    return data.filter((project) => {
-      const matchesTitle =
-        title === "" ||
-        project.title.toLowerCase().includes(title.toLowerCase());
-      const matchesStatus =
-        status.length === 0 || status.includes(project.status);
+    return data.filter((faculty) => {
+      const matchesName =
+        name === "" ||
+        faculty.name.toLowerCase().includes(name.toLowerCase());
+      const matchesLogin =
+        login.length === 0 || login.includes(faculty.login);
  
-      return matchesTitle && matchesStatus;
+      return matchesName && matchesLogin;
     });
-  }, [title, status]);
+  }, [name, login]);
  
-  const columns = React.useMemo<ColumnDef<Project>[]>(
+  const columns = React.useMemo<ColumnDef<Faculty>[]>(
     () => [
       {
         id: "select",
@@ -101,63 +95,99 @@ export function DataTableDemo() {
         enableHiding: false,
       },
       {
-        id: "title",
-        accessorKey: "title",
-        header: ({ column }: { column: Column<Project, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Title" />
+        id: "name",
+        accessorKey: "name",
+        header: ({ column }: { column: Column<Faculty, unknown> }) => (
+          <DataTableColumnHeader column={column} title="Name" />
         ),
-        cell: ({ cell }) => <div>{cell.getValue<Project["title"]>()}</div>,
+        cell: ({ cell }) => (
+          <div className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            {cell.getValue<Faculty["name"]>()}
+          </div>
+        ),
         meta: {
-          label: "Title",
-          placeholder: "Search titles...",
+          label: "Name",
+          placeholder: "Search names...",
           variant: "text",
-          icon: Text,
+          icon: User,
         },
         enableColumnFilter: true,
       },
       {
-        id: "status",
-        accessorKey: "status",
-        header: ({ column }: { column: Column<Project, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Status" />
+        id: "res_group_id",
+        accessorKey: "res_group_id",
+        header: ({ column }: { column: Column<Faculty, unknown> }) => (
+          <DataTableColumnHeader column={column} title="Groups" />
         ),
-        cell: ({ cell }) => {
-          const status = cell.getValue<Project["status"]>();
-          const Icon = status === "active" ? CheckCircle2 : XCircle;
- 
-          return (
-            <Badge variant="outline" className="capitalize">
-              <Icon />
-              {status}
-            </Badge>
-          );
-        },
-        meta: {
-          label: "Status",
-          variant: "multiSelect",
-          options: [
-            { label: "Active", value: "active", icon: CheckCircle },
-            { label: "Inactive", value: "inactive", icon: XCircle },
-          ],
-        },
-        enableColumnFilter: true,
-      },
-      {
-        id: "budget",
-        accessorKey: "budget",
-        header: ({ column }: { column: Column<Project, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Budget" />
-        ),
-        cell: ({ cell }) => {
-          const budget = cell.getValue<Project["budget"]>();
- 
-          return (
-            <div className="flex items-center gap-1">
-              <DollarSign className="size-4" />
-              {budget.toLocaleString()}
+        cell: ({ cell }) => (
+          <div className="flex items-center gap-2">
+            <Tags className="h-4 w-4" />
+            <div className="flex gap-1 flex-wrap">
+              {cell.getValue<Faculty["res_group_id"]>().map((group, index) => (
+                <Badge key={index} variant="secondary">
+                  {group}
+                </Badge>
+              ))}
             </div>
+          </div>
+        ),
+      },
+      {
+        id: "contact",
+        accessorKey: "contact_number1",
+        header: ({ column }: { column: Column<Faculty, unknown> }) => (
+          <DataTableColumnHeader column={column} title="Contact" />
+        ),
+        cell: ({ cell }) => (
+          <div className="flex items-center gap-2">
+            <Phone className="h-4 w-4" />
+            {cell.getValue<Faculty["contact_number1"]>()}
+          </div>
+        ),
+      },
+      {
+        id: "login",
+        accessorKey: "login",
+        header: ({ column }: { column: Column<Faculty, unknown> }) => (
+          <DataTableColumnHeader column={column} title="Login" />
+        ),
+        cell: ({ cell }) => <div>{cell.getValue<Faculty["login"]>()}</div>,
+      },
+      {
+        id: "joining_date",
+        accessorKey: "joining_date",
+        header: ({ column }: { column: Column<Faculty, unknown> }) => (
+          <DataTableColumnHeader column={column} title="Joining Date" />
+        ),
+        cell: ({ cell }) => (
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4" />
+            {new Date(cell.getValue<Faculty["joining_date"]>()).toLocaleDateString()}
+          </div>
+        ),
+      },
+      {
+        id: "actions",
+        cell: function Cell() {
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontal className="h-4 w-4" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem variant="destructive">
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           );
         },
+        size: 32,
       },
     ],
     [],
@@ -168,10 +198,10 @@ export function DataTableDemo() {
     columns,
     pageCount: 1,
     initialState: {
-      sorting: [{ id: "title", desc: true }],
+      sorting: [{ id: "name", desc: false }],
       columnPinning: { right: ["actions"] },
     },
-    getRowId: (row) => row.id,
+    getRowId: (row) => row.id.toString(),
   });
  
   return (

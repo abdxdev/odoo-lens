@@ -17,6 +17,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { SearchFaculty } from "@/components/search-faculty"
 
 
 
@@ -49,6 +50,7 @@ export default function Home() {
           <ThemeToggle />
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
+          <SearchFaculty />
           <DataTableDemo />
         </div>
       </SidebarInset>
