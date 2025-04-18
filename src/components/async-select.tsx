@@ -31,6 +31,8 @@ export interface AsyncSelectProps<T> {
   fetcher: (query?: string) => Promise<T[]>;
   /** Preload all data ahead of time */
   preload?: boolean;
+  /** Skip initial data fetch on mount */
+  skipInitialFetch?: boolean;
   /** Function to filter options */
   filterFn?: (option: T, query: string) => boolean;
   /** Function to render each option */
@@ -68,6 +70,7 @@ export interface AsyncSelectProps<T> {
 export function AsyncSelect<T>({
   fetcher,
   preload,
+  skipInitialFetch = false,
   filterFn,
   renderOption,
   getOptionValue,
@@ -90,7 +93,7 @@ export function AsyncSelect<T>({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchTerm, preload ? 0 : 300);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, preload ? 0 : 1000);
   const [selectedOption, setSelectedOption] = useState<T | null>(null);
   
   // Use refs to track initialization state
@@ -99,6 +102,12 @@ export function AsyncSelect<T>({
 
   // Initial data fetch
   useEffect(() => {
+    // Skip initial fetch if skipInitialFetch is true
+    if (skipInitialFetch) {
+      initialFetchRef.current = true;
+      return;
+    }
+
     const fetchInitialData = async () => {
       if (initialFetchRef.current) return;
       
@@ -116,7 +125,7 @@ export function AsyncSelect<T>({
     };
 
     fetchInitialData();
-  }, [fetcher]);
+  }, [fetcher, skipInitialFetch]);
 
   // Update selected option when value or options change
   useEffect(() => {
