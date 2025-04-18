@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { useDebounce } from "use-debounce";
- 
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
- 
+
 export interface Option {
   value: string;
   label: string;
@@ -25,7 +25,7 @@ export interface Option {
   description?: string;
   icon?: React.ReactNode;
 }
- 
+
 export interface AsyncSelectProps<T> {
   /** Async function to fetch options */
   fetcher: (query?: string) => Promise<T[]>;
@@ -64,7 +64,7 @@ export interface AsyncSelectProps<T> {
   /** Allow clearing the selection */
   clearable?: boolean;
 }
- 
+
 export function AsyncSelect<T>({
   fetcher,
   preload,
@@ -85,90 +85,104 @@ export function AsyncSelect<T>({
   noResultsMessage,
   clearable = true,
 }: AsyncSelectProps<T>) {
-  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedValue, setSelectedValue] = useState(value);
-  const [selectedOption, setSelectedOption] = useState<T | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchTerm, preload ? 0 : 300);
-  const [originalOptions, setOriginalOptions] = useState<T[]>([]);
- 
+  const [selectedOption, setSelectedOption] = useState<T | null>(null);
+  
+  // Use refs to track initialization state
+  const initialFetchRef = useRef(false);
+  const searchFetchRef = useRef(false);
+
+  // Initial data fetch
   useEffect(() => {
-    setMounted(true);
-    setSelectedValue(value);
-  }, [value]);
- 
-  // Initialize selectedOption when options are loaded and value exists
-  useEffect(() => {
-    if (value && options.length > 0) {
-      const option = options.find(opt => getOptionValue(opt) === value);
-      if (option) {
-        setSelectedOption(option);
+    const fetchInitialData = async () => {
+      if (initialFetchRef.current) return;
+      
+      try {
+        initialFetchRef.current = true;
+        setLoading(true);
+        const data = await fetcher("");
+        setOptions(data);
+      } catch (err) {
+        console.error("Error fetching initial data:", err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch options');
+      } finally {
+        setLoading(false);
       }
+    };
+
+    fetchInitialData();
+  }, [fetcher]);
+
+  // Update selected option when value or options change
+  useEffect(() => {
+    if (!options.length) return;
+    
+    if (value) {
+      const option = options.find(opt => getOptionValue(opt) === value);
+      setSelectedOption(option || null);
+    } else {
+      setSelectedOption(null);
     }
   }, [value, options, getOptionValue]);
- 
-  // Effect for initial fetch
+
+  // Handle search term changes
   useEffect(() => {
-    const initializeOptions = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        // If we have a value, use it for the initial search
-        const data = await fetcher(value);
-        setOriginalOptions(data);
-        setOptions(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch options');
-      } finally {
-        setLoading(false);
+    // Skip if we're still loading initial data
+    if (loading && !searchFetchRef.current) return;
+    
+    const fetchFilteredOptions = async () => {
+      // Handle preloaded data (client-side filtering)
+      if (preload) {
+        if (debouncedSearchTerm && options.length > 0) {
+          const filteredOptions = options.filter((option) => 
+            filterFn ? filterFn(option, debouncedSearchTerm) : true
+          );
+          setOptions(filteredOptions);
+        } else if (!debouncedSearchTerm && initialFetchRef.current) {
+          // Reset to initial results if search is cleared
+          const data = await fetcher("");
+          setOptions(data);
+        }
+        return;
+      }
+      
+      // Only fetch from server if we have a search term
+      if (debouncedSearchTerm !== undefined) {
+        try {
+          searchFetchRef.current = true;
+          setLoading(true);
+          setError(null);
+          const data = await fetcher(debouncedSearchTerm);
+          setOptions(data);
+        } catch (err) {
+          console.error("Error searching:", err);
+          setError(err instanceof Error ? err.message : 'Failed to fetch options');
+        } finally {
+          setLoading(false);
+          searchFetchRef.current = false;
+        }
       }
     };
- 
-    if (!mounted) {
-      initializeOptions();
-    }
-  }, [mounted, fetcher, value]);
- 
-  useEffect(() => {
-    const fetchOptions = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetcher(debouncedSearchTerm);
-        setOriginalOptions(data);
-        setOptions(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch options');
-      } finally {
-        setLoading(false);
-      }
-    };
- 
-    if (!mounted) {
-      fetchOptions();
-    } else if (!preload) {
-      fetchOptions();
-    } else if (preload) {
-      if (debouncedSearchTerm) {
-        setOptions(originalOptions.filter((option) => filterFn ? filterFn(option, debouncedSearchTerm) : true));
-      } else {
-        setOptions(originalOptions);
-      }
-    }
-  }, [fetcher, debouncedSearchTerm, mounted, preload, filterFn, originalOptions]);
- 
+
+    // Use a timeout to prevent immediate execution
+    const timer = setTimeout(() => {
+      fetchFilteredOptions();
+    }, 0);
+    
+    return () => clearTimeout(timer);
+  }, [debouncedSearchTerm, fetcher, preload, filterFn, options.length]);
+
   const handleSelect = useCallback((currentValue: string) => {
-    const newValue = clearable && currentValue === selectedValue ? "" : currentValue;
-    setSelectedValue(newValue);
-    setSelectedOption(options.find((option) => getOptionValue(option) === newValue) || null);
+    const newValue = clearable && currentValue === value ? "" : currentValue;
     onChange(newValue);
     setOpen(false);
-  }, [selectedValue, onChange, clearable, options, getOptionValue]);
- 
+  }, [value, onChange, clearable]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -198,11 +212,9 @@ export function AsyncSelect<T>({
             <CommandInput
               placeholder={`Search ${label.toLowerCase()}...`}
               value={searchTerm}
-              onValueChange={(value) => {
-                setSearchTerm(value);
-              }}
+              onValueChange={setSearchTerm}
             />
-            {loading && options.length > 0 && (
+            {loading && (
               <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center">
                 <Loader2 className="h-4 w-4 animate-spin" />
               </div>
@@ -231,7 +243,7 @@ export function AsyncSelect<T>({
                   <Check
                     className={cn(
                       "ml-auto h-3 w-3",
-                      selectedValue === getOptionValue(option) ? "opacity-100" : "opacity-0"
+                      value === getOptionValue(option) ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -243,7 +255,7 @@ export function AsyncSelect<T>({
     </Popover>
   );
 }
- 
+
 function DefaultLoadingSkeleton() {
   return (
     <CommandGroup>
