@@ -1,15 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Define headers for API requests
-const HEADERS = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.7",
-  "Accept-Language": "en-US,en;q=0.9",
-  "Connection": "keep-alive",
-  "Referer": "https://lms.uet.edu.pk/",
-  "Upgrade-Insecure-Requests": "1",
-  "Content-Type": "application/json",
-};
+import { HEADERS, ODOO_URL } from '@/lib/constants'; // Import HEADERS and ODOO_URL
 
 // Helper function to generate random numbers for request IDs that works in both Node.js and browser contexts
 const generateRandomId = (): number => {
@@ -25,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     // Get session ID from environment variable
     const sessionId = process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
-    
+
     if (!sessionId) {
       return NextResponse.json(
         { error: 'Session ID not configured' },
@@ -51,7 +41,7 @@ export async function GET(request: NextRequest) {
           "res_group_id",
         ],
         "domain": [["name", "ilike", query]],
-        "context": {"lang": "en_US", "tz": "Asia/Karachi", "uid": 75096, "params": {"action": 345}, "bin_size": true},
+        "context": { "lang": "en_US", "tz": "Asia/Karachi", "uid": 75096, "params": { "action": 345 }, "bin_size": true },
         "offset": 0,
         "limit": limit,
         "sort": "",
@@ -59,11 +49,11 @@ export async function GET(request: NextRequest) {
       "id": generateRandomId(),
     };
 
-    // Make the API call with cookie header
-    const response = await fetch("https://lms.uet.edu.pk/web/dataset/search_read", {
+    // Make the API call with cookie header using imported HEADERS
+    const response = await fetch(`${ODOO_URL}/web/dataset/search_read`, { // Use ODOO_URL
       method: "POST",
       headers: {
-        ...HEADERS,
+        ...HEADERS, // Use imported HEADERS
         "Cookie": `session_id=${sessionId}`
       },
       body: JSON.stringify(payload),
@@ -77,7 +67,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    
+
     // Return the faculty records
     return NextResponse.json(data.result?.records || []);
   } catch (error) {

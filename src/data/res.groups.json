@@ -1,0 +1,594 @@
+[
+    {
+        "id": 3,
+        "full_name": "Administration / Access Rights"
+    },
+    {
+        "id": 105,
+        "full_name": "Accounting & Finance / Accountant"
+    },
+    {
+        "id": 141,
+        "full_name": "Technical Settings / Addresses in Sales Orders"
+    },
+    {
+        "id": 172,
+        "full_name": "Technical Settings / Advance bidding process"
+    },
+    {
+        "id": 183,
+        "full_name": "alumni"
+    },
+    {
+        "id": 182,
+        "full_name": "alumni_officer"
+    },
+    {
+        "id": 155,
+        "full_name": "Ticket System Access Rights / Analyst"
+    },
+    {
+        "id": 84,
+        "full_name": "Technical Settings / Analytic Accounting"
+    },
+    {
+        "id": 171,
+        "full_name": "Technical Settings / Analytic Accounting for Purchases"
+    },
+    {
+        "id": 144,
+        "full_name": "Technical Settings / Analytic Accounting for Sales"
+    },
+    {
+        "id": 108,
+        "full_name": "Technical Settings / Check Total on supplier invoices"
+    },
+    {
+        "id": 156,
+        "full_name": "Ticket System Access Rights / Code Reviewer"
+    },
+    {
+        "id": 11,
+        "full_name": "Contact Creation"
+    },
+    {
+        "id": 157,
+        "full_name": "Ticket System Access Rights / Developer"
+    },
+    {
+        "id": 212,
+        "full_name": "Director"
+    },
+    {
+        "id": 143,
+        "full_name": "Technical Settings / Discount on lines"
+    },
+    {
+        "id": 20,
+        "full_name": "Website / Display Editor Bar on Website"
+    },
+    {
+        "id": 124,
+        "full_name": "Technical Settings / Do Not Use Sales Teams"
+    },
+    {
+        "id": 226,
+        "full_name": "dues_hbl_employee"
+    },
+    {
+        "id": 225,
+        "full_name": "dues_optional_challans"
+    },
+    {
+        "id": 173,
+        "full_name": "election_commission"
+    },
+    {
+        "id": 5,
+        "full_name": "Registrar Office / Employee"
+    },
+    {
+        "id": 146,
+        "full_name": "Technical Settings / Enable Invoicing Delivery orders"
+    },
+    {
+        "id": 140,
+        "full_name": "Technical Settings / Enable Invoicing Sales order lines"
+    },
+    {
+        "id": 147,
+        "full_name": "Technical Settings / Enable Route on Sales Order Line"
+    },
+    {
+        "id": 229,
+        "full_name": "English Proficiency Certificate"
+    },
+    {
+        "id": 106,
+        "full_name": "Accounting & Finance / Financial Manager"
+    },
+    {
+        "id": 110,
+        "full_name": "Department / Head of Department"
+    },
+    {
+        "id": 174,
+        "full_name": "Health Clinic"
+    },
+    {
+        "id": 168,
+        "full_name": "Salary Department / HR Bill Officer"
+    },
+    {
+        "id": 149,
+        "full_name": "Department / HR Report Viewer"
+    },
+    {
+        "id": 109,
+        "full_name": "Department / Incharge"
+    },
+    {
+        "id": 104,
+        "full_name": "Accounting & Finance / Invoicing & Payments"
+    },
+    {
+        "id": 213,
+        "full_name": "Lab Manager"
+    },
+    {
+        "id": 137,
+        "full_name": "Technical Settings / Manage Different Stock Owners"
+    },
+    {
+        "id": 152,
+        "full_name": "Technical Settings / Manage Fund Raising"
+    },
+    {
+        "id": 138,
+        "full_name": "Technical Settings / Manage Inventory Valuation and Costing Methods"
+    },
+    {
+        "id": 134,
+        "full_name": "Technical Settings / Manage Lots / Serial Numbers"
+    },
+    {
+        "id": 131,
+        "full_name": "Technical Settings / Manage Multiple Locations and Warehouses"
+    },
+    {
+        "id": 99,
+        "full_name": "Technical Settings / Manage Multiple Units of Measure"
+    },
+    {
+        "id": 135,
+        "full_name": "Technical Settings / Manage Packages"
+    },
+    {
+        "id": 101,
+        "full_name": "Technical Settings / Manage Product Packaging"
+    },
+    {
+        "id": 102,
+        "full_name": "Technical Settings / Manage Properties of Product"
+    },
+    {
+        "id": 136,
+        "full_name": "Technical Settings / Manage Push and Pull inventory flows"
+    },
+    {
+        "id": 10,
+        "full_name": "Sales / Manager"
+    },
+    {
+        "id": 127,
+        "full_name": "Project / Manager"
+    },
+    {
+        "id": 30,
+        "full_name": "Marketing / Manager"
+    },
+    {
+        "id": 96,
+        "full_name": "Registrar Office / Manager"
+    },
+    {
+        "id": 133,
+        "full_name": "Warehouse / Manager"
+    },
+    {
+        "id": 154,
+        "full_name": "Ticket System Access Rights / Manager"
+    },
+    {
+        "id": 170,
+        "full_name": "Purchases / Manager"
+    },
+    {
+        "id": 125,
+        "full_name": "Technical Settings / Manage Sales Teams"
+    },
+    {
+        "id": 100,
+        "full_name": "Technical Settings / Manage Secondary Unit of Measure"
+    },
+    {
+        "id": 21,
+        "full_name": "Website / Manage Website and qWeb view"
+    },
+    {
+        "id": 6,
+        "full_name": "Usability / Multi Companies"
+    },
+    {
+        "id": 7,
+        "full_name": "Technical Settings / Multi Currencies"
+    },
+    {
+        "id": 166,
+        "full_name": "obe_admin_member"
+    },
+    {
+        "id": 79,
+        "full_name": "obe_admission"
+    },
+    {
+        "id": 82,
+        "full_name": "obe_CAC"
+    },
+    {
+        "id": 17,
+        "full_name": "obe_chairman"
+    },
+    {
+        "id": 179,
+        "full_name": "obe_chief_librarain"
+    },
+    {
+        "id": 41,
+        "full_name": "OBE_controller"
+    },
+    {
+        "id": 15,
+        "full_name": "OBE_Coordinator"
+    },
+    {
+        "id": 51,
+        "full_name": "obe_cqi_admin"
+    },
+    {
+        "id": 47,
+        "full_name": "obe_create_student"
+    },
+    {
+        "id": 122,
+        "full_name": "obe_dataaccess"
+    },
+    {
+        "id": 167,
+        "full_name": "obe_dean"
+    },
+    {
+        "id": 220,
+        "full_name": "obe_duesadmin"
+    },
+    {
+        "id": 53,
+        "full_name": "obe_exam_assistant"
+    },
+    {
+        "id": 42,
+        "full_name": "obe_exam_reports"
+    },
+    {
+        "id": 227,
+        "full_name": "obe_facs"
+    },
+    {
+        "id": 13,
+        "full_name": "obe_faculty"
+    },
+    {
+        "id": 119,
+        "full_name": "obe_graduate_assistant"
+    },
+    {
+        "id": 222,
+        "full_name": "obe_hostelwardon"
+    },
+    {
+        "id": 58,
+        "full_name": "obe_international_office"
+    },
+    {
+        "id": 83,
+        "full_name": "obe_ORIC"
+    },
+    {
+        "id": 120,
+        "full_name": "obe_PGRC"
+    },
+    {
+        "id": 26,
+        "full_name": "obe_registrar"
+    },
+    {
+        "id": 49,
+        "full_name": "obe_registration_admin"
+    },
+    {
+        "id": 81,
+        "full_name": "OBE Resident Tutor"
+    },
+    {
+        "id": 228,
+        "full_name": "obe_scholarship_admin"
+    },
+    {
+        "id": 54,
+        "full_name": "obe_senior_warden"
+    },
+    {
+        "id": 16,
+        "full_name": "obe_student"
+    },
+    {
+        "id": 27,
+        "full_name": "obe_student_bsc"
+    },
+    {
+        "id": 223,
+        "full_name": "obe_student_dues"
+    },
+    {
+        "id": 28,
+        "full_name": "obe_student_msc"
+    },
+    {
+        "id": 14,
+        "full_name": "OBE_Subject_Owner"
+    },
+    {
+        "id": 221,
+        "full_name": "obe_super_duesadmin"
+    },
+    {
+        "id": 12,
+        "full_name": "OBE_Superuser"
+    },
+    {
+        "id": 35,
+        "full_name": "obe_survey_admin"
+    },
+    {
+        "id": 55,
+        "full_name": "obe_survey_report_viewer"
+    },
+    {
+        "id": 224,
+        "full_name": "obe_transportadmin"
+    },
+    {
+        "id": 121,
+        "full_name": "obe_VC"
+    },
+    {
+        "id": 80,
+        "full_name": "OBE Warden"
+    },
+    {
+        "id": 38,
+        "full_name": "obe_webapi"
+    },
+    {
+        "id": 95,
+        "full_name": "Registrar Office / Officer"
+    },
+    {
+        "id": 148,
+        "full_name": "Project Department - PD / PD Complaint Officer"
+    },
+    {
+        "id": 114,
+        "full_name": "Project Department - PD / PD Manager"
+    },
+    {
+        "id": 111,
+        "full_name": "Project Department - PD / PD Officer - Electricity"
+    },
+    {
+        "id": 112,
+        "full_name": "Project Department - PD / PD Officer - SUI Gas"
+    },
+    {
+        "id": 113,
+        "full_name": "Project Department - PD / PD Officer - Water"
+    },
+    {
+        "id": 1,
+        "full_name": "Portal"
+    },
+    {
+        "id": 107,
+        "full_name": "Technical Settings / Pro-forma Invoices"
+    },
+    {
+        "id": 216,
+        "full_name": "Project Coordinator"
+    },
+    {
+        "id": 215,
+        "full_name": "Project Manager"
+    },
+    {
+        "id": 218,
+        "full_name": "Project Stakeholders"
+    },
+    {
+        "id": 217,
+        "full_name": "Project Vendor Team"
+    },
+    {
+        "id": 142,
+        "full_name": "Technical Settings / Properties on lines"
+    },
+    {
+        "id": 2,
+        "full_name": "Public"
+    },
+    {
+        "id": 180,
+        "full_name": "publication_incentive_staff"
+    },
+    {
+        "id": 98,
+        "full_name": "Technical Settings / Purchase Pricelists"
+    },
+    {
+        "id": 158,
+        "full_name": "Ticket System Access Rights / QA Level 1"
+    },
+    {
+        "id": 159,
+        "full_name": "Ticket System Access Rights / QA Level 2"
+    },
+    {
+        "id": 160,
+        "full_name": "Ticket System Access Rights / QA Level 3"
+    },
+    {
+        "id": 115,
+        "full_name": "Residence Office / RO Officer"
+    },
+    {
+        "id": 165,
+        "full_name": "Residence Office / RO Officer - Campus"
+    },
+    {
+        "id": 117,
+        "full_name": "Salary Department / Salary Manager"
+    },
+    {
+        "id": 116,
+        "full_name": "Salary Department / Salary Officer"
+    },
+    {
+        "id": 97,
+        "full_name": "Technical Settings / Sales Pricelists"
+    },
+    {
+        "id": 230,
+        "full_name": "scholarship_application_approval_chairman"
+    },
+    {
+        "id": 139,
+        "full_name": "Sales / See all Leads"
+    },
+    {
+        "id": 4,
+        "full_name": "Administration / Settings"
+    },
+    {
+        "id": 164,
+        "full_name": "Shared: Configure Backup (1-1589449883.24)"
+    },
+    {
+        "id": 150,
+        "full_name": "Shared: Contracts (1-1569399405.95)"
+    },
+    {
+        "id": 24,
+        "full_name": "Technical Settings / Shared Group"
+    },
+    {
+        "id": 161,
+        "full_name": "Shared: Local Modules (1-1581024525.38)"
+    },
+    {
+        "id": 162,
+        "full_name": "Shared: Local Modules (1-1581026071.13)"
+    },
+    {
+        "id": 153,
+        "full_name": "Technical Settings / Show Scheduled Calls Menu"
+    },
+    {
+        "id": 32,
+        "full_name": "Survey / Manager"
+    },
+    {
+        "id": 31,
+        "full_name": "Survey / User"
+    },
+    {
+        "id": 130,
+        "full_name": "Technical Settings / Task Delegation"
+    },
+    {
+        "id": 128,
+        "full_name": "Technical Settings / Task's Work on Tasks"
+    },
+    {
+        "id": 214,
+        "full_name": "Team Lead"
+    },
+    {
+        "id": 8,
+        "full_name": "Usability / Technical Features"
+    },
+    {
+        "id": 129,
+        "full_name": "Technical Settings / Time Estimation on Tasks"
+    },
+    {
+        "id": 123,
+        "full_name": "Salary Department / Transport User"
+    },
+    {
+        "id": 178,
+        "full_name": "Treasurer"
+    },
+    {
+        "id": 169,
+        "full_name": "Purchases / User"
+    },
+    {
+        "id": 59,
+        "full_name": "Knowledge / User"
+    },
+    {
+        "id": 23,
+        "full_name": "Sharing / User"
+    },
+    {
+        "id": 132,
+        "full_name": "Warehouse / User"
+    },
+    {
+        "id": 126,
+        "full_name": "Project / User"
+    },
+    {
+        "id": 29,
+        "full_name": "Marketing / User"
+    },
+    {
+        "id": 9,
+        "full_name": "Sales / User: Own Leads Only"
+    },
+    {
+        "id": 78,
+        "full_name": "View DMC"
+    },
+    {
+        "id": 181,
+        "full_name": " / View DMC HEC"
+    },
+    {
+        "id": 145,
+        "full_name": "Technical Settings / View Online Payment Options"
+    },
+    {
+        "id": 25,
+        "full_name": "Website Comments"
+    }
+]

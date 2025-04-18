@@ -18,10 +18,18 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { SearchFaculty } from "@/components/search-faculty"
-
-
+import { FacultyDetails } from "@/components/faculty-details"
+import { FacultyPermissions } from "@/components/faculty-permissions";
+import { useState } from "react"
+import { Faculty } from "@/types/faculty"
 
 export default function Home() {
+  const [selectedFaculty, setSelectedFaculty] = useState<Faculty | null>(null);
+
+  const handleSelectFaculty = (faculty: Faculty | null) => {
+    setSelectedFaculty(faculty);
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -41,7 +49,7 @@ export default function Home() {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                <BreadcrumbPage>Search Faculty</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -49,9 +57,15 @@ export default function Home() {
           <div className="hidden md:block" />
           <ThemeToggle />
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <SearchFaculty />
-          <DataTableDemo />
+        <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
+          <section className="mx-auto w-full max-w-3xl space-y-6">
+            <div className="space-y-6">
+              <SearchFaculty onSelectFaculty={handleSelectFaculty} />
+              <FacultyDetails faculty={selectedFaculty} />
+              <FacultyPermissions faculty={selectedFaculty} />
+              <DataTableDemo />
+            </div>
+          </section>
         </div>
       </SidebarInset>
     </SidebarProvider>

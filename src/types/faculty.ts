@@ -5,7 +5,6 @@ export interface Faculty {
   joining_date: string;
   identification_id: string;
   login: string;
-  official_email: string;
   contact_number1: string;
-  res_group_id: [number];
+  res_group_id: number[] | null;
 }

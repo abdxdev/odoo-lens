@@ -1,6 +1,7 @@
 import { AsyncSelect } from '@/components/async-select'
 import { Faculty } from '@/types/faculty'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 
 // Simple client-side API function to search faculty
 async function fetchFaculty(query: string = ""): Promise<Faculty[]> {
@@ -35,53 +36,86 @@ async function fetchFaculty(query: string = ""): Promise<Faculty[]> {
     }
 }
 
-export function SearchFaculty() {
+interface SearchFacultyProps {
+    onSelectFaculty?: (faculty: Faculty | null) => void;
+}
+
+export function SearchFaculty({ onSelectFaculty }: SearchFacultyProps) {
     const [selectedFacultyId, setSelectedFacultyId] = useState<string>("");
+    const facultyDataRef = useRef<Record<string, Faculty>>({});
+
+    // Modified fetchFaculty to store the faculty data in our ref for later use
+    const wrappedFetcher = async (query: string = ""): Promise<Faculty[]> => {
+        const facultyList = await fetchFaculty(query);
+
+        // Store faculty data in ref for lookup
+        facultyList.forEach(faculty => {
+            facultyDataRef.current[faculty.id.toString()] = faculty;
+        });
+
+        return facultyList;
+    };
 
     const handleFacultyChange = (facultyId: string) => {
         setSelectedFacultyId(facultyId);
+
+        if (!facultyId) {
+            onSelectFaculty?.(null);
+            return;
+        }
+
+        // Find the faculty object with the matching ID using our ref
+        const selected = facultyDataRef.current[facultyId];
+
+        // Call the callback with the selected faculty object
+        if (selected) {
+            console.log("Selected faculty:", selected);
+            onSelectFaculty?.(selected);
+        }
     };
 
     return (
-        <section className="py-16 md:py-32">
-            <div className="mx-auto max-w-5xl px-6">
-                <div className="text-center">
-                    <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Search Faculty</h2>
-                    <p className="mt-4">Please enter the name of the faculty member you are looking for.</p>
-
-                    <form action="" className="mx-auto mt-10 max-w-sm lg:mt-12">
-                        <AsyncSelect<Faculty>
-                            fetcher={fetchFaculty}
-                            preload={false}
-                            skipInitialFetch={true} // Add this prop to skip initial fetch
-                            filterFn={(faculty, query) => faculty.name.toLowerCase().includes(query.toLowerCase())}
-                            renderOption={(faculty) => (
-                                <div className="flex items-center gap-2">
-                                    <div className="flex flex-col">
-                                        <div className="font-medium">{faculty.name}</div>
-                                        <div className="text-xs text-muted-foreground">{faculty.department_id?.[1] || 'Unknown Department'}</div>
-                                    </div>
+        <Card className="w-full shadow-sm h-full">
+            <CardHeader className="border-b">
+                <CardTitle className="text-2xl font-semibold">Search Faculty</CardTitle>
+                <CardDescription>
+                    Please enter the name of the faculty member you are looking for.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form className="space-y-4">
+                    <AsyncSelect<Faculty>
+                        fetcher={wrappedFetcher}
+                        preload={false}
+                        skipInitialFetch={true}
+                        filterFn={(faculty, query) => faculty.name.toLowerCase().includes(query.toLowerCase())}
+                        renderOption={(faculty) => (
+                            <div className="flex items-center gap-2">
+                                <div className="flex flex-col">
+                                    <div className="font-medium">{faculty.name}</div>
+                                    <div className="text-xs text-muted-foreground">{faculty.department_id?.[1] || 'Unknown Department'}</div>
                                 </div>
-                            )}
-                            getOptionValue={(faculty) => faculty.id.toString()}
-                            getDisplayValue={(faculty) => (
-                                <div className="flex items-center gap-2 text-left">
-                                    <div className="flex flex-col leading-tight">
-                                        <div className="font-medium">{faculty.name}</div>
-                                        {/* <div className="text-xs text-muted-foreground">{faculty.department_id?.[1]}</div> */}
-                                    </div>
+                            </div>
+                        )}
+                        getOptionValue={(faculty) => faculty.id.toString()}
+                        getDisplayValue={(faculty) => (
+                            <div className="flex items-center gap-2 text-left">
+                                <div className="flex flex-col leading-tight">
+                                    <div className="font-medium">{faculty.name}</div>
+                                    {/* <div className="text-xs text-muted-foreground">{faculty.department_id?.[1]}</div> */}
                                 </div>
-                            )}
-                            notFound={<div className="py-6 text-center text-sm">No faculty members found</div>}
-                            label="Faculty"
-                            placeholder="Search faculty..."
-                            value={selectedFacultyId}
-                            onChange={handleFacultyChange}
-                            width="375px"
-                        />
-                    </form>
-                </div>
-            </div>
-        </section>
+                            </div>
+                        )}
+                        notFound={<div className="py-6 text-center text-sm">No faculty members found</div>}
+                        label="Faculty"
+                        placeholder="Search faculty..."
+                        value={selectedFacultyId}
+                        onChange={handleFacultyChange}
+                        width="300px"
+                        triggerClassName="h-10 text-base"
+                    />
+                </form>
+            </CardContent>
+        </Card>
     );
 }
