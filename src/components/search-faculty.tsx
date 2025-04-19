@@ -12,15 +12,11 @@ export function SearchFaculty({ onSelectFaculty }: SearchFacultyProps) {
   const [selectedFacultyId, setSelectedFacultyId] = useState<string>("");
   const facultyDataRef = useRef<Record<string, Faculty>>({});
 
-  // Wrapped fetcher to store faculty data in ref for later use
   const wrappedFetcher = async (query: string = ""): Promise<Faculty[]> => {
     const facultyList = await searchFaculty(query);
-
-    // Store faculty data in ref for lookup
     facultyList.forEach(faculty => {
       facultyDataRef.current[faculty.id.toString()] = faculty;
     });
-
     return facultyList;
   };
 
@@ -32,10 +28,7 @@ export function SearchFaculty({ onSelectFaculty }: SearchFacultyProps) {
       return;
     }
 
-    // Find the faculty object with the matching ID using our ref
     const selected = facultyDataRef.current[facultyId];
-
-    // Call the callback with the selected faculty object
     if (selected) {
       onSelectFaculty?.(selected);
     }

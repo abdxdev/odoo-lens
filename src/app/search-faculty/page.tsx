@@ -52,9 +52,9 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex-1 flex-col space-y-6 p-6 2xl:mx-40"
+      className="flex-1 flex-col space-y-6"
     >
-      <motion.div 
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
@@ -71,7 +71,7 @@ export default function Home() {
         )}
       </motion.div>
 
-      <motion.div 
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"

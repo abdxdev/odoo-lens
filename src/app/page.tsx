@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-// Animation variants
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -22,7 +21,6 @@ const item = {
   show: { y: 0, opacity: 1 }
 };
 
-// Component prop types
 interface FeatureCardProps {
   title: string;
   description: string;
@@ -42,7 +40,6 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex-1 p-6 space-y-8 2xl:mx-40"
     >
       {/* Hero Section */}
       <motion.section
@@ -67,18 +64,18 @@ export default function Home() {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         <FeatureCard
-          title="Review Permissions"
-          description="Analyze and manage access controls across your Odoo instance"
-          icon="/file.svg"
-          link="/review-permissions"
-          buttonText="Get Started"
-        />
-
-        <FeatureCard
           title="Search Faculty"
           description="Find and review faculty profiles and their associated permissions"
           icon="/globe.svg"
           link="/search-faculty"
+          buttonText="Get Started"
+        />
+
+        <FeatureCard
+          title="Review Permissions"
+          description="Analyze and manage access controls across your Odoo instance"
+          icon="/file.svg"
+          link="/review-permissions"
           buttonText="Explore"
         />
 
@@ -98,17 +95,18 @@ export default function Home() {
         transition={{ duration: 0.7, delay: 0.3 }}
         className="mt-12"
       >
-        <Card className="bg-transparent text-center border-0 shadow-none">
-          <CardHeader>
-            <CardTitle>About Odoo Lens</CardTitle>
-            <CardDescription>
+        <div className="text-center">
+          <div>
+            <h2 className="text-lg font-bold">About Odoo Lens</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              <br />
               Your powerful tool for Odoo ERP management and analysis
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>
-              Odoo Lens provides comprehensive visibility into your Odoo ERP system's permission structure and faculty management. Our application helps administrators and managers gain insights, optimize access controls, and efficiently manage user roles.
+              <br />
+              <br />
+              Odoo Lens provides comprehensive visibility into your Odoo ERP system&apos;s permission structure and faculty management. Our application helps administrators and managers gain insights, optimize access controls, and efficiently manage user roles.
             </p>
+          </div>
+          <div className="space-y-4">
             <motion.div
               variants={container}
               initial="hidden"
@@ -128,8 +126,8 @@ export default function Home() {
                 description="Explore and understand Odoo data models and their relationships for better system comprehension."
               />
             </motion.div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </motion.section>
     </motion.main>
   );

@@ -23,7 +23,11 @@ export default function RootLayout({
           <SidebarProvider>
             <AppSidebar />
             <RootLayoutContent>
-              {children}
+              <div className="flex justify-center w-full">
+                <div className="max-w-full md:max-w-3xl 2xl:max-w-6xl w-full px-4 py-6">
+                  {children}
+                </div>
+              </div>
             </RootLayoutContent>
           </SidebarProvider>
         </Providers>

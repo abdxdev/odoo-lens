@@ -86,10 +86,10 @@ export default function ReviewPermissionsPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex-1 flex-col space-y-6 p-6 2xl:mx-40"
+      className="flex-1 flex-col space-y-6"
     >
       {/* Search and Role Details in a row */}
-      <motion.div 
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
@@ -122,31 +122,13 @@ export default function ReviewPermissionsPage() {
       </motion.div>
 
       {/* Permissions table below */}
-      <motion.div 
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         className="w-full"
       >
-        {!selectedRole ? (
-          <motion.div variants={item}>
-            <Card>
-              <CardHeader>
-                <CardTitle>Role Permissions</CardTitle>
-                <CardDescription>
-                  Search and select a role to view its permissions
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>
-                  Select a role to view detailed model permissions.
-                  You can also navigate to this page directly from the faculty permissions table
-                  by clicking on a group in the Permissions Summary.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ) : (
+        {selectedRole && (
           <motion.div variants={item}>
             <ModelPermissionsReview
               groupId={selectedRole.id}

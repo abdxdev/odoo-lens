@@ -95,14 +95,20 @@ export function AsyncSelect<T>({
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchTerm, preload ? 0 : 1000);
   const [selectedOption, setSelectedOption] = useState<T | null>(null);
-  
-  // Use refs to track initialization state
+  const [triggerWidth, setTriggerWidth] = useState<number | null>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
   const initialFetchRef = useRef(false);
   const searchFetchRef = useRef(false);
 
-  // Initial data fetch
   useEffect(() => {
-    // Skip initial fetch if skipInitialFetch is true
+    if (open && triggerRef.current) {
+      const buttonWidth = triggerRef.current.getBoundingClientRect().width;
+      setTriggerWidth(buttonWidth);
+    }
+  }, [open]);
+
+  useEffect(() => {
     if (skipInitialFetch) {
       initialFetchRef.current = true;
       return;
@@ -110,7 +116,7 @@ export function AsyncSelect<T>({
 
     const fetchInitialData = async () => {
       if (initialFetchRef.current) return;
-      
+
       try {
         initialFetchRef.current = true;
         setLoading(true);
@@ -127,10 +133,9 @@ export function AsyncSelect<T>({
     fetchInitialData();
   }, [fetcher, skipInitialFetch]);
 
-  // Update selected option when value or options change
   useEffect(() => {
     if (!options.length) return;
-    
+
     if (value) {
       const option = options.find(opt => getOptionValue(opt) === value);
       setSelectedOption(option || null);
@@ -139,28 +144,23 @@ export function AsyncSelect<T>({
     }
   }, [value, options, getOptionValue]);
 
-  // Handle search term changes
   useEffect(() => {
-    // Skip if we're still loading initial data
     if (loading && !searchFetchRef.current) return;
-    
+
     const fetchFilteredOptions = async () => {
-      // Handle preloaded data (client-side filtering)
       if (preload) {
         if (debouncedSearchTerm && options.length > 0) {
-          const filteredOptions = options.filter((option) => 
+          const filteredOptions = options.filter((option) =>
             filterFn ? filterFn(option, debouncedSearchTerm) : true
           );
           setOptions(filteredOptions);
         } else if (!debouncedSearchTerm && initialFetchRef.current) {
-          // Reset to initial results if search is cleared
           const data = await fetcher("");
           setOptions(data);
         }
         return;
       }
-      
-      // Only fetch from server if we have a search term
+
       if (debouncedSearchTerm !== undefined) {
         try {
           searchFetchRef.current = true;
@@ -178,11 +178,10 @@ export function AsyncSelect<T>({
       }
     };
 
-    // Use a timeout to prevent immediate execution
     const timer = setTimeout(() => {
       fetchFilteredOptions();
     }, 0);
-    
+
     return () => clearTimeout(timer);
   }, [debouncedSearchTerm, fetcher, preload, filterFn, options.length]);
 
@@ -196,6 +195,7 @@ export function AsyncSelect<T>({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          ref={triggerRef}
           variant="outline"
           role="combobox"
           aria-expanded={open}
@@ -215,7 +215,13 @@ export function AsyncSelect<T>({
           <ChevronsUpDown className="opacity-50" size={10} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: width }} className={cn("p-0", className)}>
+      <PopoverContent
+        style={{
+          width: triggerWidth ? `${triggerWidth}px` : width,
+          minWidth: triggerWidth ? `${triggerWidth}px` : width
+        }}
+        className={cn("p-0", className)}
+      >
         <Command shouldFilter={false}>
           <div className="relative border-b w-full">
             <CommandInput
