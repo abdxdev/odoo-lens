@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Faculty } from '@/types/faculty';
 import { GroupPermissionsData, GroupPermission } from '@/types/permissions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +21,7 @@ interface FacultyPermissionsProps {
 }
 
 export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
+  const router = useRouter();
   const [data, setData] = useState<GroupPermissionsData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copyTooltip, setCopyTooltip] = useState<string>("Copy to clipboard");
@@ -106,7 +108,6 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
     const header = `Permissions Summary for ${faculty.name} (${faculty.login || 'Not provided'})\n`;
     const divider = '═'.repeat(70) + '\n';
     
-    // Format each permission type in a column for better readability
     const formattedGroups = data.map(group => {
       if (group.isLoading) return `${group.groupName}: Loading...`;
       if (group.error) return `${group.groupName}: Error - ${group.error}`;
@@ -128,7 +129,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
     }, {} as Record<string, number>) : {};
     
     const totalSummary = `\nTotal Permissions:\n` +
-      `  Create: ${totalCounts.create?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
+      `Create: ${totalCounts.create?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
       `Read: ${totalCounts.read?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
       `Update: ${totalCounts.update?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
       `Delete: ${totalCounts.delete || '0'}`;
@@ -143,6 +144,17 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
         setCopyTooltip("Failed to copy");
         setTimeout(() => setCopyTooltip("Copy to clipboard"), 2000);
       });
+  };
+
+  const handleRowClick = (group: GroupPermissionsData) => {
+    if (group.isLoading || group.error) return;
+    
+    const queryParams = new URLSearchParams({
+      groupId: group.groupId.toString(),
+      groupName: group.groupName
+    }).toString();
+    
+    router.push(`/review-permissions?${queryParams}`);
   };
 
   if (!faculty) return null;
@@ -201,15 +213,19 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map(({groupId, groupName, summary, isLoading, error}) => (
-              <TableRow key={groupId}>
+            {data.map((group) => (
+              <TableRow 
+                key={group.groupId} 
+                className={!group.isLoading && !group.error ? "cursor-pointer hover:bg-muted" : ""}
+                onClick={() => handleRowClick(group)}
+              >
                 <TableCell>
-                  {isLoading ? <Skeleton className="h-5 w-24 inline-block" /> : groupName}
+                  {group.isLoading ? <Skeleton className="h-5 w-24 inline-block" /> : group.groupName}
                 </TableCell>
                 {permTypes.map(type => (
-                  <TableCell key={`${groupId}-${type}`} className="text-right">
-                    {isLoading ? <Skeleton className="h-5 w-10 inline-block" /> : 
-                     error ? <span className="error text-xs">Error</span> : summary[type]}
+                  <TableCell key={`${group.groupId}-${type}`} className="text-right">
+                    {group.isLoading ? <Skeleton className="h-5 w-10 inline-block" /> : 
+                     group.error ? <span className="error text-xs">Error</span> : group.summary[type]}
                   </TableCell>
                 ))}
               </TableRow>

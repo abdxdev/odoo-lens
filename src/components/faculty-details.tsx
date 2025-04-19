@@ -7,7 +7,6 @@ import { ClipboardCopy } from "lucide-react";
 import { useState } from "react";
 import resGroups from "@/data/res.groups.json";
 
-// Create group lookup map
 const groupMap = Object.fromEntries(resGroups.map(group => [group.id, group.full_name]));
 
 export function FacultyDetails({ faculty }: { faculty: Faculty | null }) {

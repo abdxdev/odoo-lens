@@ -25,3 +25,21 @@ export interface GroupPermissionsData {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface ProcessedPermission extends GroupPermission {
+  model_name: string;
+}
+
+export interface ModelPermissionsReviewProps {
+  groupId?: number;
+  groupName?: string;
+  permissions?: GroupPermission[];
+  isLoading?: boolean;
+  error?: string | null;
+}
+
+export interface StatusCardProps {
+  title: React.ReactNode;
+  description: React.ReactNode;
+  children: React.ReactNode;
+}

@@ -1,4 +1,8 @@
+"use client";
+
 import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import {
   Sidebar,
@@ -12,37 +16,38 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
-const data = {
-  navMain: [
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+
+  const navItems = [
     {
       title: "Odoo Lens",
       url: "#",
       items: [
         {
           title: "Search Faculty",
-          url: "#",
-          isActive: true,
+          url: "/search-faculty",
+          isActive: pathname === "/search-faculty",
         },
         {
-          title: "Preview Permissions",
-          url: "#",
+          title: "Review Permissions",
+          url: "/review-permissions",
+          isActive: pathname === "/review-permissions",
         },
         {
           title: "Explore Model",
-          url: "#",
+          url: "/explore-model",
+          isActive: pathname === "/explore-model",
         },
       ],
     },
-  ],
-}
+  ]
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {navItems.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -50,7 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
+                      <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

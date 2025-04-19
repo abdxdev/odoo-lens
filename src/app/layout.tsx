@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { AppSidebar } from "@/components/app-sidebar";
+import RootLayoutContent from "@/components/root-layout-content";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
   title: "Odoo Lens",
@@ -17,7 +20,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={GeistSans.className}>
         <Providers>
-          {children}
+          <SidebarProvider>
+            <AppSidebar />
+            <RootLayoutContent>
+              {children}
+            </RootLayoutContent>
+          </SidebarProvider>
         </Providers>
       </body>
     </html>
