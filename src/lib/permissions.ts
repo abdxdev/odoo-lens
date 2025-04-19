@@ -1,4 +1,3 @@
-import { Faculty } from '@/types/faculty';
 import { GroupPermission, PermissionSummary } from '@/types/permissions';
 
 // Permission types and labels

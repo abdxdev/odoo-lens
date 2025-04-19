@@ -1,5 +1,4 @@
 import { Faculty } from '@/types/faculty';
-import { GroupPermission } from '@/types/permissions';
 
 /**
  * Create a mapping of group IDs to their full names

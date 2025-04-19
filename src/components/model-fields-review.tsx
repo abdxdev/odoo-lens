@@ -3,40 +3,40 @@
 import React, { useMemo } from "react";
 import { DataTable } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
-import { ModelPermissionsReviewProps, ProcessedPermission } from "@/types/permissions";
+import { ModelFieldsReviewProps, ProcessedField } from "@/types/fields";
 import { DataTableToolbar } from "@/components/data-table-toolbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
 import type { Column, ColumnDef } from "@tanstack/react-table";
 import { StatusCard } from "@/components/status-card";
 import { Database, Check, X } from "lucide-react";
-import { PERMISSION_LABELS } from "@/lib/permissions";
+import { FIELD_LABELS } from "@/lib/fields";
 import { useRouter } from "next/navigation";
 
-export function ModelPermissionsReview({
-  groupName,
-  permissions = [],
+export function ModelFieldsReview({
+  modelName,
+  fields = [],
   isLoading = false,
   error = null
-}: ModelPermissionsReviewProps) {
+}: ModelFieldsReviewProps) {
   const router = useRouter();
 
-  const processedPermissions = useMemo<ProcessedPermission[]>(() =>
-    permissions.map(perm => ({
+  const processedFields = useMemo<ProcessedField[]>(() =>
+    fields.map(perm => ({
       ...perm,
       model_name: Array.isArray(perm.model_id) ?
         perm.model_id[1] as string :
         perm.model_name || 'Unknown Model'
     })),
-    [permissions]);
+    [fields]);
 
-  const createPermissionColumn = (
+  const createFieldColumn = (
     id: string,
     title: string,
-  ): ColumnDef<ProcessedPermission> => ({
+  ): ColumnDef<ProcessedField> => ({
     id,
     accessorKey: id,
-    header: ({ column }: { column: Column<ProcessedPermission, unknown> }) => (
+    header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
       <DataTableColumnHeader column={column} title={title} />
     ),
     cell: ({ cell }) => (
@@ -56,12 +56,12 @@ export function ModelPermissionsReview({
     enableColumnFilter: true,
   });
 
-  const columns = useMemo<ColumnDef<ProcessedPermission>[]>(
+  const columns = useMemo<ColumnDef<ProcessedField>[]>(
     () => [
       {
         id: "model_name",
         accessorFn: (row) => row.model_name,
-        header: ({ column }: { column: Column<ProcessedPermission, unknown> }) => (
+        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
           <DataTableColumnHeader column={column} title="Model Name" />
         ),
         cell: ({ row }) => (
@@ -86,15 +86,15 @@ export function ModelPermissionsReview({
         },
         enableColumnFilter: true,
       },
-      createPermissionColumn("perm_create", PERMISSION_LABELS.create),
-      createPermissionColumn("perm_read", PERMISSION_LABELS.read),
-      createPermissionColumn("perm_write", PERMISSION_LABELS.update),
-      createPermissionColumn("perm_unlink", PERMISSION_LABELS.delete)
+      createFieldColumn("perm_create", FIELD_LABELS.create),
+      createFieldColumn("perm_read", FIELD_LABELS.read),
+      createFieldColumn("perm_write", FIELD_LABELS.update),
+      createFieldColumn("perm_unlink", FIELD_LABELS.delete)
     ],
     [router]
   );
 
-  const handleRowClick = (model: ProcessedPermission) => {
+  const handleRowClick = (model: ProcessedField) => {
     const queryParams = new URLSearchParams({
       modelId: model.model_id.toString(),
       modelName: model.model_name
@@ -104,7 +104,7 @@ export function ModelPermissionsReview({
   };
 
   const { table } = useDataTable({
-    data: processedPermissions,
+    data: processedFields,
     columns,
     pageCount: 1,
     initialState: {
@@ -130,29 +130,29 @@ export function ModelPermissionsReview({
   if (error) {
     return (
       <StatusCard
-        title="Error Loading Permissions"
-        description="Failed to load permissions data"
+        title="Error Loading Fields"
+        description="Failed to load fields data"
       >
         <div className="text-destructive">{error}</div>
       </StatusCard>
     );
   }
 
-  if (!permissions.length) {
+  if (!fields.length) {
     return (
       <StatusCard
-        title="No Permissions Data"
-        description={groupName ? `No permissions data available for ${groupName}` : 'Select a group to view permissions'}
+        title="No Fields Data"
+        description={modelName ? `No fields data available for ${modelName}` : 'Select a model to view fields'}
       >
-        <p>No permission data available to display.</p>
+        <p>No field data available to display.</p>
       </StatusCard>
     );
   }
 
   return (
     <StatusCard
-      title={`Model Permissions ${groupName ? `for ${groupName}` : ''}`}
-      description="Detailed view of permission settings by model"
+      title={`Model Fields ${modelName ? `for ${modelName}` : ''}`}
+      description="Detailed view of field settings by model"
     >
       <div className="data-table-container">
         <DataTable table={table}>
