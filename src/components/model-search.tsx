@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { AsyncSelect } from "@/components/async-select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import modelsData from "@/data/all_tables.json";
+import allTablesData from "@/data/all_tables.json";
 
 interface ModelSearchProps {
   onSelectModel: (model: { id: number; name: string }) => void;
@@ -19,7 +19,7 @@ export function ModelSearch({ onSelectModel }: ModelSearchProps) {
   const modelsDataRef = useRef<Record<string, Model>>({});
 
   const fetchModels = async (query: string = ""): Promise<Model[]> => {
-    const filteredModels = modelsData.filter((model) => 
+    const filteredModels = allTablesData.filter((model) => 
       !query || model.model.toLowerCase().includes(query.toLowerCase())
     );
     
@@ -52,7 +52,7 @@ export function ModelSearch({ onSelectModel }: ModelSearchProps) {
       <CardHeader>
         <CardTitle>Search Models</CardTitle>
         <CardDescription>
-          Search and select a model to view its permissions
+          Search and select a model to explore its fields
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">

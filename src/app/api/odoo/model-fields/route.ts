@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ODOO_URL, HEADERS } from '@/lib/constants'; // Import HEADERS
+import { ODOO_URL, HEADERS } from '@/lib/constants';
 
 // Helper function to generate a random number (similar to Python's random_number)
 const getRandomNumber = (digits: number): number => {
@@ -30,14 +30,14 @@ export async function GET(request: NextRequest) {
   };
 
   const payload = {
-    jsonrpc: '2.0',
-    method: 'call',
+    jsonrpc: "2.0",
+    method: "call",
     params: {
       model: modelId,
       method: "fields_get",
       args: [],
       kwargs: {
-        attributes: ["string", "type", "required", "readonly", "selection", "relation"]
+        attributes: ["string", "type", "required", "readonly", "relation"]
       }
     },
     id: getRandomNumber(9)
@@ -64,9 +64,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Odoo API returned an error', details: data.error }, { status: 500 });
     }
 
-    return NextResponse.json(data.result || []);
+    return NextResponse.json(data.result || {});
   } catch (error) {
-    console.error('Error fetching Odoo permissions:', error);
-    return NextResponse.json({ error: 'Failed to fetch permissions from Odoo', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
+    console.error('Error fetching model fields:', error);
+    return NextResponse.json({ 
+      error: 'Failed to fetch model fields from Odoo', 
+      details: error instanceof Error ? error.message : String(error) 
+    }, { status: 500 });
   }
 }

@@ -8,6 +8,7 @@ import { ModelDetails } from "@/components/model-details";
 import { ModelFields } from "@/types/fields";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { getTableFields } from "@/lib/fields";
 
 // Animation variants
 const container = {
@@ -28,13 +29,14 @@ const item = {
 export default function ReviewFieldsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // Check for both URL parameter formats
   const modelId = searchParams.get("modelId") ? parseInt(searchParams.get("modelId")!) : undefined;
-  const modelName = searchParams.get("modelName") || undefined;
+  const modelName = searchParams.get("modelName") || searchParams.get("model") || undefined;
 
   const [selectedModel, setSelectedModel] = useState<{ id: number; name: string } | null>(
     modelId && modelName ? { id: modelId, name: modelName } : null
   );
-  const [fields, setFields] = useState<ModelFields[]>([]);
+  const [fields, setFields] = useState<Record<string, ModelFields>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,17 +48,15 @@ export default function ReviewFieldsPage() {
   }, [modelId, modelName, selectedModel]);
 
   useEffect(() => {
-    if (!selectedModel?.id) return;
+    if (!selectedModel?.name) return;
 
     const fetchFields = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const res = await fetch(`/api/odoo/fields?model_id=${selectedModel.id}`);
-        if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
-
-        const data = await res.json();
+        // Use our utility function that's similar to the Python example
+        const data = await getTableFields(selectedModel.name);
         setFields(data);
       } catch (err) {
         console.error("Error fetching fields:", err);
@@ -67,7 +67,7 @@ export default function ReviewFieldsPage() {
     };
 
     fetchFields();
-  }, [selectedModel?.id]);
+  }, [selectedModel?.name]);
 
   const handleModelSelect = (model: { id: number; name: string }) => {
     setSelectedModel(model);
@@ -78,7 +78,7 @@ export default function ReviewFieldsPage() {
       modelName: model.name
     });
 
-    router.push(`/review-fields?${params.toString()}`);
+    router.push(`/explore-model?${params.toString()}`);
   };
 
   return (
