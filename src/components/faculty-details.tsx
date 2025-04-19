@@ -91,7 +91,7 @@ Resource Groups: ${facultyGroups}`
             <div className="flex flex-wrap gap-1.5">
               {faculty.res_group_id?.length ? faculty.res_group_id.map((groupId, index) => (
                 <Badge key={index} variant="secondary" className="font-normal">
-                  {groupId}: {groupMap[groupId] || `Group ${groupId}`}
+                  {groupMap[groupId] || `Group ${groupId}`}
                 </Badge>
               )) : <span className="text-muted-foreground text-sm">None</span>}
             </div>
