@@ -17,6 +17,12 @@ export interface PermissionSummary {
   delete: number;
 }
 
+export interface GroupPermissionData {
+  groupId: number;
+  groupName: string;
+  permissionCounts: PermissionSummary;
+}
+
 export interface GroupPermissionsData {
   groupId: number;
   groupName: string;
@@ -42,4 +48,10 @@ export interface StatusCardProps {
   title: React.ReactNode;
   description: React.ReactNode;
   children: React.ReactNode;
+}
+
+export interface PermissionAnalysisData {
+  groupId: number;
+  groupName: string;
+  permissionCounts: PermissionSummary;
 }

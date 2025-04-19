@@ -11,19 +11,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
-const formatRouteSegment = (segment: string): string => {
-  if (segment === '') return 'Odoo Lens';
-  const specialCases: Record<string, string> = {};
-  if (specialCases[segment]) return specialCases[segment];
-  return segment.split('-').map(
-    word => word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ');
-};
+import { formatRouteSegment } from "@/lib/utils";
 
 export function PageBreadcrumb() {
   const pathname = usePathname();
-
   const segments = pathname.split('/').filter(Boolean);
 
   if (segments.length === 0) {

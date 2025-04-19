@@ -6,10 +6,30 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { ClipboardCopy } from "lucide-react";
 import { useState } from "react";
 import resGroups from "@/data/res.groups.json";
+import { 
+  createGroupNameMap, 
+  formatDate, 
+  formatFacultyForClipboard, 
+  copyToClipboardWithFeedback 
+} from "@/lib/faculty";
 
-const groupMap = Object.fromEntries(resGroups.map(group => [group.id, group.full_name]));
+// Create a map of group IDs to their full names
+const groupMap = createGroupNameMap(resGroups);
 
-export function FacultyDetails({ faculty }: { faculty: Faculty | null }) {
+// Faculty details field configuration
+const FACULTY_FIELDS = [
+  { label: "Login", getValue: (f: Faculty) => f.login },
+  { label: "Department", getValue: (f: Faculty) => f.department_id?.[1] },
+  { label: "Contact Number", getValue: (f: Faculty) => f.contact_number1 },
+  { label: "Campus", getValue: (f: Faculty) => f.campus_id?.[1] },
+  { label: "Joining Date", getValue: (f: Faculty) => formatDate(f.joining_date) },
+];
+
+interface FacultyDetailsProps {
+  faculty: Faculty | null;
+}
+
+export function FacultyDetails({ faculty }: FacultyDetailsProps) {
   const [copyTooltip, setCopyTooltip] = useState("Copy to clipboard");
 
   if (!faculty) {
@@ -24,29 +44,9 @@ export function FacultyDetails({ faculty }: { faculty: Faculty | null }) {
     );
   }
 
-  const copyToClipboard = () => {
-    const facultyGroups = faculty.res_group_id?.map(id => 
-      `${id}: ${groupMap[id] || `Group ${id}`}`
-    ).join(", ") || "None";
-    
-    navigator.clipboard.writeText(
-      `Faculty: ${faculty.name}
-ID: ${faculty.id || "N/A"}
-Login: ${faculty.login || "Not provided"}
-Joining Date: ${faculty.joining_date ? new Date(faculty.joining_date).toLocaleDateString() : "Not provided"}
-Contact: ${faculty.contact_number1 || "Not provided"}
-Campus: ${faculty.campus_id?.[1] || "Not assigned"}
-Department: ${faculty.department_id?.[1] || "Not assigned"}
-Resource Groups: ${facultyGroups}`
-    )
-    .then(() => {
-      setCopyTooltip("Copied!");
-      setTimeout(() => setCopyTooltip("Copy to clipboard"), 2000);
-    })
-    .catch(() => {
-      setCopyTooltip("Failed to copy");
-      setTimeout(() => setCopyTooltip("Copy to clipboard"), 2000);
-    });
+  const handleCopyToClipboard = () => {
+    const text = formatFacultyForClipboard(faculty, groupMap);
+    copyToClipboardWithFeedback(text, setCopyTooltip);
   };
 
   return (
@@ -58,7 +58,7 @@ Resource Groups: ${facultyGroups}`
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" onClick={copyToClipboard}>
+                  <Button variant="ghost" size="icon" onClick={handleCopyToClipboard}>
                     <ClipboardCopy className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -72,16 +72,10 @@ Resource Groups: ${facultyGroups}`
 
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { label: "Login", value: faculty.login },
-            { label: "Department", value: faculty.department_id?.[1] },
-            { label: "Contact Number", value: faculty.contact_number1 },
-            { label: "Campus", value: faculty.campus_id?.[1] },
-            { label: "Joining Date", value: faculty.joining_date ? new Date(faculty.joining_date).toLocaleDateString() : null },
-          ].map(({ label, value }, i) => (
-            <div key={label} className={`space-y-1 ${i%2 === 0 ? "sm:col-span-1" : "sm:col-span-2"}`}>
+          {FACULTY_FIELDS.map(({ label, getValue }, i) => (
+            <div key={label} className={`space-y-1 ${i % 2 === 0 ? "sm:col-span-1" : "sm:col-span-2"}`}>
               <p className="text-xs font-medium text-muted-foreground">{label}</p>
-              <p className="text-sm">{value || "Not provided"}</p>
+              <p className="text-sm">{getValue(faculty) || "Not provided"}</p>
             </div>
           ))}
 

@@ -11,10 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ClipboardCopy } from 'lucide-react';
 import resGroupsData from '@/data/res.groups.json';
-
-const getGroupName = (id: number): string => resGroupsData.find(g => g.id === id)?.full_name || `Group ID: ${id}`;
-const permTypes = ['create', 'read', 'update', 'delete'] as const;
-const permLabels = {create: 'Create', read: 'Read (View)', update: 'Update (Write)', delete: 'Delete (Unlink)'};
+import { 
+  PERMISSION_TYPES, 
+  PERMISSION_LABELS, 
+  getGroupName,
+  calculatePermissionSummary,
+  formatPermissionText,
+  calculateTotalPermissions
+} from '@/lib/permissions';
 
 interface FacultyPermissionsProps {
   faculty: Faculty | null;
@@ -30,17 +34,21 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
     if (!faculty?.res_group_id?.length) {
       setData([]);
       setIsLoading(false);
-      window.dispatchEvent(new CustomEvent('permissionsLoaded', {detail: {permissionsData: [], isLoading: false}}));
+      window.dispatchEvent(new CustomEvent('permissionsLoaded', {
+        detail: { permissionsData: [], isLoading: false }
+      }));
       return;
     }
 
     const fetchPermissions = async () => {
       setIsLoading(true);
-      window.dispatchEvent(new CustomEvent('permissionsLoaded', {detail: {permissionsData: [], isLoading: true}}));
+      window.dispatchEvent(new CustomEvent('permissionsLoaded', {
+        detail: { permissionsData: [], isLoading: true }
+      }));
 
       const initialData = faculty.res_group_id.map((id: number) => ({
         groupId: id, 
-        groupName: getGroupName(id), 
+        groupName: getGroupName(id, resGroupsData), 
         permissions: [],
         summary: { create: 0, read: 0, update: 0, delete: 0 },
         isLoading: true, 
@@ -54,12 +62,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
           if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
           
           const permissions: GroupPermission[] = await res.json();
-          const summary = permissions.reduce((acc, p) => ({
-            create: acc.create + (p.perm_create ? 1 : 0),
-            read: acc.read + (p.perm_read ? 1 : 0),
-            update: acc.update + (p.perm_write ? 1 : 0),
-            delete: acc.delete + (p.perm_unlink ? 1 : 0),
-          }), { create: 0, read: 0, update: 0, delete: 0 });
+          const summary = calculatePermissionSummary(permissions);
 
           return { groupId, permissions, summary };
         } catch (error) {
@@ -112,27 +115,12 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       if (group.isLoading) return `${group.groupName}: Loading...`;
       if (group.error) return `${group.groupName}: Error - ${group.error}`;
       
-      return `${group.groupName}:\n` + 
-        `  Create: ${group.summary.create.toString().padEnd(6)} | ` +
-        `Read: ${group.summary.read.toString().padEnd(6)} | ` +
-        `Update: ${group.summary.update.toString().padEnd(6)} | ` +
-        `Delete: ${group.summary.delete}`;
+      return formatPermissionText(group.groupName, group.summary);
     }).join('\n\n');
     
-    const totalCounts: Record<string, number> = !isLoading ? data.reduce((acc, group) => {
-      if (!group.isLoading && !group.error) {
-        Object.entries(group.summary).forEach(([key, value]) => {
-          acc[key] = (acc[key] || 0) + value;
-        });
-      }
-      return acc;
-    }, {} as Record<string, number>) : {};
+    const totalCounts = calculateTotalPermissions(data);
     
-    const totalSummary = `\nTotal Permissions:\n` +
-      `Create: ${totalCounts.create?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
-      `Read: ${totalCounts.read?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
-      `Update: ${totalCounts.update?.toString().padEnd(6) || '0'.padEnd(6)} | ` +
-      `Delete: ${totalCounts.delete || '0'}`;
+    const totalSummary = `\nTotal Permissions:\n` + formatPermissionText('Total', totalCounts);
     
     navigator.clipboard.writeText(header + divider + formattedGroups + '\n' + divider + totalSummary)
       .then(() => {
@@ -158,6 +146,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
   };
 
   if (!faculty) return null;
+  
   if (isLoading && data.every(g => g.isLoading)) {
     return (
       <Card>
@@ -172,6 +161,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       </Card>
     );
   }
+  
   if (!data.length && !isLoading) {
     return (
       <Card>
@@ -194,7 +184,12 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={copyPermissionsToClipboard} disabled={isLoading || !data.length}>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={copyPermissionsToClipboard} 
+                  disabled={isLoading || !data.length}
+                >
                   <ClipboardCopy className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
@@ -209,7 +204,11 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
           <TableHeader>
             <TableRow>
               <TableHead>Group Name</TableHead>
-              {permTypes.map(type => <TableHead key={type} className="text-right">{permLabels[type]}</TableHead>)}
+              {PERMISSION_TYPES.map(type => (
+                <TableHead key={type} className="text-right">
+                  {PERMISSION_LABELS[type]}
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -220,12 +219,17 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
                 onClick={() => handleRowClick(group)}
               >
                 <TableCell>
-                  {group.isLoading ? <Skeleton className="h-5 w-24 inline-block" /> : group.groupName}
+                  {group.isLoading ? (
+                    <Skeleton className="h-5 w-24 inline-block" />
+                  ) : group.groupName}
                 </TableCell>
-                {permTypes.map(type => (
+                {PERMISSION_TYPES.map(type => (
                   <TableCell key={`${group.groupId}-${type}`} className="text-right">
-                    {group.isLoading ? <Skeleton className="h-5 w-10 inline-block" /> : 
-                     group.error ? <span className="error text-xs">Error</span> : group.summary[type]}
+                    {group.isLoading ? (
+                      <Skeleton className="h-5 w-10 inline-block" />
+                    ) : group.error ? (
+                      <span className="text-xs text-destructive">Error</span>
+                    ) : group.summary[type]}
                   </TableCell>
                 ))}
               </TableRow>
@@ -233,7 +237,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
           </TableBody>
         </Table>
         {data.some(g => g.error) && (
-          <div className="mt-4 space-y-1 text-sm text-red-600">
+          <div className="mt-4 space-y-1 text-sm text-destructive">
             {data.filter(g => g.error).map(g => (
               <p key={g.groupId}>Error loading {g.groupName}: {g.error}</p>
             ))}

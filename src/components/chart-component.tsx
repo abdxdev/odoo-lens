@@ -14,17 +14,19 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PermissionSummary } from "@/types/permissions";
-
-interface GroupPermissionData {
-  groupId: number;
-  groupName: string;
-  permissionCounts: PermissionSummary;
-}
+import { GroupPermissionData, PermissionSummary } from "@/types/permissions";
 
 interface ChartComponentProps {
   permissionsData: GroupPermissionData[];
 }
+
+// Permission type labels
+const PERMISSION_LABELS = {
+  create: "Create",
+  read: "Read (View)",
+  update: "Update (Write)",
+  delete: "Delete (Unlink)"
+};
 
 export function ChartComponent({ permissionsData }: ChartComponentProps) {
   const chartData = React.useMemo(() => {
@@ -33,16 +35,10 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
     }
 
     const permTypes = ["create", "read", "update", "delete"];
-    const permLabels = {
-      create: "Create",
-      read: "Read (View)",
-      update: "Update (Write)",
-      delete: "Delete (Unlink)"
-    };
 
     return permTypes.map(type => {
       const dataPoint: Record<string, string | number> = {
-        subject: permLabels[type as keyof typeof permLabels],
+        subject: PERMISSION_LABELS[type as keyof typeof PERMISSION_LABELS],
       };
 
       permissionsData.forEach(group => {
@@ -51,7 +47,7 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
           ? `${group.groupName.substring(0, 10)}...`
           : group.groupName;
 
-        dataPoint[shortName] = counts[type as keyof typeof counts] || 0;
+        dataPoint[shortName] = counts[type as keyof PermissionSummary] || 0;
         dataPoint[`${shortName}-fullName`] = group.groupName;
       });
 
@@ -65,7 +61,8 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
     }
 
     const config: Record<string, { label: string; color: string }> = {};
-
+    
+    // Use CSS variables for colors
     const themeColors = [
       'var(--chart-1)',
       'var(--chart-2)',
@@ -91,7 +88,7 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
 
   if (chartData.length === 0) {
     return (
-      <Card className="w-full">
+      <Card>
         <CardHeader>
           <CardTitle>Permission Distribution</CardTitle>
         </CardHeader>
@@ -112,18 +109,15 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <ResponsiveContainer width="50%" height="50%">
+          <ResponsiveContainer width="100%" height={400}>
             <RadarChart
               data={chartData}
-              margin={{ top: 5, right: 10, bottom: 5, left: 10 }}
-              cx="50%"
-              cy="50%"
+              margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
             >
               <PolarGrid />
               <PolarAngleAxis dataKey="subject" />
               <PolarRadiusAxis />
 
-              {/* Create a Radar for each group */}
               {permissionsData.map((group, index) => {
                 const shortName = group.groupName.length > 10
                   ? `${group.groupName.substring(0, 10)}...`

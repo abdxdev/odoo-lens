@@ -7,6 +7,23 @@ import { RoleSearch } from "@/components/role-search";
 import { RoleDetails } from "@/components/role-details";
 import { GroupPermission } from "@/types/permissions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+// Animation variants
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  show: { y: 0, opacity: 1 }
+};
 
 export default function ReviewPermissionsPage() {
   const router = useRouter();
@@ -65,15 +82,25 @@ export default function ReviewPermissionsPage() {
   };
 
   return (
-    <main className="flex-1 flex-col space-y-6 p-6 2xl:mx-40">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex-1 flex-col space-y-6 p-6 2xl:mx-40"
+    >
       {/* Search and Role Details in a row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="lg:col-span-1">
+      <motion.div 
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+      >
+        <motion.div variants={item} className="lg:col-span-1">
           <div className="h-full">
             <RoleSearch onSelectRole={handleRoleSelect} />
           </div>
-        </div>
-        <div className="lg:col-span-1">
+        </motion.div>
+        <motion.div variants={item} className="lg:col-span-1">
           <div className="h-full">
             {selectedRole ? (
               <RoleDetails role={selectedRole} />
@@ -91,37 +118,46 @@ export default function ReviewPermissionsPage() {
               </Card>
             )}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Permissions table below */}
-      <div className="w-full">
+      <motion.div 
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="w-full"
+      >
         {!selectedRole ? (
-          <Card>
-            <CardHeader>
-              <CardTitle>Role Permissions</CardTitle>
-              <CardDescription>
-                Search and select a role to view its permissions
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>
-                Select a role to view detailed model permissions.
-                You can also navigate to this page directly from the faculty permissions table
-                by clicking on a group in the Permissions Summary.
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div variants={item}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Role Permissions</CardTitle>
+                <CardDescription>
+                  Search and select a role to view its permissions
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>
+                  Select a role to view detailed model permissions.
+                  You can also navigate to this page directly from the faculty permissions table
+                  by clicking on a group in the Permissions Summary.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         ) : (
-          <ModelPermissionsReview
-            groupId={selectedRole.id}
-            groupName={selectedRole.name}
-            permissions={permissions}
-            isLoading={isLoading}
-            error={error}
-          />
+          <motion.div variants={item}>
+            <ModelPermissionsReview
+              groupId={selectedRole.id}
+              groupName={selectedRole.name}
+              permissions={permissions}
+              isLoading={isLoading}
+              error={error}
+            />
+          </motion.div>
         )}
-      </div>
-    </main>
+      </motion.div>
+    </motion.main>
   );
 }

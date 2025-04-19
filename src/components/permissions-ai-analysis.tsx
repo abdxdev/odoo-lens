@@ -3,26 +3,29 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PermissionSummary } from '@/types/permissions';
-
-// Updated interface for the data passed to this component
-interface PermissionAnalysisData {
-  groupId: number;
-  groupName: string;
-  permissionCounts: PermissionSummary;
-}
+import { PermissionAnalysisData } from '@/types/permissions';
 
 interface PermissionsAIAnalysisProps {
   groupPermissionsData: PermissionAnalysisData[];
   isLoading: boolean;
 }
 
+// Risk level type
+type RiskLevel = 'low' | 'medium' | 'high' | null;
+
+// Risk badge style mapping
+const RISK_BADGE_CLASSES: Record<string, string> = {
+  low: 'bg-success/10 text-success',
+  medium: 'bg-warning/10 text-warning', 
+  high: 'bg-destructive/10 text-destructive'
+};
+
 export function PermissionsAIAnalysis({
   groupPermissionsData,
   isLoading
 }: PermissionsAIAnalysisProps) {
   const [analysis, setAnalysis] = useState<string>('');
-  const [riskLevel, setRiskLevel] = useState<'low' | 'medium' | 'high' | null>(null);
+  const [riskLevel, setRiskLevel] = useState<RiskLevel>(null);
   const [highRiskGroups, setHighRiskGroups] = useState<string[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +43,6 @@ export function PermissionsAIAnalysis({
     setError(null);
 
     try {
-      // Call our API endpoint instead of using the Gemini API directly
       const response = await fetch('/api/analyze-permissions', {
         method: 'POST',
         headers: {
@@ -71,15 +73,11 @@ export function PermissionsAIAnalysis({
   const getRiskBadge = () => {
     if (!riskLevel) return null;
 
-    const badgeClasses = {
-      low: 'bg-success/10 text-success',
-      medium: 'bg-warning/10 text-warning',
-      high: 'bg-destructive/10 text-destructive'
-    }[riskLevel];
+    const badgeClass = RISK_BADGE_CLASSES[riskLevel] || '';
 
     return (
       <div className="flex flex-col items-end">
-        <span className={`px-2 py-1 rounded text-xs font-medium uppercase ${badgeClasses}`}>
+        <span className={`px-2 py-1 rounded text-xs font-medium uppercase ${badgeClass}`}>
           {riskLevel} risk
         </span>
       </div>

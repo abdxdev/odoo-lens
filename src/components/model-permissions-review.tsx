@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
 import type { Column, ColumnDef } from "@tanstack/react-table";
 import { StatusCard } from "@/components/status-card";
-import { Database } from "lucide-react";
-import { Check, X } from "lucide-react";
+import { Database, Check, X } from "lucide-react";
+import { PERMISSION_LABELS } from "@/lib/permissions";
 
 export function ModelPermissionsReview({
   groupName,
@@ -18,6 +18,7 @@ export function ModelPermissionsReview({
   isLoading = false,
   error = null
 }: ModelPermissionsReviewProps) {
+  // Process permissions to ensure model_name is available
   const processedPermissions = useMemo<ProcessedPermission[]>(() =>
     permissions.map(perm => ({
       ...perm,
@@ -27,6 +28,7 @@ export function ModelPermissionsReview({
     })),
     [permissions]);
 
+  // Factory function to create permission columns with consistent styling
   const createPermissionColumn = (
     id: string,
     title: string,
@@ -36,7 +38,15 @@ export function ModelPermissionsReview({
     header: ({ column }: { column: Column<ProcessedPermission, unknown> }) => (
       <DataTableColumnHeader column={column} title={title} />
     ),
-    cell: ({ cell }) => <div>{cell.getValue<boolean>() ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}</div>,
+    cell: ({ cell }) => (
+      <div className="flex justify-center">
+        {cell.getValue<boolean>() ? (
+          <Check className="h-5 w-5 text-success" />
+        ) : (
+          <X className="h-5 w-5 text-muted-foreground" />
+        )}
+      </div>
+    ),
     meta: {
       label: title,
       placeholder: "Filter...",
@@ -45,6 +55,7 @@ export function ModelPermissionsReview({
     enableColumnFilter: true,
   });
 
+  // Define columns using permission constants
   const columns = useMemo<ColumnDef<ProcessedPermission>[]>(
     () => [
       {
@@ -67,10 +78,10 @@ export function ModelPermissionsReview({
         },
         enableColumnFilter: true,
       },
-      createPermissionColumn("perm_create", "Create"),
-      createPermissionColumn("perm_read", "Read"),
-      createPermissionColumn("perm_write", "Update"),
-      createPermissionColumn("perm_unlink", "Delete")
+      createPermissionColumn("perm_create", PERMISSION_LABELS.create),
+      createPermissionColumn("perm_read", PERMISSION_LABELS.read),
+      createPermissionColumn("perm_write", PERMISSION_LABELS.update),
+      createPermissionColumn("perm_unlink", PERMISSION_LABELS.delete)
     ],
     []
   );
