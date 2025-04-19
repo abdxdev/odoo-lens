@@ -31,7 +31,6 @@ interface ProcessedField {
 }
 
 export function ModelFieldsReview({
-  modelId,
   modelName,
   fields = {},
   isLoading = false,
@@ -49,136 +48,109 @@ export function ModelFieldsReview({
     }));
   }, [fields]);
 
-  const columns = useMemo<ColumnDef<ProcessedField>[]>(
-    () => [
-      {
-        id: "name",
-        accessorKey: "name",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Field Name" />
-        ),
-        cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            <span className="font-medium">{row.getValue("name")}</span>
-          </div>
-        ),
-        meta: {
-          label: "Field Name",
-          placeholder: "Search fields...",
-          variant: "text",
-          icon: Database,
-        },
-        enableColumnFilter: true,
+  const columns = useMemo<ColumnDef<ProcessedField>[]>(() => [
+    {
+      id: "name",
+      accessorKey: "name",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Field Name" />
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <Database className="h-4 w-4 text-muted-foreground" />
+          <span className="font-medium">{row.getValue("name")}</span>
+        </div>
+      ),
+      meta: {
+        label: "Field Name",
+        placeholder: "Search fields...",
+        variant: "text",
+        icon: Database,
       },
-      {
-        id: "label",
-        accessorKey: "label",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Label" />
-        ),
-        cell: ({ row }) => (
+      enableColumnFilter: true,
+    },
+    {
+      id: "label",
+      accessorKey: "label",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Label" />
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <span>{row.getValue("label")}</span>
+        </div>
+      ),
+      enableColumnFilter: false,
+    },
+    {
+      id: "type",
+      accessorKey: "type",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Type" />
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="lowercase">
+            {row.getValue("type")}
+          </Badge>
+        </div>
+      ),
+      enableColumnFilter: false,
+    },
+    {
+      id: "relation",
+      accessorKey: "relation",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Relation" />
+      ),
+      cell: ({ row }) => {
+        const relation = row.original.relation;
+        return relation ? (
           <div className="flex items-center gap-2">
-            <span>{row.getValue("label")}</span>
+            <LinkIcon className="h-4 w-4 text-muted-foreground" />
+            <span>{relation}</span>
           </div>
-        ),
-        meta: {
-          label: "Label",
-          placeholder: "Search labels...",
-          variant: "text",
-        },
-        enableColumnFilter: true,
+        ) : (
+          <div className="text-muted-foreground">-</div>
+        );
       },
-      {
-        id: "type",
-        accessorKey: "type",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Type" />
-        ),
-        cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="lowercase">
-              {row.getValue("type")}
-            </Badge>
-          </div>
-        ),
-        meta: {
-          label: "Type",
-          placeholder: "Filter by type...",
-          variant: "text",
-        },
-        enableColumnFilter: true,
-      },
-      {
-        id: "relation",
-        accessorKey: "relation",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Relation" />
-        ),
-        cell: ({ row }) => {
-          const relation = row.original.relation;
-          return relation ? (
-            <div className="flex items-center gap-2">
-              <LinkIcon className="h-4 w-4 text-muted-foreground" />
-              <span>{relation}</span>
-            </div>
+      enableColumnFilter: false,
+    },
+    {
+      id: "required",
+      accessorKey: "required",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Required" />
+      ),
+      cell: ({ cell }) => (
+        <div className="flex justify-center">
+          {cell.getValue<boolean>() ? (
+            <Check className="h-5 w-5 text-success" />
           ) : (
-            <div className="text-muted-foreground">-</div>
-          );
-        },
-        meta: {
-          label: "Relation",
-          placeholder: "Filter by relation...",
-          variant: "text",
-        },
-        enableColumnFilter: true,
-      },
-      {
-        id: "required",
-        accessorKey: "required",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Required" />
-        ),
-        cell: ({ cell }) => (
-          <div className="flex justify-center">
-            {cell.getValue<boolean>() ? (
-              <Check className="h-5 w-5 text-success" />
-            ) : (
-              <X className="h-5 w-5 text-muted-foreground" />
-            )}
-          </div>
-        ),
-        meta: {
-          label: "Required",
-          placeholder: "Filter...",
-          variant: "boolean",
-        },
-        enableColumnFilter: true,
-      },
-      {
-        id: "readonly",
-        accessorKey: "readonly",
-        header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Read Only" />
-        ),
-        cell: ({ cell }) => (
-          <div className="flex justify-center">
-            {cell.getValue<boolean>() ? (
-              <Check className="h-5 w-5 text-success" />
-            ) : (
-              <X className="h-5 w-5 text-muted-foreground" />
-            )}
-          </div>
-        ),
-        meta: {
-          label: "Read Only",
-          placeholder: "Filter...",
-          variant: "boolean",
-        },
-        enableColumnFilter: true,
-      },
-    ],
-    []
-  );
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+      enableColumnFilter: false,
+    },
+    {
+      id: "readonly",
+      accessorKey: "readonly",
+      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Read Only" />
+      ),
+      cell: ({ cell }) => (
+        <div className="flex justify-center">
+          {cell.getValue<boolean>() ? (
+            <Check className="h-5 w-5 text-success" />
+          ) : (
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+      enableColumnFilter: false,
+    },
+  ], []);
 
   const { table } = useDataTable({
     data: processedFields,
@@ -206,7 +178,6 @@ export function ModelFieldsReview({
       <StatusCard
         title="Error Loading Fields"
         description="There was an error loading the model fields."
-        variant="error"
       >
         <div className="text-destructive">{error}</div>
       </StatusCard>
@@ -218,7 +189,6 @@ export function ModelFieldsReview({
       <StatusCard
         title="No Fields Found"
         description="No fields were found for this model."
-        variant="warning"
       >
         <div>Try selecting a different model or checking your connection.</div>
       </StatusCard>
@@ -229,16 +199,12 @@ export function ModelFieldsReview({
     <StatusCard
       title={`${modelName} Fields`}
       description={`Showing ${processedFields.length} fields for model ${modelName}`}
-      variant="default"
     >
-      <DataTable
-        table={table}
-        showToolbar
-        showPagination
-        tableShadow={false}
-        enableRowSelection={false}
-        toolbar={<DataTableToolbar table={table} />}
-      />
+      <div className="data-table-container">
+        <DataTable table={table}>
+          <DataTableToolbar table={table} />
+        </DataTable>
+      </div>
     </StatusCard>
   );
 }

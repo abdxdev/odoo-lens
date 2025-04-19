@@ -11,13 +11,6 @@ export const FIELD_LABELS: Record<string, string> = {
 };
 
 /**
- * Get a model name from its ID using the res.models.json data
- */
-export function getModelName(id: number, modelsData: any[]): string {
-  return modelsData.find(g => g.id === id)?.full_name || `Model ID: ${id}`;
-}
-
-/**
  * Calculate field summary from a list of fields
  */
 export function calculateFieldSummary(fields: ModelField[]): FieldSummary {
