@@ -1,0 +1,5226 @@
+[
+    {
+        "model": "account.account",
+        "id": 725
+    },
+    {
+        "model": "account.account.template",
+        "id": 739
+    },
+    {
+        "model": "account.account.type",
+        "id": 724
+    },
+    {
+        "model": "account.addtmpl.wizard",
+        "id": 740
+    },
+    {
+        "model": "account.aged.trial.balance",
+        "id": 788
+    },
+    {
+        "model": "account.analytic.account",
+        "id": 662
+    },
+    {
+        "model": "account.analytic.balance",
+        "id": 756
+    },
+    {
+        "model": "account.analytic.chart",
+        "id": 761
+    },
+    {
+        "model": "account.analytic.cost.ledger",
+        "id": 758
+    },
+    {
+        "model": "account.analytic.cost.ledger.journal.report",
+        "id": 759
+    },
+    {
+        "model": "account.analytic.inverted.balance",
+        "id": 757
+    },
+    {
+        "model": "account.analytic.journal",
+        "id": 749
+    },
+    {
+        "model": "account.analytic.journal.report",
+        "id": 755
+    },
+    {
+        "model": "account.analytic.line",
+        "id": 663
+    },
+    {
+        "model": "account.automatic.reconcile",
+        "id": 776
+    },
+    {
+        "model": "account.balance.report",
+        "id": 809
+    },
+    {
+        "model": "account.bank.accounts.wizard",
+        "id": 747
+    },
+    {
+        "model": "account.bank.statement",
+        "id": 765
+    },
+    {
+        "model": "account.bank.statement.line",
+        "id": 766
+    },
+    {
+        "model": "account.budget.analytic",
+        "id": 1416
+    },
+    {
+        "model": "account.budget.crossvered.report",
+        "id": 1415
+    },
+    {
+        "model": "account.budget.crossvered.summary.report",
+        "id": 1417
+    },
+    {
+        "model": "account.budget.post",
+        "id": 1409
+    },
+    {
+        "model": "account.budget.post.line",
+        "id": 1570
+    },
+    {
+        "model": "account.budget.report",
+        "id": 1418
+    },
+    {
+        "model": "account.cashbox.line",
+        "id": 768
+    },
+    {
+        "model": "account.central.journal",
+        "id": 806
+    },
+    {
+        "model": "account.change.currency",
+        "id": 810
+    },
+    {
+        "model": "account.chart",
+        "id": 798
+    },
+    {
+        "model": "account.chart.template",
+        "id": 742
+    },
+    {
+        "model": "account.cheque_book",
+        "id": 1476
+    },
+    {
+        "model": "account.common.account.report",
+        "id": 775
+    },
+    {
+        "model": "account.common.journal.report",
+        "id": 774
+    },
+    {
+        "model": "account.common.partner.report",
+        "id": 773
+    },
+    {
+        "model": "account.common.report",
+        "id": 772
+    },
+    {
+        "model": "account.config.settings",
+        "id": 838
+    },
+    {
+        "model": "account.consolidated.trial.balance.report",
+        "id": 1573
+    },
+    {
+        "model": "account.entries.report",
+        "id": 833
+    },
+    {
+        "model": "account.financial.report",
+        "id": 771
+    },
+    {
+        "model": "account.fiscal.position",
+        "id": 719
+    },
+    {
+        "model": "account.fiscal.position.account",
+        "id": 721
+    },
+    {
+        "model": "account.fiscal.position.account.template",
+        "id": 745
+    },
+    {
+        "model": "account.fiscal.position.tax",
+        "id": 720
+    },
+    {
+        "model": "account.fiscal.position.tax.template",
+        "id": 744
+    },
+    {
+        "model": "account.fiscal.position.template",
+        "id": 743
+    },
+    {
+        "model": "account.fiscalyear",
+        "id": 727
+    },
+    {
+        "model": "account.fiscalyear.close",
+        "id": 792
+    },
+    {
+        "model": "account.fiscalyear.close.state",
+        "id": 793
+    },
+    {
+        "model": "account.general.journal",
+        "id": 807
+    },
+    {
+        "model": "accounting.report",
+        "id": 800
+    },
+    {
+        "model": "account.installer",
+        "id": 748
+    },
+    {
+        "model": "account.invoice",
+        "id": 762
+    },
+    {
+        "model": "account.invoice.cancel",
+        "id": 797
+    },
+    {
+        "model": "account.invoice.confirm",
+        "id": 796
+    },
+    {
+        "model": "account.invoice.line",
+        "id": 763
+    },
+    {
+        "model": "account.invoice.refund",
+        "id": 784
+    },
+    {
+        "model": "account.invoice.report",
+        "id": 826
+    },
+    {
+        "model": "account.invoice.tax",
+        "id": 764
+    },
+    {
+        "model": "account.journal",
+        "id": 726
+    },
+    {
+        "model": "account.journal.cashbox.line",
+        "id": 769
+    },
+    {
+        "model": "account.journal.period",
+        "id": 729
+    },
+    {
+        "model": "account.journal.select",
+        "id": 785
+    },
+    {
+        "model": "account.model",
+        "id": 734
+    },
+    {
+        "model": "account.model.line",
+        "id": 735
+    },
+    {
+        "model": "account.move",
+        "id": 730
+    },
+    {
+        "model": "account.move.bank.reconcile",
+        "id": 786
+    },
+    {
+        "model": "account.move.line",
+        "id": 770
+    },
+    {
+        "model": "account.move.line.reconcile",
+        "id": 780
+    },
+    {
+        "model": "account.move.line.reconcile.select",
+        "id": 777
+    },
+    {
+        "model": "account.move.line.reconcile.writeoff",
+        "id": 781
+    },
+    {
+        "model": "account.move.line.unreconcile.select",
+        "id": 778
+    },
+    {
+        "model": "account.move.reconcile",
+        "id": 731
+    },
+    {
+        "model": "account.open.closed.fiscalyear",
+        "id": 795
+    },
+    {
+        "model": "account.partner.balance",
+        "id": 790
+    },
+    {
+        "model": "account.partner.ledger",
+        "id": 789
+    },
+    {
+        "model": "account.partner.reconcile.process",
+        "id": 779
+    },
+    {
+        "model": "account.payment.term",
+        "id": 722
+    },
+    {
+        "model": "account.payment.term.line",
+        "id": 723
+    },
+    {
+        "model": "account.period",
+        "id": 728
+    },
+    {
+        "model": "account.period.close",
+        "id": 791
+    },
+    {
+        "model": "account.print.journal",
+        "id": 805
+    },
+    {
+        "model": "account.product.mapping.report",
+        "id": 1616
+    },
+    {
+        "model": "account.report.general.ledger",
+        "id": 808
+    },
+    {
+        "model": "account.sequence.fiscalyear",
+        "id": 837
+    },
+    {
+        "model": "account.statement.from.invoice.lines",
+        "id": 813
+    },
+    {
+        "model": "account.statement.operation.template",
+        "id": 767
+    },
+    {
+        "model": "account.state.open",
+        "id": 804
+    },
+    {
+        "model": "account.subscription",
+        "id": 736
+    },
+    {
+        "model": "account.subscription.generate",
+        "id": 787
+    },
+    {
+        "model": "account.subscription.line",
+        "id": 737
+    },
+    {
+        "model": "account.tax",
+        "id": 733
+    },
+    {
+        "model": "account.tax.chart",
+        "id": 799
+    },
+    {
+        "model": "account.tax.code",
+        "id": 732
+    },
+    {
+        "model": "account.tax.code.template",
+        "id": 741
+    },
+    {
+        "model": "account.tax.payment",
+        "id": 1523
+    },
+    {
+        "model": "account.tax.template",
+        "id": 738
+    },
+    {
+        "model": "account.treasury.report",
+        "id": 835
+    },
+    {
+        "model": "account.unreconcile",
+        "id": 782
+    },
+    {
+        "model": "account.unreconcile.reconcile",
+        "id": 783
+    },
+    {
+        "model": "account.use.model",
+        "id": 803
+    },
+    {
+        "model": "account.vat.declaration",
+        "id": 794
+    },
+    {
+        "model": "account.voucher",
+        "id": 844
+    },
+    {
+        "model": "account.voucher.line",
+        "id": 845
+    },
+    {
+        "model": "add.alternate.subject.wizard",
+        "id": 1597
+    },
+    {
+        "model": "add.amount.wizard",
+        "id": 1611
+    },
+    {
+        "model": "add.project.title.wizard",
+        "id": 1772
+    },
+    {
+        "model": "advance.payment.wizard",
+        "id": 1610
+    },
+    {
+        "model": "allow.stakeholder",
+        "id": 1735
+    },
+    {
+        "model": "alumni.card.application.form",
+        "id": 1769
+    },
+    {
+        "model": "alumni.certification.detail",
+        "id": 1623
+    },
+    {
+        "model": "alumni.experience.detail",
+        "id": 1622
+    },
+    {
+        "model": "alumni.institute",
+        "id": 1625
+    },
+    {
+        "model": "alumni.publications.detail",
+        "id": 1621
+    },
+    {
+        "model": "alumni.qualification.detail",
+        "id": 1624
+    },
+    {
+        "model": "alumni.success.story",
+        "id": 1620
+    },
+    {
+        "model": "analytic.entries.report",
+        "id": 834
+    },
+    {
+        "model": "anti.covid.certificate.wizard",
+        "id": 1579
+    },
+    {
+        "model": "archive.postgraduate.thesis",
+        "id": 1761
+    },
+    {
+        "model": "assign.project.team.wizard",
+        "id": 1739
+    },
+    {
+        "model": "automated.tasks",
+        "id": 1795
+    },
+    {
+        "model": "bank.statement.report.wizard",
+        "id": 1024
+    },
+    {
+        "model": "base.action.rule",
+        "id": 664
+    },
+    {
+        "model": "base.action.rule.lead.test",
+        "id": 665
+    },
+    {
+        "model": "base.config.settings",
+        "id": 185
+    },
+    {
+        "model": "base.language.export",
+        "id": 71
+    },
+    {
+        "model": "base.language.import",
+        "id": 68
+    },
+    {
+        "model": "base.language.install",
+        "id": 67
+    },
+    {
+        "model": "base.module.configuration",
+        "id": 70
+    },
+    {
+        "model": "base.module.update",
+        "id": 66
+    },
+    {
+        "model": "base.module.upgrade",
+        "id": 69
+    },
+    {
+        "model": "base.partner.merge.automatic.wizard",
+        "id": 1179
+    },
+    {
+        "model": "base.partner.merge.line",
+        "id": 1178
+    },
+    {
+        "model": "base.setup.terminology",
+        "id": 184
+    },
+    {
+        "model": "base.update.translations",
+        "id": 72
+    },
+    {
+        "model": "bill.no.generate.wizard",
+        "id": 916
+    },
+    {
+        "model": "bills.send.mails",
+        "id": 1663
+    },
+    {
+        "model": "blog.blog",
+        "id": 500
+    },
+    {
+        "model": "blog.post",
+        "id": 502
+    },
+    {
+        "model": "blog.post.history",
+        "id": 503
+    },
+    {
+        "model": "blog.post.history.show_diff",
+        "id": 504
+    },
+    {
+        "model": "blog.tag",
+        "id": 501
+    },
+    {
+        "model": "board.board",
+        "id": 282
+    },
+    {
+        "model": "board.create",
+        "id": 283
+    },
+    {
+        "model": "branch.revision",
+        "id": 1194
+    },
+    {
+        "model": "budget.detail",
+        "id": 1539
+    },
+    {
+        "model": "bus.bus",
+        "id": 112
+    },
+    {
+        "model": "calendar.alarm",
+        "id": 708
+    },
+    {
+        "model": "calendar.alarm_manager",
+        "id": 707
+    },
+    {
+        "model": "calendar.attendee",
+        "id": 706
+    },
+    {
+        "model": "calendar.contacts",
+        "id": 711
+    },
+    {
+        "model": "calendar.event",
+        "id": 710
+    },
+    {
+        "model": "calendar.event.type",
+        "id": 709
+    },
+    {
+        "model": "campus.book.awards",
+        "id": 1757
+    },
+    {
+        "model": "campus.books.authors",
+        "id": 1754
+    },
+    {
+        "model": "campus.books.authors.details",
+        "id": 1753
+    },
+    {
+        "model": "campus.challan.submission.bulk",
+        "id": 1801
+    },
+    {
+        "model": "campus.challan.submission.error_log",
+        "id": 1799
+    },
+    {
+        "model": "campus.challan.submission.update",
+        "id": 1800
+    },
+    {
+        "model": "campus.conference.details",
+        "id": 1758
+    },
+    {
+        "model": "campus.configuration.default",
+        "id": 544
+    },
+    {
+        "model": "campus.embargo.type",
+        "id": 1760
+    },
+    {
+        "model": "campus.hostel",
+        "id": 551
+    },
+    {
+        "model": "campus.hostel.allocation",
+        "id": 554
+    },
+    {
+        "model": "campus.hostel.allocation.detail",
+        "id": 555
+    },
+    {
+        "model": "campus.hostel.batch.allocation.deallocation",
+        "id": 559
+    },
+    {
+        "model": "campus.hostel.batch.allocation.deallocation.detail",
+        "id": 560
+    },
+    {
+        "model": "campus.hostel.batch.application.action",
+        "id": 562
+    },
+    {
+        "model": "campus.hostel.deallocation.by.force",
+        "id": 561
+    },
+    {
+        "model": "campus.hostel.detail",
+        "id": 552
+    },
+    {
+        "model": "campus.hostel.facilities",
+        "id": 556
+    },
+    {
+        "model": "campus.hostel.room.comments",
+        "id": 553
+    },
+    {
+        "model": "campus.hr.duty.status",
+        "id": 1143
+    },
+    {
+        "model": "campus.hr.reports.queries",
+        "id": 1119
+    },
+    {
+        "model": "campus.journal",
+        "id": 1747
+    },
+    {
+        "model": "campus.journal.category",
+        "id": 1741
+    },
+    {
+        "model": "campus.journal.history",
+        "id": 1748
+    },
+    {
+        "model": "campus.mou",
+        "id": 1750
+    },
+    {
+        "model": "campus.patent",
+        "id": 1752
+    },
+    {
+        "model": "campus.patent.tags",
+        "id": 1749
+    },
+    {
+        "model": "campus.publisher",
+        "id": 1746
+    },
+    {
+        "model": "campus.research.area",
+        "id": 1742
+    },
+    {
+        "model": "campus.research.publications",
+        "id": 1755
+    },
+    {
+        "model": "campus.research.subject.area",
+        "id": 1743
+    },
+    {
+        "model": "campus.research.subject.area.category",
+        "id": 1744
+    },
+    {
+        "model": "campus.update.login",
+        "id": 1157
+    },
+    {
+        "model": "campus.update.publication",
+        "id": 1756
+    },
+    {
+        "model": "campus.wise.hostel.report",
+        "id": 545
+    },
+    {
+        "model": "campus.year",
+        "id": 1745
+    },
+    {
+        "model": "cash.box.in",
+        "id": 811
+    },
+    {
+        "model": "cash.box.out",
+        "id": 812
+    },
+    {
+        "model": "change.password.user",
+        "id": 95
+    },
+    {
+        "model": "change.password.wizard",
+        "id": 94
+    },
+    {
+        "model": "change.thesis.title.wizard",
+        "id": 569
+    },
+    {
+        "model": "ckeditor.monkeypatch",
+        "id": 1376
+    },
+    {
+        "model": "configuration.transient",
+        "id": 350
+    },
+    {
+        "model": "copy.crossovered.budget",
+        "id": 1569
+    },
+    {
+        "model": "course.completion.policy",
+        "id": 570
+    },
+    {
+        "model": "course.content",
+        "id": 1399
+    },
+    {
+        "model": "course.selection.survey",
+        "id": 1764
+    },
+    {
+        "model": "course.selection.survey.line",
+        "id": 1765
+    },
+    {
+        "model": "course.selection.survey.session",
+        "id": 1766
+    },
+    {
+        "model": "create.student.subject.transfer.wizard",
+        "id": 511
+    },
+    {
+        "model": "crm.case.categ",
+        "id": 1164
+    },
+    {
+        "model": "crm.case.section",
+        "id": 1025
+    },
+    {
+        "model": "crm.case.stage",
+        "id": 1163
+    },
+    {
+        "model": "crm.lead",
+        "id": 1168
+    },
+    {
+        "model": "crm.lead2opportunity.partner",
+        "id": 1175
+    },
+    {
+        "model": "crm.lead2opportunity.partner.mass",
+        "id": 1176
+    },
+    {
+        "model": "crm.lead.report",
+        "id": 1170
+    },
+    {
+        "model": "crm.make.sale",
+        "id": 1216
+    },
+    {
+        "model": "crm.merge.opportunity",
+        "id": 1177
+    },
+    {
+        "model": "crm.opportunity.report",
+        "id": 1171
+    },
+    {
+        "model": "crm.partner.binding",
+        "id": 1173
+    },
+    {
+        "model": "crm.payment.mode",
+        "id": 1165
+    },
+    {
+        "model": "crm.phonecall",
+        "id": 1169
+    },
+    {
+        "model": "crm.phonecall2phonecall",
+        "id": 1174
+    },
+    {
+        "model": "crm.phonecall.report",
+        "id": 1172
+    },
+    {
+        "model": "crm.segmentation",
+        "id": 1166
+    },
+    {
+        "model": "crm.segmentation.line",
+        "id": 1167
+    },
+    {
+        "model": "crm.tracking.campaign",
+        "id": 1160
+    },
+    {
+        "model": "crm.tracking.medium",
+        "id": 1159
+    },
+    {
+        "model": "crm.tracking.mixin",
+        "id": 1162
+    },
+    {
+        "model": "crm.tracking.source",
+        "id": 1161
+    },
+    {
+        "model": "crossovered.budget",
+        "id": 1410
+    },
+    {
+        "model": "crossovered.budget.lines",
+        "id": 1411
+    },
+    {
+        "model": "crossovered.budget.type",
+        "id": 1540
+    },
+    {
+        "model": "crossovered.budget.update",
+        "id": 1571
+    },
+    {
+        "model": "custom.student.dashboard",
+        "id": 1629
+    },
+    {
+        "model": "data.crypt",
+        "id": 1475
+    },
+    {
+        "model": "data.import.errors",
+        "id": 879
+    },
+    {
+        "model": "data.import.wizard",
+        "id": 880
+    },
+    {
+        "model": "decimal.precision",
+        "id": 656
+    },
+    {
+        "model": "decimal.precision.test",
+        "id": 657
+    },
+    {
+        "model": "disbursement.plan",
+        "id": 1500
+    },
+    {
+        "model": "disbursement.plan.line",
+        "id": 1499
+    },
+    {
+        "model": "dmc.report",
+        "id": 541
+    },
+    {
+        "model": "download.attachment.wizard",
+        "id": 1524
+    },
+    {
+        "model": "ecr.employee",
+        "id": 1574
+    },
+    {
+        "model": "edaftar.document",
+        "id": 1507
+    },
+    {
+        "model": "edaftar.document.folder",
+        "id": 1505
+    },
+    {
+        "model": "edaftar.document.tag",
+        "id": 1506
+    },
+    {
+        "model": "edi.edi",
+        "id": 712
+    },
+    {
+        "model": "elective.course.selection",
+        "id": 1767
+    },
+    {
+        "model": "elective.course.selection.line",
+        "id": 1768
+    },
+    {
+        "model": "electricity.reading.history",
+        "id": 914
+    },
+    {
+        "model": "email.template",
+        "id": 241
+    },
+    {
+        "model": "email_template.preview",
+        "id": 242
+    },
+    {
+        "model": "e.meeting.physical.equipment",
+        "id": 1522
+    },
+    {
+        "model": "e.meeting.type",
+        "id": 1521
+    },
+    {
+        "model": "employee.data.import.wizard",
+        "id": 967
+    },
+    {
+        "model": "employee.ecr.batch",
+        "id": 1577
+    },
+    {
+        "model": "employee.import.error.log",
+        "id": 966
+    },
+    {
+        "model": "employee.payslip.ecr",
+        "id": 1576
+    },
+    {
+        "model": "expense.payment.wizard",
+        "id": 1609
+    },
+    {
+        "model": "export.alumni.data",
+        "id": 1773
+    },
+    {
+        "model": "external.evaluation",
+        "id": 940
+    },
+    {
+        "model": "external.faculty",
+        "id": 941
+    },
+    {
+        "model": "external.institute",
+        "id": 942
+    },
+    {
+        "model": "fetchmail.config.settings",
+        "id": 244
+    },
+    {
+        "model": "fetchmail.server",
+        "id": 243
+    },
+    {
+        "model": "first.semester.challan.adjustment",
+        "id": 1514
+    },
+    {
+        "model": "honhaar.student.data",
+        "id": 1802
+    },
+    {
+        "model": "hostel.comments.report",
+        "id": 546
+    },
+    {
+        "model": "hostel.remaining.capacity.report",
+        "id": 548
+    },
+    {
+        "model": "hostel.resident.certificiate",
+        "id": 575
+    },
+    {
+        "model": "hostel.strength.report",
+        "id": 547
+    },
+    {
+        "model": "hostel.wizard.message",
+        "id": 563
+    },
+    {
+        "model": "hr.account.journal",
+        "id": 1224
+    },
+    {
+        "model": "hr.add.barrier.subscription",
+        "id": 1230
+    },
+    {
+        "model": "hr.advance.payment",
+        "id": 1612
+    },
+    {
+        "model": "hr.advance.payment.line",
+        "id": 1613
+    },
+    {
+        "model": "hr.advance.payment.recovery",
+        "id": 1614
+    },
+    {
+        "model": "hr.approvals.templates",
+        "id": 1496
+    },
+    {
+        "model": "hr.approvers",
+        "id": 1497
+    },
+    {
+        "model": "hr.billing",
+        "id": 1483
+    },
+    {
+        "model": "hr.billing.lines",
+        "id": 1484
+    },
+    {
+        "model": "hr.billing.tax",
+        "id": 1516
+    },
+    {
+        "model": "hr.black.list.employee",
+        "id": 869
+    },
+    {
+        "model": "hr.bps.chart",
+        "id": 1021
+    },
+    {
+        "model": "hr.bps.chart.line",
+        "id": 1022
+    },
+    {
+        "model": "hr.bps.chart.year",
+        "id": 1228
+    },
+    {
+        "model": "hr.config.settings",
+        "id": 670
+    },
+    {
+        "model": "hr.contract",
+        "id": 714
+    },
+    {
+        "model": "hr.contract.action.wizard",
+        "id": 878
+    },
+    {
+        "model": "hr.contract.expiry.report",
+        "id": 1350
+    },
+    {
+        "model": "hr.contract.freeze.unfreeze",
+        "id": 876
+    },
+    {
+        "model": "hr.contract.freeze.unfreeze.log",
+        "id": 877
+    },
+    {
+        "model": "hr.contract.type",
+        "id": 713
+    },
+    {
+        "model": "hr.contribution.register",
+        "id": 848
+    },
+    {
+        "model": "hr.customer.bill.recovery",
+        "id": 1361
+    },
+    {
+        "model": "hr.daily.attendance",
+        "id": 881
+    },
+    {
+        "model": "hr.daily.attendance.detail",
+        "id": 882
+    },
+    {
+        "model": "hr.department",
+        "id": 669
+    },
+    {
+        "model": "hr.department.category",
+        "id": 1572
+    },
+    {
+        "model": "hr.dynamic.approvals",
+        "id": 1495
+    },
+    {
+        "model": "hr.electricity.bill",
+        "id": 915
+    },
+    {
+        "model": "hr.electricity.bill.batch",
+        "id": 913
+    },
+    {
+        "model": "hr.electricity.configuration",
+        "id": 911
+    },
+    {
+        "model": "hr.electricity.unit.rate",
+        "id": 912
+    },
+    {
+        "model": "hr.emoplyee.monthly.attendance",
+        "id": 883
+    },
+    {
+        "model": "hr.employee",
+        "id": 668
+    },
+    {
+        "model": "hr.employee.action",
+        "id": 870
+    },
+    {
+        "model": "hr.employee.additional.jd",
+        "id": 1220
+    },
+    {
+        "model": "hr.employee.bill",
+        "id": 901
+    },
+    {
+        "model": "hr.employee.budgetary.report",
+        "id": 1118
+    },
+    {
+        "model": "hr.employee.categ",
+        "id": 867
+    },
+    {
+        "model": "hr.employee.category",
+        "id": 666
+    },
+    {
+        "model": "hr.employee.duplicate.bills",
+        "id": 1016
+    },
+    {
+        "model": "hr.employee.ecr",
+        "id": 1575
+    },
+    {
+        "model": "hr.employee.house",
+        "id": 892
+    },
+    {
+        "model": "hr.employee.house.category",
+        "id": 891
+    },
+    {
+        "model": "hr.employee.house.details",
+        "id": 893
+    },
+    {
+        "model": "hr.employee.monthly.water.bill",
+        "id": 897
+    },
+    {
+        "model": "hr.employee.payslip.report",
+        "id": 1229
+    },
+    {
+        "model": "hr.employee.quota",
+        "id": 1407
+    },
+    {
+        "model": "hr.employee.register",
+        "id": 871
+    },
+    {
+        "model": "hr.employee.register.report",
+        "id": 874
+    },
+    {
+        "model": "hr.employee.scale",
+        "id": 868
+    },
+    {
+        "model": "hr.employee.stage.history",
+        "id": 1222
+    },
+    {
+        "model": "hr.employee.stage.review",
+        "id": 1221
+    },
+    {
+        "model": "hr.employee.strength.report",
+        "id": 873
+    },
+    {
+        "model": "hr.employee.subscription",
+        "id": 1231
+    },
+    {
+        "model": "hr.employee.tax",
+        "id": 1362
+    },
+    {
+        "model": "hr.employee.tax.batch",
+        "id": 1363
+    },
+    {
+        "model": "hr.employee.type",
+        "id": 1232
+    },
+    {
+        "model": "hr.employee.water.bill.details",
+        "id": 898
+    },
+    {
+        "model": "hr.employee.water.pricelist",
+        "id": 895
+    },
+    {
+        "model": "hr.employee.water.pricelist.detail",
+        "id": 896
+    },
+    {
+        "model": "hr.employer",
+        "id": 1751
+    },
+    {
+        "model": "hr.empty.bill.sheet",
+        "id": 904
+    },
+    {
+        "model": "hr.enoting",
+        "id": 1510
+    },
+    {
+        "model": "hr.enoting.follower",
+        "id": 1504
+    },
+    {
+        "model": "hr.enoting.follower.detail",
+        "id": 1503
+    },
+    {
+        "model": "hr.enoting.members",
+        "id": 1502
+    },
+    {
+        "model": "hr.enoting.reminder.history",
+        "id": 1508
+    },
+    {
+        "model": "hr.enoting.reset_sequence",
+        "id": 1509
+    },
+    {
+        "model": "hr.enoting.type",
+        "id": 1618
+    },
+    {
+        "model": "hr.establishment.check.register.report",
+        "id": 1368
+    },
+    {
+        "model": "hr.expense.expense",
+        "id": 864
+    },
+    {
+        "model": "hr.expense.line",
+        "id": 865
+    },
+    {
+        "model": "hr.expense.report",
+        "id": 866
+    },
+    {
+        "model": "hr.expense.tax",
+        "id": 1608
+    },
+    {
+        "model": "hr.gas.bill",
+        "id": 910
+    },
+    {
+        "model": "hr.gas.bill.batch",
+        "id": 908
+    },
+    {
+        "model": "hr.gas.configuration",
+        "id": 905
+    },
+    {
+        "model": "hr.gas.discount",
+        "id": 906
+    },
+    {
+        "model": "hr.gas.unit.rate",
+        "id": 907
+    },
+    {
+        "model": "hr.gpf.ob.wizard",
+        "id": 1513
+    },
+    {
+        "model": "hr.gpf.register",
+        "id": 1501
+    },
+    {
+        "model": "hr.gpf.register.account",
+        "id": 1515
+    },
+    {
+        "model": "hr.holidays",
+        "id": 840
+    },
+    {
+        "model": "hr.holidays.allocation",
+        "id": 886
+    },
+    {
+        "model": "hr.holidays.allocation.detail",
+        "id": 1405
+    },
+    {
+        "model": "hr.holidays.allocation.lines",
+        "id": 887
+    },
+    {
+        "model": "hr.holidays.line",
+        "id": 1404
+    },
+    {
+        "model": "hr.holidays.remaining.leaves.user",
+        "id": 841
+    },
+    {
+        "model": "hr.holidays.status",
+        "id": 839
+    },
+    {
+        "model": "hr.holidays.summary.dept",
+        "id": 842
+    },
+    {
+        "model": "hr.holidays.summary.employee",
+        "id": 843
+    },
+    {
+        "model": "hr.house.allocation.history.report",
+        "id": 903
+    },
+    {
+        "model": "hr.house.allocation.wizard",
+        "id": 894
+    },
+    {
+        "model": "hr.house.allotment.report",
+        "id": 902
+    },
+    {
+        "model": "hr.house.rent",
+        "id": 1371
+    },
+    {
+        "model": "hr.house.rent.batch",
+        "id": 1370
+    },
+    {
+        "model": "hr.house.rent.history",
+        "id": 1369
+    },
+    {
+        "model": "hr.income.tax.return",
+        "id": 1247
+    },
+    {
+        "model": "hr.installment.merge",
+        "id": 926
+    },
+    {
+        "model": "hr.installment.month",
+        "id": 925
+    },
+    {
+        "model": "hr.job",
+        "id": 667
+    },
+    {
+        "model": "hr.leave.category",
+        "id": 890
+    },
+    {
+        "model": "hr.leave.category.rule",
+        "id": 1406
+    },
+    {
+        "model": "hr.leave.deduction.history",
+        "id": 1603
+    },
+    {
+        "model": "hr.leave.status.report",
+        "id": 1359
+    },
+    {
+        "model": "hr.leave.years",
+        "id": 885
+    },
+    {
+        "model": "hr.monthly.attendance.report",
+        "id": 884
+    },
+    {
+        "model": "hr.monthly.bill.report",
+        "id": 900
+    },
+    {
+        "model": "hr.monthly.transport.bill.report",
+        "id": 1075
+    },
+    {
+        "model": "hr.other.allowance",
+        "id": 1217
+    },
+    {
+        "model": "hr.payroll.structure",
+        "id": 847
+    },
+    {
+        "model": "hr.payslip",
+        "id": 851
+    },
+    {
+        "model": "hr.payslip.employees",
+        "id": 860
+    },
+    {
+        "model": "hr.payslip.error.log",
+        "id": 1578
+    },
+    {
+        "model": "hr.payslip.input",
+        "id": 853
+    },
+    {
+        "model": "hr.payslip.line",
+        "id": 856
+    },
+    {
+        "model": "hr.payslip.payment.advise",
+        "id": 1517
+    },
+    {
+        "model": "hr.payslip.release.batch",
+        "id": 1391
+    },
+    {
+        "model": "hr.payslip.run",
+        "id": 850
+    },
+    {
+        "model": "hr.payslip.update.line",
+        "id": 1248
+    },
+    {
+        "model": "hr.payslip.update.wizard",
+        "id": 1249
+    },
+    {
+        "model": "hr.payslip.worked_days",
+        "id": 852
+    },
+    {
+        "model": "hr.qualification",
+        "id": 1218
+    },
+    {
+        "model": "hr.rental.product.configuration",
+        "id": 1307
+    },
+    {
+        "model": "hr.residence.details.report",
+        "id": 899
+    },
+    {
+        "model": "hr.rule.input",
+        "id": 855
+    },
+    {
+        "model": "hr.rule.input.value",
+        "id": 1223
+    },
+    {
+        "model": "hr.salary.adjustment.report",
+        "id": 1225
+    },
+    {
+        "model": "hr.salary.configuration",
+        "id": 968
+    },
+    {
+        "model": "hr.salary.configuration.rebate",
+        "id": 1351
+    },
+    {
+        "model": "hr.salary.confirmation",
+        "id": 917
+    },
+    {
+        "model": "hr.salary.confirmation.line",
+        "id": 918
+    },
+    {
+        "model": "hr.salary.confirmation.status.report",
+        "id": 919
+    },
+    {
+        "model": "hr.salary_input_compute",
+        "id": 1017
+    },
+    {
+        "model": "hr.salary_input_compute.line",
+        "id": 1018
+    },
+    {
+        "model": "hr.salary.petrol.pricelist",
+        "id": 1358
+    },
+    {
+        "model": "hr.salary.petrol.pricelist.line",
+        "id": 1357
+    },
+    {
+        "model": "hr.salary.rule",
+        "id": 854
+    },
+    {
+        "model": "hr.salary.rule.category",
+        "id": 849
+    },
+    {
+        "model": "hr.salary.rule.conditions",
+        "id": 1227
+    },
+    {
+        "model": "hr.salary.rule.conditions.value",
+        "id": 1226
+    },
+    {
+        "model": "hr.salary.rule.type",
+        "id": 1219
+    },
+    {
+        "model": "hr.send.payslip.email.wizard",
+        "id": 1355
+    },
+    {
+        "model": "hr.single.allocation",
+        "id": 888
+    },
+    {
+        "model": "hr.single.allocation.lines",
+        "id": 889
+    },
+    {
+        "model": "hr.tax.certificate.report",
+        "id": 1250
+    },
+    {
+        "model": "hr.transfer.history",
+        "id": 872
+    },
+    {
+        "model": "hr.transport.status.report",
+        "id": 1076
+    },
+    {
+        "model": "hr.transport.users",
+        "id": 1015
+    },
+    {
+        "model": "hr.yearly.bill.recovery",
+        "id": 1085
+    },
+    {
+        "model": "hr.yearly.recovery.transport.report",
+        "id": 1088
+    },
+    {
+        "model": "initiate.hostel.request",
+        "id": 1135
+    },
+    {
+        "model": "invoice.disbursement",
+        "id": 1498
+    },
+    {
+        "model": "ir.actions.actions",
+        "id": 16
+    },
+    {
+        "model": "ir.actions.act_url",
+        "id": 21
+    },
+    {
+        "model": "ir.actions.act_window",
+        "id": 18
+    },
+    {
+        "model": "ir.actions.act_window_close",
+        "id": 20
+    },
+    {
+        "model": "ir.actions.act_window.view",
+        "id": 19
+    },
+    {
+        "model": "ir.actions.client",
+        "id": 25
+    },
+    {
+        "model": "ir.actions.report.xml",
+        "id": 17
+    },
+    {
+        "model": "ir.actions.server",
+        "id": 22
+    },
+    {
+        "model": "ir.actions.todo",
+        "id": 24
+    },
+    {
+        "model": "ir.attachment",
+        "id": 26
+    },
+    {
+        "model": "ir.config_parameter",
+        "id": 34
+    },
+    {
+        "model": "ir.cron",
+        "id": 27
+    },
+    {
+        "model": "ir.default",
+        "id": 15
+    },
+    {
+        "model": "ir.exports",
+        "id": 31
+    },
+    {
+        "model": "ir.exports.line",
+        "id": 32
+    },
+    {
+        "model": "ir.fields.converter",
+        "id": 37
+    },
+    {
+        "model": "ir.filters",
+        "id": 28
+    },
+    {
+        "model": "ir.http",
+        "id": 55
+    },
+    {
+        "model": "ir.logging",
+        "id": 56
+    },
+    {
+        "model": "ir.mail_server",
+        "id": 36
+    },
+    {
+        "model": "ir.model",
+        "id": 2
+    },
+    {
+        "model": "ir.model.access",
+        "id": 6
+    },
+    {
+        "model": "ir.model.constraint",
+        "id": 4
+    },
+    {
+        "model": "ir.model.data",
+        "id": 7
+    },
+    {
+        "model": "ir.model.fields",
+        "id": 3
+    },
+    {
+        "model": "ir.model.relation",
+        "id": 5
+    },
+    {
+        "model": "ir.module.category",
+        "id": 63
+    },
+    {
+        "model": "ir.module.module",
+        "id": 64
+    },
+    {
+        "model": "ir.module.module.dependency",
+        "id": 65
+    },
+    {
+        "model": "ir.needaction_mixin",
+        "id": 11
+    },
+    {
+        "model": "ir.property",
+        "id": 97
+    },
+    {
+        "model": "ir.qweb",
+        "id": 38
+    },
+    {
+        "model": "ir.qweb.field",
+        "id": 39
+    },
+    {
+        "model": "ir.qweb.field.barcode",
+        "id": 937
+    },
+    {
+        "model": "ir.qweb.field.contact",
+        "id": 51
+    },
+    {
+        "model": "ir.qweb.field.date",
+        "id": 41
+    },
+    {
+        "model": "ir.qweb.field.datetime",
+        "id": 42
+    },
+    {
+        "model": "ir.qweb.field.duration",
+        "id": 49
+    },
+    {
+        "model": "ir.qweb.field.float",
+        "id": 40
+    },
+    {
+        "model": "ir.qweb.field.html",
+        "id": 46
+    },
+    {
+        "model": "ir.qweb.field.image",
+        "id": 47
+    },
+    {
+        "model": "ir.qweb.field.many2one",
+        "id": 45
+    },
+    {
+        "model": "ir.qweb.field.monetary",
+        "id": 48
+    },
+    {
+        "model": "ir.qweb.field.qweb",
+        "id": 52
+    },
+    {
+        "model": "ir.qweb.field.relative",
+        "id": 50
+    },
+    {
+        "model": "ir.qweb.field.selection",
+        "id": 44
+    },
+    {
+        "model": "ir.qweb.field.text",
+        "id": 43
+    },
+    {
+        "model": "ir.qweb.widget",
+        "id": 53
+    },
+    {
+        "model": "ir.qweb.widget.monetary",
+        "id": 54
+    },
+    {
+        "model": "ir.rule",
+        "id": 33
+    },
+    {
+        "model": "ir.sequence",
+        "id": 10
+    },
+    {
+        "model": "ir.sequence.type",
+        "id": 9
+    },
+    {
+        "model": "ir.server.object.lines",
+        "id": 23
+    },
+    {
+        "model": "ir.translation",
+        "id": 30
+    },
+    {
+        "model": "ir.ui.menu",
+        "id": 12
+    },
+    {
+        "model": "ir.ui.view",
+        "id": 14
+    },
+    {
+        "model": "ir.ui.view.custom",
+        "id": 13
+    },
+    {
+        "model": "ir.values",
+        "id": 29
+    },
+    {
+        "model": "jasper.configuration",
+        "id": 533
+    },
+    {
+        "model": "jasper.report",
+        "id": 539
+    },
+    {
+        "model": "jasper.report.parameters",
+        "id": 538
+    },
+    {
+        "model": "jasper.reports.category",
+        "id": 534
+    },
+    {
+        "model": "jasper.reports.registration",
+        "id": 536
+    },
+    {
+        "model": "knowledge.config.settings",
+        "id": 499
+    },
+    {
+        "model": "leave.category",
+        "id": 1199
+    },
+    {
+        "model": "lms.hr_loan",
+        "id": 924
+    },
+    {
+        "model": "lms.hr_loan.applications",
+        "id": 982
+    },
+    {
+        "model": "lms.hr_loan.line",
+        "id": 927
+    },
+    {
+        "model": "lms.hr_loan.payment",
+        "id": 928
+    },
+    {
+        "model": "lms.hr_loan.scrutiny",
+        "id": 983
+    },
+    {
+        "model": "lms.hr_loan.scrutiny.employee",
+        "id": 1356
+    },
+    {
+        "model": "lms.hr_loan.type",
+        "id": 923
+    },
+    {
+        "model": "lms.reports.queries",
+        "id": 1014
+    },
+    {
+        "model": "mail.alias",
+        "id": 232
+    },
+    {
+        "model": "mail.compose.message",
+        "id": 239
+    },
+    {
+        "model": "mail.followers",
+        "id": 233
+    },
+    {
+        "model": "mail.group",
+        "id": 237
+    },
+    {
+        "model": "mail.mail",
+        "id": 236
+    },
+    {
+        "model": "mail.message",
+        "id": 235
+    },
+    {
+        "model": "mail.message.subtype",
+        "id": 231
+    },
+    {
+        "model": "mail.notification",
+        "id": 234
+    },
+    {
+        "model": "mail.thread",
+        "id": 193
+    },
+    {
+        "model": "mail.wizard.invite",
+        "id": 238
+    },
+    {
+        "model": "make.procurement",
+        "id": 1060
+    },
+    {
+        "model": "marketing.config.settings",
+        "id": 301
+    },
+    {
+        "model": "meeting.agenda",
+        "id": 1518
+    },
+    {
+        "model": "meeting.member",
+        "id": 1519
+    },
+    {
+        "model": "merged.requirement",
+        "id": 1734
+    },
+    {
+        "model": "message.box",
+        "id": 875
+    },
+    {
+        "model": "minutes.of.meeting",
+        "id": 1520
+    },
+    {
+        "model": "ms.team.meeting",
+        "id": 1402
+    },
+    {
+        "model": "ms.team.meeting.creation",
+        "id": 1401
+    },
+    {
+        "model": "ms.team.meeting.creation.day.time",
+        "id": 1400
+    },
+    {
+        "model": "multi_company.default",
+        "id": 90
+    },
+    {
+        "model": "obe.add.gpa.cgpa.wizard",
+        "id": 507
+    },
+    {
+        "model": "obe.admission.cancel.regulation",
+        "id": 1797
+    },
+    {
+        "model": "obe.admission.cancel.wizard",
+        "id": 479
+    },
+    {
+        "model": "obe.admission.category",
+        "id": 277
+    },
+    {
+        "model": "obe.admission.category.type",
+        "id": 376
+    },
+    {
+        "model": "obe.alumni.email",
+        "id": 1707
+    },
+    {
+        "model": "obe.alumni.email.detail",
+        "id": 1708
+    },
+    {
+        "model": "obe.alumni.registration.form",
+        "id": 1709
+    },
+    {
+        "model": "obe.analyticsreport.wizard",
+        "id": 402
+    },
+    {
+        "model": "obe.apply.hostel.wizard",
+        "id": 557
+    },
+    {
+        "model": "obe.approve.student.wizard",
+        "id": 351
+    },
+    {
+        "model": "obe.attachment.extension",
+        "id": 1378
+    },
+    {
+        "model": "obe.bank.payment",
+        "id": 934
+    },
+    {
+        "model": "obe.block.reason.category",
+        "id": 958
+    },
+    {
+        "model": "obe.block.registration.superuser",
+        "id": 414
+    },
+    {
+        "model": "obe.block.registration.superuser.wizard",
+        "id": 460
+    },
+    {
+        "model": "obe.block.usergroup.login",
+        "id": 1116
+    },
+    {
+        "model": "obe.campus.clo.config",
+        "id": 1114
+    },
+    {
+        "model": "obe.campus.portal",
+        "id": 1383
+    },
+    {
+        "model": "obe.campus.portal.courses",
+        "id": 1384
+    },
+    {
+        "model": "obe.cancel.hostel.application",
+        "id": 558
+    },
+    {
+        "model": "obe.challan.concession.summary",
+        "id": 959
+    },
+    {
+        "model": "obe.change.i.grade.log",
+        "id": 522
+    },
+    {
+        "model": "obe.class.planning.log",
+        "id": 520
+    },
+    {
+        "model": "obe.clo.acl",
+        "id": 655
+    },
+    {
+        "model": "obe.clo.attainment",
+        "id": 461
+    },
+    {
+        "model": "obe.configuration",
+        "id": 315
+    },
+    {
+        "model": "obe.controller.result.wizard",
+        "id": 339
+    },
+    {
+        "model": "obe.convocation",
+        "id": 1596
+    },
+    {
+        "model": "obe.convocation.configuration",
+        "id": 1595
+    },
+    {
+        "model": "obe.core.approve.student.details",
+        "id": 930
+    },
+    {
+        "model": "obe.core.approve.student.request",
+        "id": 929
+    },
+    {
+        "model": "obe.core.approve.student.request.log",
+        "id": 931
+    },
+    {
+        "model": "obe.core.campus",
+        "id": 120
+    },
+    {
+        "model": "obe.core.dashboard",
+        "id": 284
+    },
+    {
+        "model": "obe.core.degree",
+        "id": 137
+    },
+    {
+        "model": "obe.core.department",
+        "id": 121
+    },
+    {
+        "model": "obe.core.department.code",
+        "id": 122
+    },
+    {
+        "model": "obe.core.department.program",
+        "id": 124
+    },
+    {
+        "model": "obe.core.designation",
+        "id": 143
+    },
+    {
+        "model": "obe.core.dmc.revisions",
+        "id": 542
+    },
+    {
+        "model": "obe.core.domain",
+        "id": 127
+    },
+    {
+        "model": "obe.core.duplicate.faculty",
+        "id": 1374
+    },
+    {
+        "model": "obe.core.faculty",
+        "id": 132
+    },
+    {
+        "model": "obe.core.faculty.type",
+        "id": 144
+    },
+    {
+        "model": "obe.core.grades",
+        "id": 334
+    },
+    {
+        "model": "obe.core.knowledge.area",
+        "id": 126
+    },
+    {
+        "model": "obe.core.old.subject",
+        "id": 145
+    },
+    {
+        "model": "obe.core.program",
+        "id": 123
+    },
+    {
+        "model": "obe.core.program.catalogue",
+        "id": 128
+    },
+    {
+        "model": "obe.core.qualification",
+        "id": 136
+    },
+    {
+        "model": "obe.core.register",
+        "id": 135
+    },
+    {
+        "model": "obe.core.relegated.student.subject",
+        "id": 331
+    },
+    {
+        "model": "obe.core.requirement",
+        "id": 152
+    },
+    {
+        "model": "obe.core.result",
+        "id": 330
+    },
+    {
+        "model": "obe.core.result.detail",
+        "id": 329
+    },
+    {
+        "model": "obe.core.room",
+        "id": 134
+    },
+    {
+        "model": "obe.core.scholarship.application",
+        "id": 1094
+    },
+    {
+        "model": "obe.core.scholarship.application.asset.detail",
+        "id": 1102
+    },
+    {
+        "model": "obe.core.scholarship.application.asset.type",
+        "id": 1103
+    },
+    {
+        "model": "obe.core.scholarship.application.educational.detail",
+        "id": 1095
+    },
+    {
+        "model": "obe.core.scholarship.application.expense",
+        "id": 1101
+    },
+    {
+        "model": "obe.core.scholarship.application.expense.detail",
+        "id": 1100
+    },
+    {
+        "model": "obe.core.scholarship.application.family.detail",
+        "id": 1096
+    },
+    {
+        "model": "obe.core.scholarship.application.family.name",
+        "id": 1097
+    },
+    {
+        "model": "obe.core.scholarship.application.otherincomesource",
+        "id": 1099
+    },
+    {
+        "model": "obe.core.scholarship.application.otherincomesource.detail",
+        "id": 1098
+    },
+    {
+        "model": "obe.core.scholarship.application.otherscholarship",
+        "id": 1105
+    },
+    {
+        "model": "obe.core.scholarship.application.otherscholarship.detail",
+        "id": 1104
+    },
+    {
+        "model": "obe.core.scholarship.initiate.application",
+        "id": 1106
+    },
+    {
+        "model": "obe.core.section",
+        "id": 146
+    },
+    {
+        "model": "obe.core.section.clo",
+        "id": 167
+    },
+    {
+        "model": "obe.core.section.clo.plo.mapping",
+        "id": 168
+    },
+    {
+        "model": "obe.core.section.result",
+        "id": 336
+    },
+    {
+        "model": "obe.core.section.timings",
+        "id": 138
+    },
+    {
+        "model": "obe.core.semester",
+        "id": 130
+    },
+    {
+        "model": "obe.core.semesternumber",
+        "id": 141
+    },
+    {
+        "model": "obe.core.semester.session",
+        "id": 142
+    },
+    {
+        "model": "obe.core.semester.subject",
+        "id": 131
+    },
+    {
+        "model": "obe.core.session",
+        "id": 129
+    },
+    {
+        "model": "obe.core.session.wizard",
+        "id": 518
+    },
+    {
+        "model": "obe.core.signatory",
+        "id": 509
+    },
+    {
+        "model": "obe.core.student",
+        "id": 133
+    },
+    {
+        "model": "obe.core.subject",
+        "id": 125
+    },
+    {
+        "model": "obe.core.subject.assessment",
+        "id": 169
+    },
+    {
+        "model": "obe.core.subject.assessment.detail",
+        "id": 170
+    },
+    {
+        "model": "obe.core.subject.clo",
+        "id": 165
+    },
+    {
+        "model": "obe.core.subject.clo.plo.mapping",
+        "id": 166
+    },
+    {
+        "model": "obe.core.term",
+        "id": 139
+    },
+    {
+        "model": "obe.core.year",
+        "id": 140
+    },
+    {
+        "model": "obe.covid19.survey.detail",
+        "id": 1354
+    },
+    {
+        "model": "obe.cqi.attachments",
+        "id": 487
+    },
+    {
+        "model": "obe.cqi.clos",
+        "id": 454
+    },
+    {
+        "model": "obe.cqi.clos.wizard",
+        "id": 457
+    },
+    {
+        "model": "obe.cqi.corrective_actions",
+        "id": 485
+    },
+    {
+        "model": "obe.cqi.endorse",
+        "id": 410
+    },
+    {
+        "model": "obe.cqi.endorse.wizard",
+        "id": 448
+    },
+    {
+        "model": "obe.cqi.final_decision",
+        "id": 486
+    },
+    {
+        "model": "obe.cqi.incident",
+        "id": 488
+    },
+    {
+        "model": "obe.cqi.mission.wizard",
+        "id": 412
+    },
+    {
+        "model": "obe.cqi.peos",
+        "id": 417
+    },
+    {
+        "model": "obe.cqi.peos.wizard",
+        "id": 445
+    },
+    {
+        "model": "obe.cqi.problem",
+        "id": 484
+    },
+    {
+        "model": "obe.cqi.program.mission",
+        "id": 411
+    },
+    {
+        "model": "obe.cqi.program.peo.plo",
+        "id": 418
+    },
+    {
+        "model": "obe.cqi.program.peo.plo.wizard",
+        "id": 446
+    },
+    {
+        "model": "obe.cqi.program.version",
+        "id": 416
+    },
+    {
+        "model": "obe.cqi.program.version.wizard",
+        "id": 419
+    },
+    {
+        "model": "obe.cqi.program.vision",
+        "id": 407
+    },
+    {
+        "model": "obe.cqi.result",
+        "id": 489
+    },
+    {
+        "model": "obe.cqi.result.detail",
+        "id": 490
+    },
+    {
+        "model": "obe.cqi.subject.clo.plo.mapping",
+        "id": 455
+    },
+    {
+        "model": "obe.cqi.subject.clo.plo.wizard",
+        "id": 458
+    },
+    {
+        "model": "obe.cqi.subject.version",
+        "id": 453
+    },
+    {
+        "model": "obe.cqi.subject.version.wizard",
+        "id": 456
+    },
+    {
+        "model": "obe.cqi.submit",
+        "id": 409
+    },
+    {
+        "model": "obe.cqi.submit.wizard",
+        "id": 447
+    },
+    {
+        "model": "obe.cqi.vision.wizard",
+        "id": 408
+    },
+    {
+        "model": "obe.create.meeting.wizard",
+        "id": 1408
+    },
+    {
+        "model": "obe.create_student_superuser.wizard",
+        "id": 498
+    },
+    {
+        "model": "obe.credit.ac",
+        "id": 1771
+    },
+    {
+        "model": "obe.credithour.limit",
+        "id": 580
+    },
+    {
+        "model": "obe.current.number",
+        "id": 443
+    },
+    {
+        "model": "obe.dean.honour.notification",
+        "id": 1393
+    },
+    {
+        "model": "obe.dean.honour.notification.detail",
+        "id": 1394
+    },
+    {
+        "model": "obe.deg.level",
+        "id": 420
+    },
+    {
+        "model": "obe.degree.receiving.report.wizard",
+        "id": 649
+    },
+    {
+        "model": "obe.degree.statement.report.wizard",
+        "id": 652
+    },
+    {
+        "model": "obe.denotification.log",
+        "id": 519
+    },
+    {
+        "model": "obe.de.registrations",
+        "id": 1601
+    },
+    {
+        "model": "obe.district",
+        "id": 281
+    },
+    {
+        "model": "obe.dmc.function",
+        "id": 540
+    },
+    {
+        "model": "obe.document.serial.counter",
+        "id": 1375
+    },
+    {
+        "model": "obe.dues.addmisionregistration",
+        "id": 476
+    },
+    {
+        "model": "obe.dues.addmisionregistration.counter",
+        "id": 1107
+    },
+    {
+        "model": "obe.dues.adjust.scholarship.in.challan",
+        "id": 1124
+    },
+    {
+        "model": "obe.dues.advance.tax.deduction",
+        "id": 1372
+    },
+    {
+        "model": "obe.dues.balance.report.wizard",
+        "id": 1144
+    },
+    {
+        "model": "obe.dues.cancel.installment.wizard",
+        "id": 1108
+    },
+    {
+        "model": "obe.dues.category",
+        "id": 365
+    },
+    {
+        "model": "obe.dues.challan.code",
+        "id": 963
+    },
+    {
+        "model": "obe.dues.challan.deactivation",
+        "id": 1117
+    },
+    {
+        "model": "obe.dues.challangenerationsummersemester",
+        "id": 1089
+    },
+    {
+        "model": "obe.dues.challantemplate",
+        "id": 391
+    },
+    {
+        "model": "obe.dues.challantemplatedetail",
+        "id": 392
+    },
+    {
+        "model": "obe.dues.challan.transaction.log",
+        "id": 935
+    },
+    {
+        "model": "obe.dues.challantype",
+        "id": 372
+    },
+    {
+        "model": "obe.dues.customchallanhead",
+        "id": 424
+    },
+    {
+        "model": "obe.dues.dueshead",
+        "id": 364
+    },
+    {
+        "model": "obe.dues.duesheadwisecollection",
+        "id": 374
+    },
+    {
+        "model": "obe.dues.extendfeestruturedate",
+        "id": 405
+    },
+    {
+        "model": "obe.dues.fee.register",
+        "id": 1141
+    },
+    {
+        "model": "obe.dues.fee.register.data",
+        "id": 1142
+    },
+    {
+        "model": "obe.dues.fee.structure",
+        "id": 363
+    },
+    {
+        "model": "obe.dues.fee.structure.summary",
+        "id": 964
+    },
+    {
+        "model": "obe.dues.fee.temp.parentchallan",
+        "id": 965
+    },
+    {
+        "model": "obe.dues.finepercentage",
+        "id": 933
+    },
+    {
+        "model": "obe.dues.generatechallanfromtemplate",
+        "id": 393
+    },
+    {
+        "model": "obe.dues.generate.transport.challan",
+        "id": 1009
+    },
+    {
+        "model": "obe.dues.genertechallanfrombankstatement",
+        "id": 449
+    },
+    {
+        "model": "obe.dues.headcategory",
+        "id": 1770
+    },
+    {
+        "model": "obe.dues.headtype",
+        "id": 932
+    },
+    {
+        "model": "obe.dues.importadmissionchallan",
+        "id": 463
+    },
+    {
+        "model": "obe.dues.installment",
+        "id": 390
+    },
+    {
+        "model": "obe.dues.leftover.student.duedate",
+        "id": 524
+    },
+    {
+        "model": "obe.dues.log.interface",
+        "id": 588
+    },
+    {
+        "model": "obe.dues.nbl.student.loan.adjustment",
+        "id": 1140
+    },
+    {
+        "model": "obe.dues.oldstudent",
+        "id": 529
+    },
+    {
+        "model": "obe.dues.outstandingdues",
+        "id": 375
+    },
+    {
+        "model": "obe.dues.program",
+        "id": 366
+    },
+    {
+        "model": "obe.dues.publicchallan",
+        "id": 530
+    },
+    {
+        "model": "obe.dues.scholarship",
+        "id": 387
+    },
+    {
+        "model": "obe.dues.scholarshipdetails",
+        "id": 388
+    },
+    {
+        "model": "obe.dues.scholarshipdetailsinterface",
+        "id": 385
+    },
+    {
+        "model": "obe.dues.scholarshipinterface",
+        "id": 384
+    },
+    {
+        "model": "obe.dues.scholarship.log",
+        "id": 587
+    },
+    {
+        "model": "obe.dues.scholarshipname",
+        "id": 386
+    },
+    {
+        "model": "obe.dues.scholarshiptype",
+        "id": 527
+    },
+    {
+        "model": "obe.dues.segregation",
+        "id": 464
+    },
+    {
+        "model": "obe.dues.segregation_detail",
+        "id": 465
+    },
+    {
+        "model": "obe.dues.semester",
+        "id": 367
+    },
+    {
+        "model": "obe.dues.sessionloan",
+        "id": 528
+    },
+    {
+        "model": "obe.dues.sessionretention",
+        "id": 1580
+    },
+    {
+        "model": "obe.dues.studentchallanpaidstatus",
+        "id": 382
+    },
+    {
+        "model": "obe.dues.studentchallanregnowise",
+        "id": 373
+    },
+    {
+        "model": "obe.dues.studentclearence",
+        "id": 368
+    },
+    {
+        "model": "obe.dues.studentoptionalchallan",
+        "id": 395
+    },
+    {
+        "model": "obe.dues.studentrefund",
+        "id": 369
+    },
+    {
+        "model": "obe.dues.students.challan",
+        "id": 370
+    },
+    {
+        "model": "obe.dues.students.challan.detail",
+        "id": 371
+    },
+    {
+        "model": "obe.dues.students.challan.log",
+        "id": 586
+    },
+    {
+        "model": "obe.dues.studentscholarshipregnowise",
+        "id": 389
+    },
+    {
+        "model": "obe.dues.tempchallansofwronge.feestructure",
+        "id": 1006
+    },
+    {
+        "model": "obe.dues.temporary.challan.code",
+        "id": 962
+    },
+    {
+        "model": "obe.dues.totalreceivedchallan",
+        "id": 383
+    },
+    {
+        "model": "obe.dues.transportsemester",
+        "id": 400
+    },
+    {
+        "model": "obe.dues.transportstatus",
+        "id": 399
+    },
+    {
+        "model": "obe.dues.update.duedate",
+        "id": 1791
+    },
+    {
+        "model": "obe.dues.updatehostalstatus",
+        "id": 381
+    },
+    {
+        "model": "obe.dues.updatetransportstatus",
+        "id": 401
+    },
+    {
+        "model": "obe.examination.student.dmc.wizard",
+        "id": 413
+    },
+    {
+        "model": "obe.faculties",
+        "id": 1403
+    },
+    {
+        "model": "obe.faculty.login.wizard",
+        "id": 148
+    },
+    {
+        "model": "obe.faculty.profile.experience",
+        "id": 298
+    },
+    {
+        "model": "obe.faculty.profile.honors.awards",
+        "id": 291
+    },
+    {
+        "model": "obe.faculty.profile.membership",
+        "id": 292
+    },
+    {
+        "model": "obe.faculty.profile.other.accomplishment",
+        "id": 296
+    },
+    {
+        "model": "obe.faculty.profile.professional.presentation",
+        "id": 297
+    },
+    {
+        "model": "obe.faculty.profile.publications",
+        "id": 294
+    },
+    {
+        "model": "obe.faculty.profile.publications.author",
+        "id": 314
+    },
+    {
+        "model": "obe.faculty.profile.research.grant.contracts",
+        "id": 295
+    },
+    {
+        "model": "obe.faculty.profile.service.activity",
+        "id": 293
+    },
+    {
+        "model": "obe.faculty.profile.student.under.supervision",
+        "id": 299
+    },
+    {
+        "model": "obe.faculty.rank",
+        "id": 1120
+    },
+    {
+        "model": "obe.faculty.rank.config",
+        "id": 1121
+    },
+    {
+        "model": "obe.faculty.ranking.report",
+        "id": 1122
+    },
+    {
+        "model": "obe.faculty.teaching.history",
+        "id": 576
+    },
+    {
+        "model": "obe.faculty.update.login",
+        "id": 1512
+    },
+    {
+        "model": "obe.fee.delete.scholarship.detail",
+        "id": 1131
+    },
+    {
+        "model": "obe.fee.scholarship",
+        "id": 1109
+    },
+    {
+        "model": "obe.fee.scholarship.detail",
+        "id": 1110
+    },
+    {
+        "model": "obe.fee.scholarship.detail.log",
+        "id": 1138
+    },
+    {
+        "model": "obe.finalproject.clos",
+        "id": 1139
+    },
+    {
+        "model": "obe.gpa.cgpa.computation",
+        "id": 1134
+    },
+    {
+        "model": "obe.grade.book",
+        "id": 549
+    },
+    {
+        "model": "obe.grade.book.detail",
+        "id": 550
+    },
+    {
+        "model": "obe.grade.change.request",
+        "id": 1718
+    },
+    {
+        "model": "obe.grade.change.request.assessment.detail",
+        "id": 1719
+    },
+    {
+        "model": "obe.grade.change.request.log",
+        "id": 1720
+    },
+    {
+        "model": "obe.grade.change.wizard",
+        "id": 441
+    },
+    {
+        "model": "obe.hec.performa",
+        "id": 1112
+    },
+    {
+        "model": "obe.help",
+        "id": 505
+    },
+    {
+        "model": "obe.hostel.campuses",
+        "id": 1137
+    },
+    {
+        "model": "obe.hostel.challan.adjustment",
+        "id": 1136
+    },
+    {
+        "model": "obe.hostel.semester",
+        "id": 280
+    },
+    {
+        "model": "obe.hostel.student.category",
+        "id": 279
+    },
+    {
+        "model": "obe.i.grade.change.request",
+        "id": 1721
+    },
+    {
+        "model": "obe.i.grade.change.request.log",
+        "id": 1722
+    },
+    {
+        "model": "obe.learning.domain",
+        "id": 467
+    },
+    {
+        "model": "obe.learning.levels",
+        "id": 466
+    },
+    {
+        "model": "obe.manual.grading.ip.wizard",
+        "id": 573
+    },
+    {
+        "model": "obe.manual.grading.wizard",
+        "id": 337
+    },
+    {
+        "model": "obe.marit.list.interface",
+        "id": 578
+    },
+    {
+        "model": "obe.medal.campany",
+        "id": 1145
+    },
+    {
+        "model": "obe.medal.configuration",
+        "id": 1152
+    },
+    {
+        "model": "obe.medal.congfigration",
+        "id": 1147
+    },
+    {
+        "model": "obe.medal.type",
+        "id": 1146
+    },
+    {
+        "model": "obe.ms.admission.retension.fee.interface",
+        "id": 1130
+    },
+    {
+        "model": "obe.notification.comprehensive.detail",
+        "id": 1010
+    },
+    {
+        "model": "obe.notifications",
+        "id": 347
+    },
+    {
+        "model": "obe.notifications.result.wizard",
+        "id": 343
+    },
+    {
+        "model": "obe.offered_subject",
+        "id": 444
+    },
+    {
+        "model": "obe.old.notifications.wizard",
+        "id": 359
+    },
+    {
+        "model": "obe.old.scrutiny.wizard",
+        "id": 358
+    },
+    {
+        "model": "obe.old.subject",
+        "id": 514
+    },
+    {
+        "model": "obe.online.mark.sheet.status",
+        "id": 1386
+    },
+    {
+        "model": "obe.oric.report.wizard",
+        "id": 1388
+    },
+    {
+        "model": "obe.pgd.configrations",
+        "id": 1396
+    },
+    {
+        "model": "obe.pgrc.meeting.minutes",
+        "id": 1712
+    },
+    {
+        "model": "obe.planning.student.section",
+        "id": 228
+    },
+    {
+        "model": "obe.postgraduate.diploma",
+        "id": 1397
+    },
+    {
+        "model": "obe.print.degree.wizard",
+        "id": 650
+    },
+    {
+        "model": "obe.program.catalogue.wizard",
+        "id": 422
+    },
+    {
+        "model": "obe.program.degree",
+        "id": 149
+    },
+    {
+        "model": "obe.program.maxduration",
+        "id": 150
+    },
+    {
+        "model": "obe.program.minduration",
+        "id": 151
+    },
+    {
+        "model": "obe.program.peo",
+        "id": 153
+    },
+    {
+        "model": "obe.program.peo.plo",
+        "id": 154
+    },
+    {
+        "model": "obe.program.plo",
+        "id": 147
+    },
+    {
+        "model": "obe.program.postgraduate",
+        "id": 290
+    },
+    {
+        "model": "obe.publication.author",
+        "id": 1389
+    },
+    {
+        "model": "obe.publication.incentive",
+        "id": 1364
+    },
+    {
+        "model": "obe.publication.incentive.is.pending",
+        "id": 1710
+    },
+    {
+        "model": "obe.rank.config",
+        "id": 1153
+    },
+    {
+        "model": "obe.readmission",
+        "id": 1798
+    },
+    {
+        "model": "obe.readmission.reason",
+        "id": 1796
+    },
+    {
+        "model": "obe.readmission.wizard",
+        "id": 481
+    },
+    {
+        "model": "obe.registered.students.wizard",
+        "id": 493
+    },
+    {
+        "model": "obe.register.unregister.student.log",
+        "id": 510
+    },
+    {
+        "model": "obe.registration.rights",
+        "id": 653
+    },
+    {
+        "model": "obe.registration.status.wizard.data.saved",
+        "id": 459
+    },
+    {
+        "model": "obe.removegrade.log",
+        "id": 517
+    },
+    {
+        "model": "obe.removegrade.log.wizard",
+        "id": 516
+    },
+    {
+        "model": "obe.removegrade.wizard",
+        "id": 515
+    },
+    {
+        "model": "obe.report.wizard",
+        "id": 316
+    },
+    {
+        "model": "obe.research.category",
+        "id": 1366
+    },
+    {
+        "model": "obe.research.paper",
+        "id": 1365
+    },
+    {
+        "model": "obe.result",
+        "id": 1379
+    },
+    {
+        "model": "obe.result.analytics",
+        "id": 348
+    },
+    {
+        "model": "obe.result.assessment",
+        "id": 1380
+    },
+    {
+        "model": "obe.result.dmc.wizard",
+        "id": 338
+    },
+    {
+        "model": "obe.result.return.request",
+        "id": 1012
+    },
+    {
+        "model": "obe.result.return.request.log",
+        "id": 1013
+    },
+    {
+        "model": "obe.result.student",
+        "id": 1381
+    },
+    {
+        "model": "obe.result.student.detail",
+        "id": 1382
+    },
+    {
+        "model": "obe.revised.notifications",
+        "id": 353
+    },
+    {
+        "model": "obe.room.equipment",
+        "id": 160
+    },
+    {
+        "model": "obe.room.experiment.nature",
+        "id": 156
+    },
+    {
+        "model": "obe.rooms.equipmenttype",
+        "id": 161
+    },
+    {
+        "model": "obe.room.staff",
+        "id": 162
+    },
+    {
+        "model": "obe.room.staffqalification",
+        "id": 163
+    },
+    {
+        "model": "obe.room.type",
+        "id": 157
+    },
+    {
+        "model": "obe.room.workstation",
+        "id": 158
+    },
+    {
+        "model": "obe.room.workstationtype",
+        "id": 159
+    },
+    {
+        "model": "obe.save.gpa.cgpa",
+        "id": 508
+    },
+    {
+        "model": "obe.scholarship.bulk.error.log",
+        "id": 1387
+    },
+    {
+        "model": "obe.scrutineer.result.wizard",
+        "id": 342
+    },
+    {
+        "model": "obe.scrutiny",
+        "id": 345
+    },
+    {
+        "model": "obe.scrutiny.detail",
+        "id": 346
+    },
+    {
+        "model": "obe.scrutiny.report.wizard",
+        "id": 355
+    },
+    {
+        "model": "obe.section.assessment",
+        "id": 171
+    },
+    {
+        "model": "obe.section.assessment.detail",
+        "id": 173
+    },
+    {
+        "model": "obe.section.assessment.detail.clo.mapping",
+        "id": 172
+    },
+    {
+        "model": "obe.section.assessment.detail.values",
+        "id": 1377
+    },
+    {
+        "model": "obe.section.assessment.parameters.wizard",
+        "id": 442
+    },
+    {
+        "model": "obe.section.attendance",
+        "id": 286
+    },
+    {
+        "model": "obe.section.attendance.detail",
+        "id": 1600
+    },
+    {
+        "model": "obe.section.attendance.detail.wizard",
+        "id": 1599
+    },
+    {
+        "model": "obe.section.attendance.wizard",
+        "id": 1598
+    },
+    {
+        "model": "obe.section.content",
+        "id": 174
+    },
+    {
+        "model": "obe.section.grading.criteria",
+        "id": 335
+    },
+    {
+        "model": "obe.section.register.wizard",
+        "id": 397
+    },
+    {
+        "model": "obe.section.result.status",
+        "id": 352
+    },
+    {
+        "model": "obe.section.status.log",
+        "id": 523
+    },
+    {
+        "model": "obe.section.status.log.detail",
+        "id": 1004
+    },
+    {
+        "model": "obe.section.status.log.threshold.detail",
+        "id": 1005
+    },
+    {
+        "model": "obe.section.text.book",
+        "id": 506
+    },
+    {
+        "model": "obe.semester.hostel.student",
+        "id": 278
+    },
+    {
+        "model": "obe.semester.planning.wizard",
+        "id": 423
+    },
+    {
+        "model": "obe.semestersum.programcatalogue",
+        "id": 1007
+    },
+    {
+        "model": "obe.separated.student.report.wizard",
+        "id": 1158
+    },
+    {
+        "model": "obe.separation.cron.data",
+        "id": 1763
+    },
+    {
+        "model": "obe.separation.cron.wizard",
+        "id": 1762
+    },
+    {
+        "model": "obe.separation.list",
+        "id": 1392
+    },
+    {
+        "model": "obe.separation.list.report",
+        "id": 1111
+    },
+    {
+        "model": "obe.session.creditlimit",
+        "id": 581
+    },
+    {
+        "model": "obe.session.peo",
+        "id": 176
+    },
+    {
+        "model": "obe.session.peo.plo",
+        "id": 177
+    },
+    {
+        "model": "obe.session.requirement",
+        "id": 175
+    },
+    {
+        "model": "obe.session.year.amount",
+        "id": 1794
+    },
+    {
+        "model": "obe.show.log",
+        "id": 526
+    },
+    {
+        "model": "obe.show.register.unregister.log",
+        "id": 521
+    },
+    {
+        "model": "obe.status.history",
+        "id": 333
+    },
+    {
+        "model": "obe.student.admission.retension",
+        "id": 1627
+    },
+    {
+        "model": "obe.student.admission.status",
+        "id": 651
+    },
+    {
+        "model": "obe.student.cancel.wizard",
+        "id": 480
+    },
+    {
+        "model": "obe.student.clearance",
+        "id": 1086
+    },
+    {
+        "model": "obe.student.clearance.log",
+        "id": 1087
+    },
+    {
+        "model": "obe.student.degree.completion.certificate",
+        "id": 1373
+    },
+    {
+        "model": "obe.student.discount.status",
+        "id": 1793
+    },
+    {
+        "model": "obe.student.document",
+        "id": 961
+    },
+    {
+        "model": "obe.student.passed.out.report.wizard",
+        "id": 1602
+    },
+    {
+        "model": "obe.student.readmission.type",
+        "id": 988
+    },
+    {
+        "model": "obe.student.registration.status",
+        "id": 1148
+    },
+    {
+        "model": "obe.student.registration.status.wizard",
+        "id": 1149
+    },
+    {
+        "model": "obe.student.rustication",
+        "id": 1511
+    },
+    {
+        "model": "obe.student.scholarship.detail.search",
+        "id": 1125
+    },
+    {
+        "model": "obe.student.services",
+        "id": 1790
+    },
+    {
+        "model": "obe.student.services.configuration",
+        "id": 1789
+    },
+    {
+        "model": "obe.students.report.wizard",
+        "id": 415
+    },
+    {
+        "model": "obe.student.status",
+        "id": 332
+    },
+    {
+        "model": "obe.student.status.history",
+        "id": 543
+    },
+    {
+        "model": "obe.student.status.report.wizard",
+        "id": 470
+    },
+    {
+        "model": "obe.student.status.wizard",
+        "id": 450
+    },
+    {
+        "model": "obe.student.survey.status.report",
+        "id": 1127
+    },
+    {
+        "model": "obe.student.type",
+        "id": 406
+    },
+    {
+        "model": "obe.subject.content",
+        "id": 182
+    },
+    {
+        "model": "obe.subject.details.wizard",
+        "id": 468
+    },
+    {
+        "model": "obe.subject.prefix.code",
+        "id": 1113
+    },
+    {
+        "model": "obe.subject.status.report.wizard",
+        "id": 361
+    },
+    {
+        "model": "obe.subject.supervisor",
+        "id": 1115
+    },
+    {
+        "model": "obe.subject.text.book",
+        "id": 229
+    },
+    {
+        "model": "obe.subject.type",
+        "id": 1156
+    },
+    {
+        "model": "obe.summer.challan.configration",
+        "id": 1626
+    },
+    {
+        "model": "obe.survey.analytics.report",
+        "id": 1150
+    },
+    {
+        "model": "obe.survey.coordinator.wizard",
+        "id": 311
+    },
+    {
+        "model": "obe.survey.copy.wizard",
+        "id": 310
+    },
+    {
+        "model": "obe.survey.copy.wizard1",
+        "id": 936
+    },
+    {
+        "model": "obe.survey.reports.wizrd",
+        "id": 478
+    },
+    {
+        "model": "obe.survey.response.report.average.tabular",
+        "id": 1717
+    },
+    {
+        "model": "obe.survey.response.report.tabular",
+        "id": 1716
+    },
+    {
+        "model": "obe.survey.stat.report",
+        "id": 1154
+    },
+    {
+        "model": "obe.total.registered.students",
+        "id": 577
+    },
+    {
+        "model": "obe.uet.medal.configuration",
+        "id": 1151
+    },
+    {
+        "model": "obe.video.lectures",
+        "id": 1398
+    },
+    {
+        "model": "obe.voting",
+        "id": 1481
+    },
+    {
+        "model": "obe.voting.association",
+        "id": 1477
+    },
+    {
+        "model": "obe.voting.campaign",
+        "id": 1479
+    },
+    {
+        "model": "obe.voting.candidates",
+        "id": 1480
+    },
+    {
+        "model": "obe.voting.lines",
+        "id": 1482
+    },
+    {
+        "model": "obe.voting.machine",
+        "id": 1493
+    },
+    {
+        "model": "obe.voting.result",
+        "id": 1491
+    },
+    {
+        "model": "obe.voting.result.detail",
+        "id": 1492
+    },
+    {
+        "model": "obe.voting.seat",
+        "id": 1478
+    },
+    {
+        "model": "old.subjects.wizard",
+        "id": 513
+    },
+    {
+        "model": "osv_memory.autovacuum",
+        "id": 35
+    },
+    {
+        "model": "parameter.data",
+        "id": 537
+    },
+    {
+        "model": "payment.acquirer",
+        "id": 862
+    },
+    {
+        "model": "payment.transaction",
+        "id": 863
+    },
+    {
+        "model": "payment.wizard",
+        "id": 1494
+    },
+    {
+        "model": "payment.wizard.line",
+        "id": 1617
+    },
+    {
+        "model": "payslip.comparison.report.wizard",
+        "id": 1628
+    },
+    {
+        "model": "payslip.lines.contribution.register",
+        "id": 861
+    },
+    {
+        "model": "payslip.report.wizard",
+        "id": 1023
+    },
+    {
+        "model": "pd.category.others",
+        "id": 1080
+    },
+    {
+        "model": "pd.complaints",
+        "id": 1078
+    },
+    {
+        "model": "pd.complaints.close",
+        "id": 1083
+    },
+    {
+        "model": "pd.complaints.reassignment",
+        "id": 1084
+    },
+    {
+        "model": "pd.record.change",
+        "id": 1082
+    },
+    {
+        "model": "pd.stock.details",
+        "id": 1079
+    },
+    {
+        "model": "pd.work.nature",
+        "id": 1081
+    },
+    {
+        "model": "pg.auto.backup",
+        "id": 589
+    },
+    {
+        "model": "plo.transcript.wizard",
+        "id": 574
+    },
+    {
+        "model": "portal.wizard",
+        "id": 247
+    },
+    {
+        "model": "portal.wizard.user",
+        "id": 248
+    },
+    {
+        "model": "postgraduate.thesis",
+        "id": 565
+    },
+    {
+        "model": "pricelist.partnerinfo",
+        "id": 698
+    },
+    {
+        "model": "print.result.sheet.wizard",
+        "id": 1395
+    },
+    {
+        "model": "procurement.group",
+        "id": 715
+    },
+    {
+        "model": "procurement.order",
+        "id": 717
+    },
+    {
+        "model": "procurement.order.compute.all",
+        "id": 718
+    },
+    {
+        "model": "procurement.orderpoint.compute",
+        "id": 1061
+    },
+    {
+        "model": "procurement.rule",
+        "id": 716
+    },
+    {
+        "model": "product.attribute",
+        "id": 690
+    },
+    {
+        "model": "product.attribute.line",
+        "id": 693
+    },
+    {
+        "model": "product.attribute.price",
+        "id": 692
+    },
+    {
+        "model": "product.attribute.value",
+        "id": 691
+    },
+    {
+        "model": "product.category",
+        "id": 688
+    },
+    {
+        "model": "product.packaging",
+        "id": 696
+    },
+    {
+        "model": "product.price.history",
+        "id": 689
+    },
+    {
+        "model": "product.pricelist",
+        "id": 701
+    },
+    {
+        "model": "product.price_list",
+        "id": 705
+    },
+    {
+        "model": "product.pricelist.item",
+        "id": 703
+    },
+    {
+        "model": "product.pricelist.type",
+        "id": 700
+    },
+    {
+        "model": "product.pricelist.version",
+        "id": 702
+    },
+    {
+        "model": "product.price.type",
+        "id": 699
+    },
+    {
+        "model": "product.product",
+        "id": 695
+    },
+    {
+        "model": "product.putaway",
+        "id": 1053
+    },
+    {
+        "model": "product.removal",
+        "id": 1052
+    },
+    {
+        "model": "product.supplierinfo",
+        "id": 697
+    },
+    {
+        "model": "product.template",
+        "id": 694
+    },
+    {
+        "model": "product.ul",
+        "id": 687
+    },
+    {
+        "model": "product.uom",
+        "id": 686
+    },
+    {
+        "model": "product.uom.categ",
+        "id": 685
+    },
+    {
+        "model": "program.plo.domain",
+        "id": 989
+    },
+    {
+        "model": "project.account.analytic.line",
+        "id": 760
+    },
+    {
+        "model": "project.category",
+        "id": 1032
+    },
+    {
+        "model": "project.config.settings",
+        "id": 1035
+    },
+    {
+        "model": "project.constraints",
+        "id": 1725
+    },
+    {
+        "model": "project.cr.approver",
+        "id": 1731
+    },
+    {
+        "model": "project.deliverables",
+        "id": 1724
+    },
+    {
+        "model": "project.milestones",
+        "id": 1723
+    },
+    {
+        "model": "project.module",
+        "id": 1738
+    },
+    {
+        "model": "project.project",
+        "id": 1027
+    },
+    {
+        "model": "project.risk.nature",
+        "id": 1727
+    },
+    {
+        "model": "project.risk.register",
+        "id": 1726
+    },
+    {
+        "model": "project.risk.type",
+        "id": 1729
+    },
+    {
+        "model": "project.roles",
+        "id": 1728
+    },
+    {
+        "model": "project.task",
+        "id": 1028
+    },
+    {
+        "model": "project.task.delegate",
+        "id": 1034
+    },
+    {
+        "model": "project.task.history",
+        "id": 1030
+    },
+    {
+        "model": "project.task.history.cumulative",
+        "id": 1031
+    },
+    {
+        "model": "project.task.type",
+        "id": 1026
+    },
+    {
+        "model": "project.task.work",
+        "id": 1029
+    },
+    {
+        "model": "project.team",
+        "id": 1730
+    },
+    {
+        "model": "projet.requirement",
+        "id": 1732
+    },
+    {
+        "model": "projet.requirement.categ",
+        "id": 1737
+    },
+    {
+        "model": "publication.incentive.comments",
+        "id": 1367
+    },
+    {
+        "model": "publisher_warranty.contract",
+        "id": 240
+    },
+    {
+        "model": "purchase.config.settings",
+        "id": 1490
+    },
+    {
+        "model": "purchase.order",
+        "id": 1485
+    },
+    {
+        "model": "purchase.order.group",
+        "id": 1487
+    },
+    {
+        "model": "purchase.order.line",
+        "id": 1486
+    },
+    {
+        "model": "purchase.order.line_invoice",
+        "id": 1488
+    },
+    {
+        "model": "purchase.report",
+        "id": 1489
+    },
+    {
+        "model": "reg.report.parameters",
+        "id": 535
+    },
+    {
+        "model": "rejection.feedback",
+        "id": 1736
+    },
+    {
+        "model": "reject.reason.wizard",
+        "id": 1759
+    },
+    {
+        "model": "report",
+        "id": 113
+    },
+    {
+        "model": "report.abstract_report",
+        "id": 115
+    },
+    {
+        "model": "report.account_budget.report_analyticaccountbudget",
+        "id": 1413
+    },
+    {
+        "model": "report.account_budget.report_budget",
+        "id": 1414
+    },
+    {
+        "model": "report.account_budget.report_crossoveredbudget",
+        "id": 1412
+    },
+    {
+        "model": "report.account.receivable",
+        "id": 827
+    },
+    {
+        "model": "report.account.report_agedpartnerbalance",
+        "id": 824
+    },
+    {
+        "model": "report.account.report_analyticbalance",
+        "id": 751
+    },
+    {
+        "model": "report.account.report_analyticcostledger",
+        "id": 753
+    },
+    {
+        "model": "report.account.report_analyticcostledgerquantity",
+        "id": 754
+    },
+    {
+        "model": "report.account.report_analyticjournal",
+        "id": 750
+    },
+    {
+        "model": "report.account.report_centraljournal",
+        "id": 814
+    },
+    {
+        "model": "report.account.report_financial",
+        "id": 836
+    },
+    {
+        "model": "report.account.report_generaljournal",
+        "id": 815
+    },
+    {
+        "model": "report.account.report_generalledger",
+        "id": 820
+    },
+    {
+        "model": "report.account.report_invertedanalyticbalance",
+        "id": 752
+    },
+    {
+        "model": "report.account.report_journal",
+        "id": 816
+    },
+    {
+        "model": "report.account.report_overdue",
+        "id": 823
+    },
+    {
+        "model": "report.account.report_partnerbalance",
+        "id": 819
+    },
+    {
+        "model": "report.account.report_partnerledger",
+        "id": 821
+    },
+    {
+        "model": "report.account.report_partnerledgerother",
+        "id": 822
+    },
+    {
+        "model": "report.account.report_salepurchasejournal",
+        "id": 817
+    },
+    {
+        "model": "report.account.report_trialbalance",
+        "id": 818
+    },
+    {
+        "model": "report.account.report_vat",
+        "id": 825
+    },
+    {
+        "model": "report.account.sales",
+        "id": 832
+    },
+    {
+        "model": "report.account_type.sales",
+        "id": 831
+    },
+    {
+        "model": "report.aged.receivable",
+        "id": 829
+    },
+    {
+        "model": "report.enoting.enoting_report",
+        "id": 1619
+    },
+    {
+        "model": "report.hr_payroll.report_contributionregister",
+        "id": 859
+    },
+    {
+        "model": "report.hr_payroll.report_payslip",
+        "id": 857
+    },
+    {
+        "model": "report.hr_payroll.report_payslipdetails",
+        "id": 858
+    },
+    {
+        "model": "report.invoice.created",
+        "id": 830
+    },
+    {
+        "model": "report.obe_clo_attainment.report_attainment",
+        "id": 462
+    },
+    {
+        "model": "report.obe_dues_challan_tamplate.report_student_challan_from_template_view",
+        "id": 394
+    },
+    {
+        "model": "report.obe_dues_fee_structure.report_defaulter_list_view",
+        "id": 378
+    },
+    {
+        "model": "report.obe_dues_fee_structure.report_fee_structure_view",
+        "id": 379
+    },
+    {
+        "model": "report.obe_dues_fee_structure.report_head_collection_list_view",
+        "id": 377
+    },
+    {
+        "model": "report.obe_dues_fee_structure.report_student_challan_view",
+        "id": 380
+    },
+    {
+        "model": "report.obe_examination.report_comprehensive_notification",
+        "id": 1011
+    },
+    {
+        "model": "report.obe_examination.report_dmc",
+        "id": 357
+    },
+    {
+        "model": "report.obe_examination.report_equivalence",
+        "id": 398
+    },
+    {
+        "model": "report.obe_examination.report_exam_notification",
+        "id": 356
+    },
+    {
+        "model": "report.obe_examination.report_msc_dmc",
+        "id": 492
+    },
+    {
+        "model": "report.obe_examination.report_scrutiny",
+        "id": 354
+    },
+    {
+        "model": "report.obe_examination.report_scrutiny_template",
+        "id": 421
+    },
+    {
+        "model": "report.obe_examination.report_student_data",
+        "id": 425
+    },
+    {
+        "model": "report.obe_examination.report_thesis_project_notification",
+        "id": 654
+    },
+    {
+        "model": "report.obe_examination.senior_warden_report",
+        "id": 452
+    },
+    {
+        "model": "report.obe_examination.student_unofficial_dmc",
+        "id": 564
+    },
+    {
+        "model": "report.obe_examination.tamplate_merit_list",
+        "id": 579
+    },
+    {
+        "model": "report.obe_examination.unofficial_report_dmc",
+        "id": 426
+    },
+    {
+        "model": "report.obe_faculty.report_faculty_strength",
+        "id": 313
+    },
+    {
+        "model": "report.obe_faculty_resume.faculty_resume_report",
+        "id": 300
+    },
+    {
+        "model": "report.obe_planning.report_section_outline",
+        "id": 271
+    },
+    {
+        "model": "report.obe_planning.student_regist",
+        "id": 285
+    },
+    {
+        "model": "report.obe_program_peo.report_map_peo_plo_view",
+        "id": 155
+    },
+    {
+        "model": "report.obe_reports_hec.below_cgpa_report",
+        "id": 494
+    },
+    {
+        "model": "report.obe_reports_hec.curriculum_design_report",
+        "id": 319
+    },
+    {
+        "model": "report.obe_reports_hec.faculty_resume_report",
+        "id": 325
+    },
+    {
+        "model": "report.obe_reports_hec.plo_attainment_report_with_achievement",
+        "id": 477
+    },
+    {
+        "model": "report.obe_reports_hec.program_outcomes_summative_evaluation_report",
+        "id": 469
+    },
+    {
+        "model": "report.obe_reports_hec.report_attendance",
+        "id": 328
+    },
+    {
+        "model": "report.obe_reports_hec.report_attendance_less_then_75",
+        "id": 497
+    },
+    {
+        "model": "report.obe_reports_hec.report_attendance_sample",
+        "id": 360
+    },
+    {
+        "model": "report.obe_reports_hec.report_course_ass_summary",
+        "id": 495
+    },
+    {
+        "model": "report.obe_reports_hec.report_course_offering",
+        "id": 318
+    },
+    {
+        "model": "report.obe_reports_hec.report_course_view",
+        "id": 320
+    },
+    {
+        "model": "report.obe_reports_hec.report_dismissal_students",
+        "id": 483
+    },
+    {
+        "model": "report.obe_reports_hec.report_faculty_strength",
+        "id": 322
+    },
+    {
+        "model": "report.obe_reports_hec.report_faculty_workload",
+        "id": 323
+    },
+    {
+        "model": "report.obe_reports_hec.report_full_dep_fac",
+        "id": 404
+    },
+    {
+        "model": "report.obe_reports_hec.report_laboratory_workload",
+        "id": 324
+    },
+    {
+        "model": "report.obe_reports_hec.report_map_peo_plo_view",
+        "id": 321
+    },
+    {
+        "model": "report.obe_reports_hec.report_plo_attainment",
+        "id": 474
+    },
+    {
+        "model": "report.obe_reports_hec.report_plo_attainment_multi_section",
+        "id": 473
+    },
+    {
+        "model": "report.obe_reports_hec.report_prog_attainment",
+        "id": 472
+    },
+    {
+        "model": "report.obe_reports_hec.report_section_outline",
+        "id": 326
+    },
+    {
+        "model": "report.obe_reports_hec.report_session_peo_plo_map_report",
+        "id": 496
+    },
+    {
+        "model": "report.obe_reports_hec.report_student_on_probation",
+        "id": 482
+    },
+    {
+        "model": "report.obe_reports_hec.report_students_on_warning",
+        "id": 471
+    },
+    {
+        "model": "report.obe_reports_hec.report_subject_course_outline",
+        "id": 403
+    },
+    {
+        "model": "report.obe_reports_hec.report_subject_view",
+        "id": 317
+    },
+    {
+        "model": "report.obe_reports_hec.result_status_report",
+        "id": 362
+    },
+    {
+        "model": "report.obe_reports_hec.student_regist",
+        "id": 327
+    },
+    {
+        "model": "report.obe_result_analytics.report_analytics",
+        "id": 349
+    },
+    {
+        "model": "report.obe_result.report_dmc",
+        "id": 340
+    },
+    {
+        "model": "report.obe_result.report_exam_notification",
+        "id": 344
+    },
+    {
+        "model": "report.obe_result.report_scrutiny",
+        "id": 341
+    },
+    {
+        "model": "report.obe_section_attendance.report_attendance",
+        "id": 287
+    },
+    {
+        "model": "report.obe_section_attendance.report_student_attendance",
+        "id": 288
+    },
+    {
+        "model": "report.obe_section_attendance.report_student_registered_subject",
+        "id": 289
+    },
+    {
+        "model": "report.obe_student.report_clearence_form_view",
+        "id": 396
+    },
+    {
+        "model": "report.obe_studyscheme.report_course_offering",
+        "id": 179
+    },
+    {
+        "model": "report.obe_studyscheme.report_course_view",
+        "id": 180
+    },
+    {
+        "model": "report.obe_studyscheme.report_curriculum_designn",
+        "id": 181
+    },
+    {
+        "model": "report.obe_studyscheme.report_subject_view",
+        "id": 178
+    },
+    {
+        "model": "report.obe_subject.report_curriculum_designn",
+        "id": 164
+    },
+    {
+        "model": "report.obe_subject.report_tentative_weekly_plan",
+        "id": 230
+    },
+    {
+        "model": "report.obe_survey.report_course_evaluation",
+        "id": 312
+    },
+    {
+        "model": "report.obe_survey.report_faculty_rank",
+        "id": 1123
+    },
+    {
+        "model": "report.paperformat",
+        "id": 114
+    },
+    {
+        "model": "report.product.report_pricelist",
+        "id": 704
+    },
+    {
+        "model": "report.project.task.user",
+        "id": 1033
+    },
+    {
+        "model": "report.stock.lines.date",
+        "id": 1055
+    },
+    {
+        "model": "requirement.documents",
+        "id": 1733
+    },
+    {
+        "model": "res.bank",
+        "id": 80
+    },
+    {
+        "model": "res.company",
+        "id": 91
+    },
+    {
+        "model": "res.config",
+        "id": 84
+    },
+    {
+        "model": "res.config.installer",
+        "id": 85
+    },
+    {
+        "model": "res.config.settings",
+        "id": 86
+    },
+    {
+        "model": "res.country",
+        "id": 73
+    },
+    {
+        "model": "res.country.group",
+        "id": 74
+    },
+    {
+        "model": "res.country.state",
+        "id": 75
+    },
+    {
+        "model": "res.currency",
+        "id": 87
+    },
+    {
+        "model": "res.currency.rate",
+        "id": 88
+    },
+    {
+        "model": "res.font",
+        "id": 89
+    },
+    {
+        "model": "res.groups",
+        "id": 92
+    },
+    {
+        "model": "res.lang",
+        "id": 76
+    },
+    {
+        "model": "resource.calendar",
+        "id": 658
+    },
+    {
+        "model": "resource.calendar.attendance",
+        "id": 659
+    },
+    {
+        "model": "resource.calendar.leaves",
+        "id": 661
+    },
+    {
+        "model": "resource.resource",
+        "id": 660
+    },
+    {
+        "model": "res.partner",
+        "id": 79
+    },
+    {
+        "model": "res.partner.bank",
+        "id": 83
+    },
+    {
+        "model": "res.partner.bank.type",
+        "id": 81
+    },
+    {
+        "model": "res.partner.bank.type.field",
+        "id": 82
+    },
+    {
+        "model": "res.partner.category",
+        "id": 77
+    },
+    {
+        "model": "res.partner.title",
+        "id": 78
+    },
+    {
+        "model": "res.request.link",
+        "id": 96
+    },
+    {
+        "model": "res.users",
+        "id": 93
+    },
+    {
+        "model": "res.users.pass.history",
+        "id": 960
+    },
+    {
+        "model": "revise.cheques.wizard",
+        "id": 1615
+    },
+    {
+        "model": "salary.adjustment",
+        "id": 1606
+    },
+    {
+        "model": "salary.adjustment.bulk",
+        "id": 1604
+    },
+    {
+        "model": "salary.adjustment.bulk.line",
+        "id": 1605
+    },
+    {
+        "model": "salary.adjustment.line",
+        "id": 1607
+    },
+    {
+        "model": "salary.contribution.register",
+        "id": 1360
+    },
+    {
+        "model": "salary.input.adjustment",
+        "id": 974
+    },
+    {
+        "model": "salary.input.adjustment.line",
+        "id": 975
+    },
+    {
+        "model": "salary.input.adjustment.type",
+        "id": 973
+    },
+    {
+        "model": "salary.input.bpricelist",
+        "id": 976
+    },
+    {
+        "model": "salary.input.bpricelist.line",
+        "id": 977
+    },
+    {
+        "model": "salary.input.eid_advance",
+        "id": 980
+    },
+    {
+        "model": "salary.input.eid_advance.line",
+        "id": 981
+    },
+    {
+        "model": "salary.input.group_insurance",
+        "id": 978
+    },
+    {
+        "model": "salary.input.group_insurance.line",
+        "id": 979
+    },
+    {
+        "model": "salary.input.misc",
+        "id": 969
+    },
+    {
+        "model": "salary.input.npa",
+        "id": 970
+    },
+    {
+        "model": "salary.input.rtr",
+        "id": 971
+    },
+    {
+        "model": "salary.input.rtr.line",
+        "id": 972
+    },
+    {
+        "model": "salary.input.transport",
+        "id": 985
+    },
+    {
+        "model": "salary.input.transport.line",
+        "id": 986
+    },
+    {
+        "model": "salary.input.transport.type",
+        "id": 984
+    },
+    {
+        "model": "salary.tax.adjustment",
+        "id": 1352
+    },
+    {
+        "model": "salary.tax.adjustment.line",
+        "id": 1353
+    },
+    {
+        "model": "salary.transporty_type.job",
+        "id": 1020
+    },
+    {
+        "model": "salary.transporty_type.scale",
+        "id": 1019
+    },
+    {
+        "model": "sale.advance.payment.inv",
+        "id": 1073
+    },
+    {
+        "model": "sale.config.settings",
+        "id": 186
+    },
+    {
+        "model": "sale.make.invoice",
+        "id": 1071
+    },
+    {
+        "model": "sale.order",
+        "id": 1069
+    },
+    {
+        "model": "sale.order.line",
+        "id": 1070
+    },
+    {
+        "model": "sale.order.line.make.invoice",
+        "id": 1072
+    },
+    {
+        "model": "sale.receipt.report",
+        "id": 846
+    },
+    {
+        "model": "sale.report",
+        "id": 1074
+    },
+    {
+        "model": "save.cgpa.single.semester",
+        "id": 1132
+    },
+    {
+        "model": "scholarship.balance.adjustment.interface",
+        "id": 1129
+    },
+    {
+        "model": "scholarship.balance.adjustment.log",
+        "id": 1128
+    },
+    {
+        "model": "seb.start",
+        "id": 1385
+    },
+    {
+        "model": "senior.warden.notification.wizard",
+        "id": 451
+    },
+    {
+        "model": "share.wizard",
+        "id": 245
+    },
+    {
+        "model": "share.wizard.result.line",
+        "id": 246
+    },
+    {
+        "model": "sms.api.settings",
+        "id": 1077
+    },
+    {
+        "model": "stock.change.product.qty",
+        "id": 1059
+    },
+    {
+        "model": "stock.change.standard.price",
+        "id": 1065
+    },
+    {
+        "model": "stock.config.settings",
+        "id": 1064
+    },
+    {
+        "model": "stock.fixed.putaway.strat",
+        "id": 1054
+    },
+    {
+        "model": "stock.history",
+        "id": 1068
+    },
+    {
+        "model": "stock.incoterms",
+        "id": 1036
+    },
+    {
+        "model": "stock.inventory",
+        "id": 1043
+    },
+    {
+        "model": "stock.inventory.line",
+        "id": 1044
+    },
+    {
+        "model": "stock.invoice.onshipping",
+        "id": 1066
+    },
+    {
+        "model": "stock.location",
+        "id": 1037
+    },
+    {
+        "model": "stock.location.path",
+        "id": 1046
+    },
+    {
+        "model": "stock.location.route",
+        "id": 1038
+    },
+    {
+        "model": "stock.move",
+        "id": 1042
+    },
+    {
+        "model": "stock.move.operation.link",
+        "id": 1049
+    },
+    {
+        "model": "stock.move.scrap",
+        "id": 1056
+    },
+    {
+        "model": "stock.pack.operation",
+        "id": 1048
+    },
+    {
+        "model": "stock.picking",
+        "id": 1040
+    },
+    {
+        "model": "stock.picking.type",
+        "id": 1051
+    },
+    {
+        "model": "stock.production.lot",
+        "id": 1041
+    },
+    {
+        "model": "stock.quant",
+        "id": 1039
+    },
+    {
+        "model": "stock.quant.package",
+        "id": 1047
+    },
+    {
+        "model": "stock.return.picking",
+        "id": 1058
+    },
+    {
+        "model": "stock.return.picking.line",
+        "id": 1057
+    },
+    {
+        "model": "stock.transfer_details",
+        "id": 1062
+    },
+    {
+        "model": "stock.transfer_details_items",
+        "id": 1063
+    },
+    {
+        "model": "stock.warehouse",
+        "id": 1045
+    },
+    {
+        "model": "stock.warehouse.orderpoint",
+        "id": 1050
+    },
+    {
+        "model": "student.completed.subjects",
+        "id": 566
+    },
+    {
+        "model": "student.comprehensive.result",
+        "id": 567
+    },
+    {
+        "model": "student.count",
+        "id": 1788
+    },
+    {
+        "model": "student.progress.report",
+        "id": 568
+    },
+    {
+        "model": "student.semester.cgpa",
+        "id": 1133
+    },
+    {
+        "model": "subject.trasfer.wizard",
+        "id": 512
+    },
+    {
+        "model": "suigas.reading.history",
+        "id": 909
+    },
+    {
+        "model": "support.client.attachment",
+        "id": 1186
+    },
+    {
+        "model": "support.ticket.module",
+        "id": 1188
+    },
+    {
+        "model": "survey.filter.wizard",
+        "id": 1008
+    },
+    {
+        "model": "survey.label",
+        "id": 306
+    },
+    {
+        "model": "survey.mail.compose.message",
+        "id": 309
+    },
+    {
+        "model": "survey.page",
+        "id": 304
+    },
+    {
+        "model": "survey.question",
+        "id": 305
+    },
+    {
+        "model": "survey.question.catagory",
+        "id": 1715
+    },
+    {
+        "model": "survey.stage",
+        "id": 302
+    },
+    {
+        "model": "survey.submission.status.report",
+        "id": 605
+    },
+    {
+        "model": "survey.survey",
+        "id": 303
+    },
+    {
+        "model": "survey.user_input",
+        "id": 307
+    },
+    {
+        "model": "survey.user_input_line",
+        "id": 308
+    },
+    {
+        "model": "task.completion.time",
+        "id": 1189
+    },
+    {
+        "model": "tax.parameter.rule",
+        "id": 922
+    },
+    {
+        "model": "tax.slab",
+        "id": 920
+    },
+    {
+        "model": "tax.slab.line",
+        "id": 921
+    },
+    {
+        "model": "template.configuration.default",
+        "id": 525
+    },
+    {
+        "model": "temp.range",
+        "id": 828
+    },
+    {
+        "model": "temp.students",
+        "id": 987
+    },
+    {
+        "model": "thesis.approval.message.oric",
+        "id": 943
+    },
+    {
+        "model": "thesis.comments",
+        "id": 585
+    },
+    {
+        "model": "thesis.email.configuration",
+        "id": 1155
+    },
+    {
+        "model": "thesis.email.message",
+        "id": 584
+    },
+    {
+        "model": "thesis.entery",
+        "id": 604
+    },
+    {
+        "model": "thesis.publisher",
+        "id": 583
+    },
+    {
+        "model": "thesis.research.publication",
+        "id": 582
+    },
+    {
+        "model": "thesis.status",
+        "id": 939
+    },
+    {
+        "model": "thesis.wizard.message",
+        "id": 572
+    },
+    {
+        "model": "thirteen.salary.campaign",
+        "id": 1713
+    },
+    {
+        "model": "thirteen.salary.campaign.line",
+        "id": 1714
+    },
+    {
+        "model": "ticket.comments",
+        "id": 1193
+    },
+    {
+        "model": "title.summary.supervisor.log",
+        "id": 571
+    },
+    {
+        "model": "uat.process",
+        "id": 1740
+    },
+    {
+        "model": "uet.lab.info",
+        "id": 1213
+    },
+    {
+        "model": "ums.data",
+        "id": 1706
+    },
+    {
+        "model": "ums.evaluation.subordinate",
+        "id": 1208
+    },
+    {
+        "model": "ums.evaluation.subordinate.achievements",
+        "id": 1209
+    },
+    {
+        "model": "ums.evaluation.team_leads",
+        "id": 1210
+    },
+    {
+        "model": "ums.leave",
+        "id": 1200
+    },
+    {
+        "model": "ums.meeting",
+        "id": 1197
+    },
+    {
+        "model": "ums.meeting_minutes",
+        "id": 1198
+    },
+    {
+        "model": "ums.requirement.logs",
+        "id": 1201
+    },
+    {
+        "model": "ums.requirements",
+        "id": 1202
+    },
+    {
+        "model": "ums.subsection",
+        "id": 1187
+    },
+    {
+        "model": "ums.task",
+        "id": 1214
+    },
+    {
+        "model": "ums.task.discussion",
+        "id": 1215
+    },
+    {
+        "model": "ums.test.cases",
+        "id": 1207
+    },
+    {
+        "model": "ums.test.data",
+        "id": 1204
+    },
+    {
+        "model": "ums.test.environment",
+        "id": 1206
+    },
+    {
+        "model": "ums.test.procedure",
+        "id": 1203
+    },
+    {
+        "model": "ums.test.result",
+        "id": 1205
+    },
+    {
+        "model": "_unknown",
+        "id": 1
+    },
+    {
+        "model": "update.obe.result.wizard",
+        "id": 475
+    },
+    {
+        "model": "update.student.dmc",
+        "id": 1792
+    },
+    {
+        "model": "update.transport.line",
+        "id": 1711
+    },
+    {
+        "model": "user.daily.attendance",
+        "id": 1211
+    },
+    {
+        "model": "user.daily.attendance.wizard",
+        "id": 1212
+    },
+    {
+        "model": "validate.account.move",
+        "id": 801
+    },
+    {
+        "model": "validate.account.move.lines",
+        "id": 802
+    },
+    {
+        "model": "website",
+        "id": 249
+    },
+    {
+        "model": "website.config.settings",
+        "id": 268
+    },
+    {
+        "model": "website.converter.test",
+        "id": 269
+    },
+    {
+        "model": "website.converter.test.sub",
+        "id": 270
+    },
+    {
+        "model": "website.menu",
+        "id": 250
+    },
+    {
+        "model": "website.qweb",
+        "id": 252
+    },
+    {
+        "model": "website.qweb.field",
+        "id": 253
+    },
+    {
+        "model": "website.qweb.field.barcode",
+        "id": 938
+    },
+    {
+        "model": "website.qweb.field.contact",
+        "id": 266
+    },
+    {
+        "model": "website.qweb.field.date",
+        "id": 256
+    },
+    {
+        "model": "website.qweb.field.datetime",
+        "id": 257
+    },
+    {
+        "model": "website.qweb.field.duration",
+        "id": 264
+    },
+    {
+        "model": "website.qweb.field.float",
+        "id": 255
+    },
+    {
+        "model": "website.qweb.field.html",
+        "id": 261
+    },
+    {
+        "model": "website.qweb.field.image",
+        "id": 262
+    },
+    {
+        "model": "website.qweb.field.integer",
+        "id": 254
+    },
+    {
+        "model": "website.qweb.field.many2one",
+        "id": 260
+    },
+    {
+        "model": "website.qweb.field.monetary",
+        "id": 263
+    },
+    {
+        "model": "website.qweb.field.qweb",
+        "id": 267
+    },
+    {
+        "model": "website.qweb.field.relative",
+        "id": 265
+    },
+    {
+        "model": "website.qweb.field.selection",
+        "id": 259
+    },
+    {
+        "model": "website.qweb.field.text",
+        "id": 258
+    },
+    {
+        "model": "website.seo.metadata",
+        "id": 251
+    },
+    {
+        "model": "website.support.detail",
+        "id": 1191
+    },
+    {
+        "model": "website.support.help.groups",
+        "id": 1184
+    },
+    {
+        "model": "website.support.help.page",
+        "id": 1185
+    },
+    {
+        "model": "website.support.ticket",
+        "id": 1180
+    },
+    {
+        "model": "website.support.ticket.categories",
+        "id": 1182
+    },
+    {
+        "model": "website.support.ticket.detail",
+        "id": 1192
+    },
+    {
+        "model": "website.support.ticket.log",
+        "id": 1190
+    },
+    {
+        "model": "website.support.ticket.message",
+        "id": 1181
+    },
+    {
+        "model": "website.support.ticket.module.change",
+        "id": 1195
+    },
+    {
+        "model": "website.support.ticket.state.change",
+        "id": 1196
+    },
+    {
+        "model": "website.support.ticket.states",
+        "id": 1183
+    },
+    {
+        "model": "wizard.ir.model.menu.create",
+        "id": 8
+    },
+    {
+        "model": "wizard.multi.charts.accounts",
+        "id": 746
+    },
+    {
+        "model": "wizard.update.subject.in.section",
+        "id": 1662
+    },
+    {
+        "model": "wizard.valuation.history",
+        "id": 1067
+    },
+    {
+        "model": "wk.wizard.message",
+        "id": 491
+    },
+    {
+        "model": "workflow",
+        "id": 57
+    },
+    {
+        "model": "workflow.activity",
+        "id": 58
+    },
+    {
+        "model": "workflow.instance",
+        "id": 60
+    },
+    {
+        "model": "workflow.transition",
+        "id": 59
+    },
+    {
+        "model": "workflow.triggers",
+        "id": 62
+    },
+    {
+        "model": "workflow.workitem",
+        "id": 61
+    },
+    {
+        "model": "year.month.map",
+        "id": 1390
+    }
+]

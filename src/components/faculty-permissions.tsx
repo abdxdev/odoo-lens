@@ -1,19 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Faculty } from '@/types/faculty';
 import { GroupPermissionsData, GroupPermission } from '@/types/permissions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ClipboardCopy } from 'lucide-react';
+import { ClipboardCopy, Tag } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { StatusCard } from '@/components/status-card';
+import { DataTable } from '@/components/data-table';
+import { DataTableColumnHeader } from '@/components/data-table-column-header';
+import { useDataTable } from '@/hooks/use-data-table';
+import type { Column, ColumnDef, Row } from "@tanstack/react-table";
+
 import resGroupsData from '@/data/res.groups.json';
-import { 
-  PERMISSION_TYPES, 
-  PERMISSION_LABELS, 
+import {
+  PERMISSION_TYPES,
+  PERMISSION_LABELS,
   getGroupName,
   calculatePermissionSummary,
   formatPermissionText,
@@ -23,6 +28,19 @@ import {
 interface FacultyPermissionsProps {
   faculty: Faculty | null;
 }
+
+type TableDataRow = {
+  groupId: number;
+  groupName: string;
+  permissions: GroupPermission[];
+  summary: { create: number; read: number; update: number; delete: number };
+  isLoading: boolean;
+  error: string | null;
+  create: number;
+  read: number;
+  update: number;
+  delete: number;
+};
 
 export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
   const router = useRouter();
@@ -46,21 +64,21 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
         detail: { permissionsData: [], isLoading: true }
       }));
 
-      const initialData = faculty.res_group_id.map((id: number) => ({
-        groupId: id, 
-        groupName: getGroupName(id, resGroupsData), 
+      const initialData = faculty.res_group_id?.map((id: number) => ({
+        groupId: id,
+        groupName: getGroupName(id, resGroupsData),
         permissions: [],
         summary: { create: 0, read: 0, update: 0, delete: 0 },
-        isLoading: true, 
+        isLoading: true,
         error: null
-      }));
+      })) || [];
       setData(initialData);
 
-      const results = await Promise.allSettled(faculty.res_group_id.map(async (groupId: number) => {
+      const results = await Promise.allSettled(faculty.res_group_id?.map(async (groupId: number) => {
         try {
           const res = await fetch(`/api/odoo/permissions?group_id=${groupId}`);
           if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
-          
+
           const permissions: GroupPermission[] = await res.json();
           const summary = calculatePermissionSummary(permissions);
 
@@ -68,37 +86,37 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
         } catch (error) {
           return { groupId, error: error instanceof Error ? error.message : String(error) };
         }
-      }));
+      }) || []);
 
       const updatedData = initialData.map(group => {
-        const result = results.find(r => 
-          r.status === 'fulfilled' && 
-          'groupId' in r.value && 
+        const result = results.find(r =>
+          r.status === 'fulfilled' &&
+          'groupId' in r.value &&
           r.value.groupId === group.groupId
         );
-        
+
         if (result?.status === 'fulfilled') {
-          const value = result.value as any;
-          return value.error 
-            ? {...group, isLoading: false, error: value.error} 
-            : {...group, permissions: value.permissions, summary: value.summary, isLoading: false};
+          const value = result.value as { groupId: number; permissions?: GroupPermission[]; summary?: { create: number; read: number; update: number; delete: number }; error?: string };
+          return value.error
+            ? { ...group, isLoading: false, error: value.error }
+            : { ...group, permissions: value.permissions || [], summary: value.summary || { create: 0, read: 0, update: 0, delete: 0 }, isLoading: false };
         }
-        return {...group, isLoading: false, error: 'Failed to fetch'};
+        return { ...group, isLoading: false, error: 'Failed to fetch' };
       });
-      
+
       setData(updatedData);
       setIsLoading(false);
-      
+
       const analysisData = updatedData
         .filter(g => !g.isLoading && !g.error)
-        .map(({groupId, groupName, summary}) => ({
-          groupId, 
-          groupName, 
+        .map(({ groupId, groupName, summary }) => ({
+          groupId,
+          groupName,
           permissionCounts: summary
         }));
-        
+
       window.dispatchEvent(new CustomEvent('permissionsLoaded', {
-        detail: {permissionsData: analysisData, isLoading: false}
+        detail: { permissionsData: analysisData, isLoading: false }
       }));
     };
 
@@ -107,21 +125,21 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
 
   const copyPermissionsToClipboard = () => {
     if (!faculty || !data.length) return;
-    
+
     const header = `Permissions Summary for ${faculty.name} (${faculty.login || 'Not provided'})\n`;
     const divider = '═'.repeat(70) + '\n';
-    
+
     const formattedGroups = data.map(group => {
       if (group.isLoading) return `${group.groupName}: Loading...`;
       if (group.error) return `${group.groupName}: Error - ${group.error}`;
-      
+
       return formatPermissionText(group.groupName, group.summary);
     }).join('\n\n');
-    
+
     const totalCounts = calculateTotalPermissions(data);
-    
+
     const totalSummary = `\nTotal Permissions:\n` + formatPermissionText('Total', totalCounts);
-    
+
     navigator.clipboard.writeText(header + divider + formattedGroups + '\n' + divider + totalSummary)
       .then(() => {
         setCopyTooltip("Copied!");
@@ -134,45 +152,116 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       });
   };
 
-  const handleRowClick = (group: GroupPermissionsData) => {
-    if (group.isLoading || group.error) return;
-    
+  const handleRowClick = (groupId: number, groupName: string) => {
     const queryParams = new URLSearchParams({
-      groupId: group.groupId.toString(),
-      groupName: group.groupName
+      groupId: groupId.toString(),
+      groupName: groupName
     }).toString();
-    
+
     router.push(`/review-permissions?${queryParams}`);
   };
 
+  const tableData = useMemo(() => 
+    data.map(group => ({
+      ...group,
+      create: group.summary.create,
+      read: group.summary.read,
+      update: group.summary.update,
+      delete: group.summary.delete
+    })),
+  [data]);
+
+  // Define columns for the data table
+  const columns = useMemo<ColumnDef<TableDataRow>[]>(() => [
+    {
+      id: "groupName",
+      accessorKey: "groupName",
+      header: ({ column }: { column: Column<TableDataRow, unknown> }) => (
+        <DataTableColumnHeader column={column} title="Group Name" />
+      ),
+      cell: ({ row }: { row: Row<TableDataRow> }) => {
+        const group = row.original;
+        if (group.isLoading) {
+          return <Skeleton className="h-5 w-24" />;
+        }
+        return (
+          <div className="flex items-center gap-2">
+            <Tag className="h-4 w-4" />
+            <span className="font-medium">{group.groupName}</span>
+          </div>
+        );
+      },
+      meta: {
+        label: "Group Name",
+        placeholder: "Search groups...",
+        variant: "text",
+      },
+      enableColumnFilter: true,
+    },
+    ...PERMISSION_TYPES.map(type => ({
+      id: type,
+      accessorKey: type,
+      header: ({ column }: { column: Column<TableDataRow, unknown> }) => (
+        <DataTableColumnHeader column={column} title={PERMISSION_LABELS[type]} />
+      ),
+      cell: ({ row }: { row: Row<TableDataRow> }) => {
+        const group = row.original;
+        if (group.isLoading) {
+          return <Skeleton className="h-5 w-10" />;
+        }
+        if (group.error) {
+          return <span className="text-xs text-destructive">Error</span>;
+        }
+        const value = row.getValue(type) as number;
+        return (
+          <div className="text-center font-medium">{value}</div>
+        );
+      },
+      meta: {
+        label: PERMISSION_LABELS[type],
+        placeholder: "Filter...",
+        variant: "number" as const,
+      },
+      enableColumnFilter: false,
+    }))
+  ], []);
+
+  const { table } = useDataTable({
+    data: tableData,
+    columns,
+    pageCount: 1,
+    initialState: {
+      sorting: [{ id: "groupName", desc: false }],
+    },
+    getRowId: (row) => row.groupId.toString(),
+    onRowClick: (row) => {
+      if (!row.original.isLoading && !row.original.error) {
+        handleRowClick(row.original.groupId, row.original.groupName);
+      }
+    },
+  });
+
   if (!faculty) return null;
-  
+
   if (isLoading && data.every(g => g.isLoading)) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Permissions Summary</CardTitle>
-          <CardDescription>Loading permissions for {faculty.name}...</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-8 w-1/4 mb-4" />
-          <Skeleton className="h-40 w-full" />
-        </CardContent>
-      </Card>
+      <StatusCard
+        title="Permissions Summary"
+        description={`Loading permissions for ${faculty.name}...`}
+      >
+        <Skeleton className="h-40 w-full" />
+      </StatusCard>
     );
   }
-  
+
   if (!data.length && !isLoading) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Permissions Summary</CardTitle>
-          <CardDescription>No permissions data available for {faculty.name}.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>No permission groups associated with this faculty.</p>
-        </CardContent>
-      </Card>
+      <StatusCard
+        title="Permissions Summary"
+        description={`No permissions data available for ${faculty.name}.`}
+      >
+        <p>No permission groups associated with this faculty.</p>
+      </StatusCard>
     );
   }
 
@@ -184,10 +273,10 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={copyPermissionsToClipboard} 
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={copyPermissionsToClipboard}
                   disabled={isLoading || !data.length}
                 >
                   <ClipboardCopy className="h-4 w-4" />
@@ -200,42 +289,11 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
         <CardDescription>Permissions for {faculty.name}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Group Name</TableHead>
-              {PERMISSION_TYPES.map(type => (
-                <TableHead key={type} className="text-right">
-                  {PERMISSION_LABELS[type]}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((group) => (
-              <TableRow 
-                key={group.groupId} 
-                className={!group.isLoading && !group.error ? "cursor-pointer hover:bg-muted" : ""}
-                onClick={() => handleRowClick(group)}
-              >
-                <TableCell>
-                  {group.isLoading ? (
-                    <Skeleton className="h-5 w-24 inline-block" />
-                  ) : group.groupName}
-                </TableCell>
-                {PERMISSION_TYPES.map(type => (
-                  <TableCell key={`${group.groupId}-${type}`} className="text-right">
-                    {group.isLoading ? (
-                      <Skeleton className="h-5 w-10 inline-block" />
-                    ) : group.error ? (
-                      <span className="text-xs text-destructive">Error</span>
-                    ) : group.summary[type]}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <div className="data-table-container">
+          <DataTable table={table}>
+            {/* Removed DataTableToolbar to eliminate filter text boxes */}
+          </DataTable>
+        </div>
         {data.some(g => g.error) && (
           <div className="mt-4 space-y-1 text-sm text-destructive">
             {data.filter(g => g.error).map(g => (

@@ -25,6 +25,8 @@ export function DataTable<TData>({
   className,
   ...props
 }: DataTableProps<TData>) {
+  const hasRowClickHandler = Boolean((table as any).options.onRowClick);
+
   return (
     <div
       className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)}
@@ -61,6 +63,10 @@ export function DataTable<TData>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={cn(
+                    hasRowClickHandler && "hover:bg-muted cursor-pointer"
+                  )}
+                  onClick={hasRowClickHandler ? () => (table as any).options.onRowClick(row) : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

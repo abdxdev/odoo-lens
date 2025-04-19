@@ -11,6 +11,7 @@ import type { Column, ColumnDef } from "@tanstack/react-table";
 import { StatusCard } from "@/components/status-card";
 import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
+import { useRouter } from "next/navigation";
 
 export function ModelPermissionsReview({
   groupName,
@@ -18,7 +19,8 @@ export function ModelPermissionsReview({
   isLoading = false,
   error = null
 }: ModelPermissionsReviewProps) {
-  // Process permissions to ensure model_name is available
+  const router = useRouter();
+
   const processedPermissions = useMemo<ProcessedPermission[]>(() =>
     permissions.map(perm => ({
       ...perm,
@@ -28,7 +30,6 @@ export function ModelPermissionsReview({
     })),
     [permissions]);
 
-  // Factory function to create permission columns with consistent styling
   const createPermissionColumn = (
     id: string,
     title: string,
@@ -55,7 +56,6 @@ export function ModelPermissionsReview({
     enableColumnFilter: true,
   });
 
-  // Define columns using permission constants
   const columns = useMemo<ColumnDef<ProcessedPermission>[]>(
     () => [
       {
@@ -86,6 +86,15 @@ export function ModelPermissionsReview({
     []
   );
 
+  const handleRowClick = (model: ProcessedPermission) => {
+    const queryParams = new URLSearchParams({
+      modelId: model.model_id.toString(),
+      modelName: model.model_name
+    }).toString();
+
+    router.push(`/explore-model?${queryParams}`);
+  };
+
   const { table } = useDataTable({
     data: processedPermissions,
     columns,
@@ -94,6 +103,9 @@ export function ModelPermissionsReview({
       sorting: [{ id: "model_name", desc: false }],
     },
     getRowId: (row) => row.id.toString(),
+    onRowClick: (row) => {
+      handleRowClick(row.original);
+    },
   });
 
   if (isLoading) {

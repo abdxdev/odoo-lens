@@ -62,6 +62,7 @@ interface UseDataTableProps<TData>
   scroll?: boolean;
   shallow?: boolean;
   startTransition?: React.TransitionStartFunction;
+  onRowClick?: (row: any) => void;
 }
 
 export function useDataTable<TData>(props: UseDataTableProps<TData>) {
@@ -77,6 +78,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     scroll = false,
     shallow = true,
     startTransition,
+    onRowClick,
     ...tableProps
   } = props;
 
@@ -263,6 +265,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     columns,
     initialState,
     pageCount,
+    onRowClick,
     state: {
       pagination,
       sorting,
