@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PermissionSummary } from '@/types/permissions';
 
@@ -23,6 +23,7 @@ export function PermissionsAIAnalysis({
 }: PermissionsAIAnalysisProps) {
   const [analysis, setAnalysis] = useState<string>('');
   const [riskLevel, setRiskLevel] = useState<'low' | 'medium' | 'high' | null>(null);
+  const [highRiskGroups, setHighRiskGroups] = useState<string[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,11 +47,7 @@ export function PermissionsAIAnalysis({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          groupPermissionsData,
-          formatOptions: {
-            concise: true,
-            avoidMarkdown: true
-          }
+          groupPermissionsData
         }),
       });
 
@@ -62,6 +59,7 @@ export function PermissionsAIAnalysis({
       const data = await response.json();
       setAnalysis(data.analysis);
       setRiskLevel(data.riskLevel);
+      setHighRiskGroups(data.highRiskGroups || []);
     } catch (err) {
       console.error('Error analyzing permissions:', err);
       setError(err instanceof Error ? err.message : 'Failed to analyze permissions');
@@ -73,52 +71,67 @@ export function PermissionsAIAnalysis({
   const getRiskBadge = () => {
     if (!riskLevel) return null;
 
-    const bgColor = {
-      low: 'bg-green-100 text-green-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      high: 'bg-red-100 text-red-800'
+    const badgeClasses = {
+      low: 'bg-success/10 text-success',
+      medium: 'bg-warning/10 text-warning',
+      high: 'bg-destructive/10 text-destructive'
     }[riskLevel];
 
     return (
-      <span className={`px-2 py-1 rounded text-xs font-medium uppercase ${bgColor}`}>
-        {riskLevel} risk
-      </span>
+      <div className="flex flex-col items-end">
+        <span className={`px-2 py-1 rounded text-xs font-medium uppercase ${badgeClasses}`}>
+          {riskLevel} risk
+        </span>
+      </div>
     );
   };
 
   return (
-    <div className="h-full flex flex-col">
-      <Card className="flex-1 flex flex-col overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>AI Security Analysis</CardTitle>
+    <Card>
+      <CardHeader>
+        <div className="flex flex-row justify-between">
+          <CardTitle>AI Analysis</CardTitle>
           {getRiskBadge()}
-        </CardHeader>
-        <CardContent className="flex-1 overflow-auto">
-          {isLoading || isAnalyzing ? (
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-3/4" />
-              <Skeleton className="h-4 w-5/6" />
-              <Skeleton className="h-4 w-2/3" />
-              <Skeleton className="h-4 w-4/5" />
-              <Skeleton className="h-4 w-3/4" />
-              <p className="text-sm text-muted-foreground mt-4">
-                {isLoading ? "Waiting for permissions data..." : "Analyzing permissions with Gemini AI..."}
-              </p>
-            </div>
-          ) : error ? (
-            <div className="text-red-500">
-              <p>Error: {error}</p>
-              <p className="text-sm mt-2">Please check your Gemini API configuration.</p>
-            </div>
-          ) : groupPermissionsData.length === 0 ? (
-            <p>No permission data available for analysis.</p>
-          ) : (
-            <div className="text-sm">
-              <div className="whitespace-pre-line">{analysis}</div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+        <CardDescription>
+          Analyze the permissions and identify potential risks.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1 overflow-auto">
+        {isLoading || isAnalyzing ? (
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-4 w-2/3" />
+            <Skeleton className="h-4 w-4/5" />
+            <Skeleton className="h-4 w-3/4" />
+            <p className="text-sm text-muted-foreground mt-4">
+              {isLoading ? "Waiting for permissions data..." : "Analyzing permissions with Gemini AI..."}
+            </p>
+          </div>
+        ) : error ? (
+          <div className="text-destructive">
+            <p>Error: {error}</p>
+            <p className="text-sm mt-2">Please check your Gemini API configuration.</p>
+          </div>
+        ) : groupPermissionsData.length === 0 ? (
+          <p>No permission data available for analysis.</p>
+        ) : (
+          <div className="text-sm">
+            {highRiskGroups.length > 0 && (
+              <div className="mb-4 p-3 rounded bg-destructive/10 text-destructive">
+                <p className="font-medium mb-1">High Risk Groups:</p>
+                <ul className="list-disc list-inside">
+                  {highRiskGroups.map((group, index) => (
+                    <li key={index}>{group}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div className="whitespace-pre-line">{analysis}</div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }

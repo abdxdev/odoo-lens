@@ -5,29 +5,33 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import { 
-  RadarChart, 
+import {
+  RadarChart,
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
-  Legend,
   ResponsiveContainer
 } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PermissionSummary } from "@/types/permissions";
+
+interface GroupPermissionData {
+  groupId: number;
+  groupName: string;
+  permissionCounts: PermissionSummary;
+}
 
 interface ChartComponentProps {
-  permissionsData: any[];
+  permissionsData: GroupPermissionData[];
 }
 
 export function ChartComponent({ permissionsData }: ChartComponentProps) {
-  // Process data for the chart
   const chartData = React.useMemo(() => {
     if (!permissionsData || permissionsData.length === 0) {
       return [];
     }
 
-    // Transform the data to show each permission type for each group
     const permTypes = ["create", "read", "update", "delete"];
     const permLabels = {
       create: "Create",
@@ -37,17 +41,16 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
     };
 
     return permTypes.map(type => {
-      const dataPoint = {
+      const dataPoint: Record<string, string | number> = {
         subject: permLabels[type as keyof typeof permLabels],
       };
 
-      // Add each group's value for this permission type
       permissionsData.forEach(group => {
         const counts = group.permissionCounts || {};
-        const shortName = group.groupName.length > 10 
-          ? `${group.groupName.substring(0, 10)}...` 
+        const shortName = group.groupName.length > 10
+          ? `${group.groupName.substring(0, 10)}...`
           : group.groupName;
-          
+
         dataPoint[shortName] = counts[type as keyof typeof counts] || 0;
         dataPoint[`${shortName}-fullName`] = group.groupName;
       });
@@ -56,28 +59,33 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
     });
   }, [permissionsData]);
 
-  // Create chart config with colors for each group
   const chartConfig = React.useMemo(() => {
     if (!permissionsData || permissionsData.length === 0) {
       return {};
     }
 
-    const config: Record<string, any> = {};
-    
-    // Generate colors for each group
+    const config: Record<string, { label: string; color: string }> = {};
+
+    const themeColors = [
+      'var(--chart-1)',
+      'var(--chart-2)',
+      'var(--chart-3)',
+      'var(--chart-4)',
+      'var(--chart-5)'
+    ];
+
     permissionsData.forEach((group, index) => {
-      const shortName = group.groupName.length > 10 
-        ? `${group.groupName.substring(0, 10)}...` 
+      const shortName = group.groupName.length > 10
+        ? `${group.groupName.substring(0, 10)}...`
         : group.groupName;
-        
-      // Create different hues for different groups
-      const hue = (index * 137) % 360; // Golden ratio to spread colors nicely
+
+      const colorIndex = index % themeColors.length;
       config[shortName] = {
         label: shortName,
-        color: `hsl(${hue}, 70%, 50%)`,
+        color: themeColors[colorIndex],
       };
     });
-    
+
     return config;
   }, [permissionsData]);
 
@@ -87,7 +95,7 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
         <CardHeader>
           <CardTitle>Permission Distribution</CardTitle>
         </CardHeader>
-        <CardContent className="h-[250px] flex items-center justify-center text-muted-foreground">
+        <CardContent className="flex items-center justify-center text-muted-foreground">
           No permission data available
         </CardContent>
       </Card>
@@ -95,87 +103,81 @@ export function ChartComponent({ permissionsData }: ChartComponentProps) {
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader className="pb-2">
+    <Card>
+      <CardHeader>
         <CardTitle>Permission Distribution</CardTitle>
+        <CardDescription>
+          Visualize the distribution of permissions across different groups.
+        </CardDescription>
       </CardHeader>
-      <CardContent className="p-2 sm:p-6">
-        <div className="h-[300px] w-full mx-auto">
-          <ChartContainer config={chartConfig}>
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart 
-                data={chartData}
-                margin={{ top: 10, right: 10, bottom: 20, left: 10 }}
-                cx="50%" 
-                cy="50%"
-              >
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis />
-                
-                {/* Create a Radar for each group */}
-                {permissionsData.map((group, index) => {
-                  const shortName = group.groupName.length > 10 
-                    ? `${group.groupName.substring(0, 10)}...` 
-                    : group.groupName;
-                    
-                  // Create different hues for different groups
-                  const hue = (index * 137) % 360; // Golden ratio to spread colors nicely
-                  const color = `hsl(${hue}, 70%, 50%)`;
-                  
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer width="50%" height="50%">
+            <RadarChart
+              data={chartData}
+              margin={{ top: 5, right: 10, bottom: 5, left: 10 }}
+              cx="50%"
+              cy="50%"
+            >
+              <PolarGrid />
+              <PolarAngleAxis dataKey="subject" />
+              <PolarRadiusAxis />
+
+              {/* Create a Radar for each group */}
+              {permissionsData.map((group, index) => {
+                const shortName = group.groupName.length > 10
+                  ? `${group.groupName.substring(0, 10)}...`
+                  : group.groupName;
+
+                const colorIndex = index % 5 + 1;
+                const color = `var(--chart-${colorIndex})`;
+
+                return (
+                  <Radar
+                    key={shortName}
+                    name={shortName}
+                    dataKey={shortName}
+                    stroke={color}
+                    fill={color}
+                    fillOpacity={0.3}
+                    angleAxisId={0}
+                  />
+                );
+              })}
+
+              <ChartTooltip
+                content={(props) => {
+                  if (!props.active || !props.payload || !props.payload.length) {
+                    return null;
+                  }
+
                   return (
-                    <Radar 
-                      key={shortName}
-                      name={shortName} 
-                      dataKey={shortName} 
-                      stroke={color}
-                      fill={color}
-                      fillOpacity={0.3} 
-                    />
-                  );
-                })}
-                
-                <ChartTooltip
-                  content={(props) => {
-                    if (!props.active || !props.payload || !props.payload.length) {
-                      return null;
-                    }
-                    
-                    return (
-                      <div className="bg-background rounded-lg border p-2 text-sm shadow-lg">
-                        <div className="font-medium">{props.label}</div>
-                        <div className="mt-1 space-y-1">
-                          {props.payload.map((entry) => {
-                            const dataKey = entry.dataKey;
-                            // Find the full name from the data
-                            const fullName = props.payload[0].payload[`${dataKey}-fullName`] || dataKey;
-                            
-                            return (
-                              <div key={entry.dataKey} className="flex items-center gap-2">
-                                <div 
-                                  className="h-2.5 w-2.5 rounded-full" 
-                                  style={{ backgroundColor: entry.color }}
-                                />
-                                <span className="text-muted-foreground">{fullName}:</span>
-                                <span className="font-mono font-medium">{entry.value}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
+                    <div className="bg-background rounded-lg border p-2 text-sm shadow-lg">
+                      <div className="font-medium">{props.label}</div>
+                      <div className="mt-1 space-y-1">
+                        {props.payload.map((entry) => {
+                          const dataKey = entry.dataKey;
+                          const fullName = props.payload?.[0]?.payload?.[`${dataKey}-fullName`] ?? dataKey;
+
+                          return (
+                            <div key={entry.dataKey} className="flex items-center gap-2">
+                              <div
+                                className="h-2.5 w-2.5 rounded-full"
+                                style={{ backgroundColor: entry.color }}
+                              />
+                              <span className="text-muted-foreground">{fullName}:</span>
+                              <span className="font-mono font-medium">{entry.value}</span>
+                            </div>
+                          );
+                        })}
                       </div>
-                    );
-                  }}
-                />
-                <Legend 
-                  layout="horizontal" 
-                  verticalAlign="bottom" 
-                  align="center"
-                  wrapperStyle={{ fontSize: '0.75rem', paddingTop: '5px' }}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </div>
+                    </div>
+                  );
+                }}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );

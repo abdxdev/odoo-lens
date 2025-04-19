@@ -1,6 +1,5 @@
 "use client";
 
-import { DataTableDemo } from "@/components/example-employee-table";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AppSidebar } from "@/components/app-sidebar"
 import {
@@ -34,21 +33,17 @@ export default function Home() {
     setSelectedFaculty(faculty);
   };
 
-  // This effect listens for permission data to be available for the AI analysis sidebar
   useEffect(() => {
-    // This will be updated by a custom event emitted from the FacultyPermissions component
     const handlePermissionsLoaded = (event: CustomEvent) => {
       const { permissionsData, isLoading } = event.detail;
       setGroupPermissionsData(permissionsData || []);
       setIsLoadingPermissions(isLoading);
     };
 
-    // Add event listener
-    window.addEventListener('permissionsLoaded' as any, handlePermissionsLoaded as EventListener);
+    window.addEventListener('permissionsLoaded', handlePermissionsLoaded as EventListener);
 
-    // Clean up
     return () => {
-      window.removeEventListener('permissionsLoaded' as any, handlePermissionsLoaded as EventListener);
+      window.removeEventListener('permissionsLoaded', handlePermissionsLoaded as EventListener);
     };
   }, []);
 
@@ -79,8 +74,8 @@ export default function Home() {
           <div className="hidden md:block" />
           <ThemeToggle />
         </header>
-        <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
-          {/* Upper section with expanded SearchFaculty and FacultyDetails */}
+        <main className="flex-1 flex-col space-y-6 p-6 2xl:mx-40">
+
           <div className="grid grid-cols-1 gap-6 w-full">
             <div className="w-full">
               <SearchFaculty onSelectFaculty={handleSelectFaculty} />
@@ -93,26 +88,27 @@ export default function Home() {
             )}
           </div>
 
-          {/* Lower section with permissions and data table */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Main content area - takes up 2/3 of the space on large screens */}
             <div className="lg:col-span-2 space-y-6">
               {selectedFaculty && (
                 <FacultyPermissions faculty={selectedFaculty} />
               )}
-              
-              {/* Chart component - placed inside the left column */}
+
               {selectedFaculty && (
                 <ChartComponent permissionsData={groupPermissionsData} />
               )}
             </div>
 
-            <PermissionsAIAnalysis
-              groupPermissionsData={groupPermissionsData}
-              isLoading={isLoadingPermissions}
-            />
+            {selectedFaculty && (
+              <PermissionsAIAnalysis
+                groupPermissionsData={groupPermissionsData}
+                isLoading={isLoadingPermissions}
+              />
+            )}
           </div>
-        </div>
+          {/* <DataTableDemo/> */}
+
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { HEADERS, ODOO_URL } from '@/lib/constants'; // Import HEADERS and ODOO_URL
+import { HEADERS, ODOO_URL } from '@/lib/constants';
 
-// Helper function to generate random numbers for request IDs that works in both Node.js and browser contexts
+
 const generateRandomId = (): number => {
   return Math.floor(Math.random() * 900000000) + 100000000;
 };
 
 export async function GET(request: NextRequest) {
   try {
-    // Get the query parameter from the URL
+
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('query') || '';
     const limit = parseInt(searchParams.get('limit') || '10');
 
-    // Get session ID from environment variable
+
     const sessionId = process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
 
     if (!sessionId) {
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Create the payload for the request
+
     const payload = {
       "jsonrpc": "2.0",
       "method": "call",
@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
           "id",
           "name",
           "department_id",
+          "campus_id",
           "joining_date",
           "identification_id",
           "login",
@@ -49,11 +50,11 @@ export async function GET(request: NextRequest) {
       "id": generateRandomId(),
     };
 
-    // Make the API call with cookie header using imported HEADERS
-    const response = await fetch(`${ODOO_URL}/web/dataset/search_read`, { // Use ODOO_URL
+
+    const response = await fetch(`${ODOO_URL}/web/dataset/search_read`, {
       method: "POST",
       headers: {
-        ...HEADERS, // Use imported HEADERS
+        ...HEADERS,
         "Cookie": `session_id=${sessionId}`
       },
       body: JSON.stringify(payload),
@@ -68,7 +69,7 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json();
 
-    // Return the faculty records
+
     return NextResponse.json(data.result?.records || []);
   } catch (error) {
     console.error("Error fetching faculty data:", error);
