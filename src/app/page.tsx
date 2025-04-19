@@ -98,7 +98,7 @@ export default function Home() {
         transition={{ duration: 0.7, delay: 0.3 }}
         className="mt-12"
       >
-        <Card className="bg-transparent text-center border-0">
+        <Card className="bg-transparent text-center border-0 shadow-none">
           <CardHeader>
             <CardTitle>About Odoo Lens</CardTitle>
             <CardDescription>

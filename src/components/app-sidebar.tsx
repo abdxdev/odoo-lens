@@ -14,7 +14,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarHeader,
 } from "@/components/ui/sidebar"
+import { OdooLensLogo } from "@/components/ui/odoo-lens-logo"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -46,10 +48,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
+        <SidebarHeader className="flex justify-start p-4">
+          <Link href="/">
+            <OdooLensLogo className="w-32 text-foreground" />
+          </Link>
+        </SidebarHeader>
+
         {navItems.map((item) => (
           <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupLabel>Get Started</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items.map((item) => (
