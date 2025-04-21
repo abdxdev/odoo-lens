@@ -62,7 +62,7 @@ export default function Home() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-6"
+        className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-6"
       >
         <FeatureCard
           title="Search Faculty"
@@ -107,12 +107,7 @@ export default function Home() {
       >
         <div className="text-center">
           <div>
-            <h2 className="text-lg font-bold">About Odoo Lens</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              <br />
-              Your powerful tool for Odoo ERP management and analysis
-              <br />
-              <br />
+            <p className="text-muted-foreground max-w-2xl mx-auto my-30">
               Odoo Lens provides comprehensive visibility into your Odoo ERP system&apos;s permission structure and faculty management. Our application helps administrators and managers gain insights, optimize access controls, and efficiently manage user roles.
             </p>
           </div>
