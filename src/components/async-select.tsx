@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export interface Option {
+interface Option {
   value: string;
   label: string;
   disabled?: boolean;
@@ -26,7 +26,7 @@ export interface Option {
   icon?: React.ReactNode;
 }
 
-export interface AsyncSelectProps<T> {
+interface AsyncSelectProps<T> {
   /** Async function to fetch options */
   fetcher: (query?: string) => Promise<T[]>;
   /** Preload all data ahead of time */

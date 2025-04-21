@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Route segment naming map for breadcrumb display
  */
-export const routeSegmentMap: Record<string, string> = {
+const routeSegmentMap: Record<string, string> = {
   '': 'Odoo Lens',
   'review-permissions': 'Review Permissions',
   // Add other special cases as needed

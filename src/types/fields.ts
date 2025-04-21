@@ -16,45 +16,6 @@ export interface FieldSummary {
   delete: number;
 }
 
-export interface ModelFieldData {
-  modelId: number;
-  modelName: string;
-  fieldCounts: FieldSummary;
-}
-
-export interface ModelFieldsData {
-  modelId: number;
-  modelName: string;
-  fields: ModelField[];
-  summary: FieldSummary;
-  isLoading: boolean;
-  error: string | null;
-}
-
-export interface ProcessedField extends ModelField {
-  model_name: string;
-}
-
-export interface ModelFieldsReviewProps {
-  modelId?: number;
-  modelName?: string;
-  fields?: ModelField[];
-  isLoading?: boolean;
-  error?: string | null;
-}
-
-export interface StatusCardProps {
-  title: React.ReactNode;
-  description: React.ReactNode;
-  children: React.ReactNode;
-}
-
-export interface FieldAnalysisData {
-  modelId: number;
-  modelName: string;
-  fieldCounts: FieldSummary;
-}
-
 export interface ModelFields {
   string: string;
   type: string;
