@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Combobox, ComboboxOption } from '@/components/ui/combobox';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { getTableFields } from '@/lib/fields';
 import allTablesData from "@/data/all_tables.json";
 
@@ -25,9 +26,7 @@ export function DataQueryForm({ onSubmitQuery }: DataQueryFormProps) {
   const [filterValue, setFilterValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
-
     const options: ComboboxOption[] = allTablesData.map((model) => ({
       value: model.id.toString(),
       label: model.model
@@ -35,7 +34,6 @@ export function DataQueryForm({ onSubmitQuery }: DataQueryFormProps) {
 
     setModelOptions(options);
   }, []);
-
 
   useEffect(() => {
     if (!selectedModel) {
@@ -168,23 +166,31 @@ export function DataQueryForm({ onSubmitQuery }: DataQueryFormProps) {
                     </Button>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  {Object.entries(availableFields).map(([fieldName, field]) => (
-                    <div key={fieldName} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={fieldName}
-                        checked={selectedFields.includes(fieldName)}
-                        onCheckedChange={() => handleFieldToggle(fieldName)}
-                      />
-                      <label
-                        htmlFor={fieldName}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                      >
-                        {field.string || fieldName} ({field.type}{field.required ? ", required" : ""})
-                      </label>
-                    </div>
-                  ))}
-                </div>
+                <ScrollArea className="h-[300px] border rounded-md p-2">
+                  <div className="space-y-2">
+                    {Object.entries(availableFields).map(([fieldName, field]) => (
+                      <div key={fieldName} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={fieldName}
+                          checked={selectedFields.includes(fieldName)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedFields(prev => [...prev, fieldName]);
+                            } else {
+                              setSelectedFields(prev => prev.filter(f => f !== fieldName));
+                            }
+                          }}
+                        />
+                        <label
+                          htmlFor={fieldName}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                        >
+                          {field.string || fieldName} ({field.type}{field.required ? ", required" : ""})
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
               </div>
 
               <div className="space-y-2">

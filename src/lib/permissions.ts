@@ -13,7 +13,7 @@ export const PERMISSION_LABELS: Record<string, string> = {
 /**
  * Get a group name from its ID using the res.groups.json data
  */
-export function getGroupName(id: number, groupsData: any[]): string {
+export function getGroupName(id: number, groupsData: Record<string, any>[]): string {
   return groupsData.find(g => g.id === id)?.full_name || `Group ID: ${id}`;
 }
 
@@ -54,4 +54,13 @@ export function calculateTotalPermissions(groups: { summary: PermissionSummary, 
   }, { create: 0, read: 0, update: 0, delete: 0 } as PermissionSummary);
   
   return totalCounts;
+}
+
+/**
+ * Fetch role permissions data for a specific group
+ */
+export async function getGroupPermissions(id: number): Promise<any> {
+  const res = await fetch(`/api/odoo/review-permissions?group_id=${id}`);
+  if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
+  return await res.json();
 }

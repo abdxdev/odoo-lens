@@ -13,8 +13,8 @@ import {
   getFilteredRowModel,
 } from '@tanstack/react-table';
 
-interface ModelDataReviewProps<TData, TValue> {
-
+interface CombinedTableProps<TData, TValue> {
+  type: "model-fields" | "role-permissions" | "data-query" | "faculty-permissions";
   title: string;
   description?: string;
   data: TData[] | Record<string, any>;
@@ -23,19 +23,16 @@ interface ModelDataReviewProps<TData, TValue> {
   emptyTitle?: string;
   emptyDescription?: string;
   emptyMessage?: string;
-
-
   processData: (data: TData[] | Record<string, any>) => any[];
-
-
   columns: ColumnDef<any, TValue>[];
   defaultColumns?: ColumnDef<any, TValue>[];
-
-
   pageSize?: number;
+  onRowClick?: (row: any) => void;
+  customActions?: React.ReactNode;
 }
 
-export function ModelDataReview<TData, TValue>({
+export function CombinedTable<TData, TValue>({
+  type,
   title,
   description,
   data,
@@ -48,10 +45,11 @@ export function ModelDataReview<TData, TValue>({
   columns,
   defaultColumns,
   pageSize = 10,
-}: ModelDataReviewProps<TData, TValue>) {
+  onRowClick,
+  customActions,
+}: CombinedTableProps<TData, TValue>) {
 
   const processedData = useMemo(() => processData(data), [data, processData]);
-
 
   const finalDefaultColumns = defaultColumns || [{
     id: 'empty',
@@ -60,8 +58,7 @@ export function ModelDataReview<TData, TValue>({
     accessorKey: 'empty',
   }] as ColumnDef<any, TValue>[];
 
-
-  const table = useReactTable({
+  const tableOptions: any = {
     data: processedData,
     columns: processedData.length > 0 ? columns : finalDefaultColumns,
     getCoreRowModel: getCoreRowModel(),
@@ -73,8 +70,13 @@ export function ModelDataReview<TData, TValue>({
         pageSize,
       },
     },
-  });
+  };
 
+  if (onRowClick) {
+    tableOptions.onRowClick = onRowClick;
+  }
+
+  const table = useReactTable(tableOptions);
 
   if (isLoading) {
     return (
@@ -87,7 +89,6 @@ export function ModelDataReview<TData, TValue>({
     );
   }
 
-
   if (error) {
     return (
       <StatusCard
@@ -98,7 +99,6 @@ export function ModelDataReview<TData, TValue>({
       </StatusCard>
     );
   }
-
 
   if (processedData.length === 0 && !isLoading) {
     return (
@@ -111,11 +111,11 @@ export function ModelDataReview<TData, TValue>({
     );
   }
 
-
   return (
     <StatusCard
       title={title}
       description={description || `Showing ${processedData.length} items`}
+      actions={customActions}
     >
       <div className="data-table-container">
         <DataTable table={table} />

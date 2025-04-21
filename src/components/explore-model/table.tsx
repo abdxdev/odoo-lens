@@ -5,7 +5,7 @@ import { ModelFields } from "@/types/fields";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { ModelDataReview } from "@/components/data-query/table";
+import { CombinedTable } from "@/components/shared/combined-table";
 
 interface ModelFieldsReviewProps {
   modelId: number;
@@ -97,7 +97,11 @@ export function ModelFieldsReview({
   ], []);
 
   // Process function to transform the data
-  const processFields = (fieldsData: Record<string, ModelFields>) => {
+  const processFields = (fieldsData: Record<string, ModelFields> | null) => {
+    if (!fieldsData) {
+      return [];
+    }
+    
     return Object.entries(fieldsData).map(([fieldName, fieldData]) => ({
       id: fieldName,
       name: fieldName,
@@ -118,7 +122,8 @@ export function ModelFieldsReview({
   }];
 
   return (
-    <ModelDataReview
+    <CombinedTable
+      type="model-fields"
       title={`${modelName} Fields`}
       description={`Fields for model ${modelName}`}
       data={fields}

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Faculty } from '@/types/faculty';
 
-export async function searchFaculty(query: string = "", limit: number = 10): Promise<Faculty[]> {
+async function searchFaculty(query: string = "", limit: number = 10): Promise<Faculty[]> {
   if (!query.trim()) {
     return [];
   }

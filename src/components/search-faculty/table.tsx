@@ -4,16 +4,15 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Faculty } from '@/types/faculty';
 import { GroupPermissionsData, GroupPermission } from '@/types/permissions';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ClipboardCopy, Tag } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatusCard } from '@/components/status-card';
-import { DataTable } from '@/components/data-table';
-import { DataTableColumnHeader } from '@/components/data-table-column-header';
-import { useDataTable } from '@/hooks/use-data-table';
-import type { Column, ColumnDef, Row } from "@tanstack/react-table";
+import { CombinedTable } from '@/components/shared/combined-table';
+import {
+  ColumnDef,
+} from '@tanstack/react-table';
 
 import resGroupsData from '@/data/res.groups.json';
 import {
@@ -152,13 +151,18 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       });
   };
 
-  const handleRowClick = (groupId: number, groupName: string) => {
-    const queryParams = new URLSearchParams({
-      groupId: groupId.toString(),
-      groupName: groupName
-    }).toString();
+  const handleRowClick = (row: any) => {
+    if (!row.original.isLoading && !row.original.error) {
+      const groupId = row.original.groupId;
+      const groupName = row.original.groupName;
+      
+      const queryParams = new URLSearchParams({
+        groupId: groupId.toString(),
+        groupName: groupName
+      }).toString();
 
-    router.push(`/review-permissions?${queryParams}`);
+      router.push(`/review-permissions?${queryParams}`);
+    }
   };
 
   const tableData = useMemo(() => 
@@ -171,15 +175,12 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
     })),
   [data]);
 
-  // Define columns for the data table
+  // Define columns for the data table - simplified version
   const columns = useMemo<ColumnDef<TableDataRow>[]>(() => [
     {
-      id: "groupName",
       accessorKey: "groupName",
-      header: ({ column }: { column: Column<TableDataRow, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Group Name" />
-      ),
-      cell: ({ row }: { row: Row<TableDataRow> }) => {
+      header: "Group Name",
+      cell: ({ row }) => {
         const group = row.original;
         if (group.isLoading) {
           return <Skeleton className="h-5 w-24" />;
@@ -190,21 +191,12 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
             <span className="font-medium">{group.groupName}</span>
           </div>
         );
-      },
-      meta: {
-        label: "Group Name",
-        placeholder: "Search groups...",
-        variant: "text",
-      },
-      enableColumnFilter: true,
+      }
     },
     ...PERMISSION_TYPES.map(type => ({
-      id: type,
       accessorKey: type,
-      header: ({ column }: { column: Column<TableDataRow, unknown> }) => (
-        <DataTableColumnHeader column={column} title={PERMISSION_LABELS[type]} />
-      ),
-      cell: ({ row }: { row: Row<TableDataRow> }) => {
+      header: PERMISSION_LABELS[type],
+      cell: ({ row }) => {
         const group = row.original;
         if (group.isLoading) {
           return <Skeleton className="h-5 w-10" />;
@@ -216,30 +208,35 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
         return (
           <div className="text-center font-medium">{value}</div>
         );
-      },
-      meta: {
-        label: PERMISSION_LABELS[type],
-        placeholder: "Filter...",
-        variant: "number" as const,
-      },
-      enableColumnFilter: false,
+      }
     }))
   ], []);
 
-  const { table } = useDataTable({
-    data: tableData,
-    columns,
-    pageCount: 1,
-    initialState: {
-      sorting: [{ id: "groupName", desc: false }],
-    },
-    getRowId: (row) => row.groupId.toString(),
-    onRowClick: (row) => {
-      if (!row.original.isLoading && !row.original.error) {
-        handleRowClick(row.original.groupId, row.original.groupName);
-      }
-    },
-  });
+  const defaultColumns: ColumnDef<TableDataRow>[] = [
+    {
+      accessorKey: "empty",
+      header: "No Data",
+      cell: () => "No data available"
+    }
+  ];
+
+  const copyButton = (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={copyPermissionsToClipboard}
+            disabled={isLoading || !data.length}
+          >
+            <ClipboardCopy className="h-4 w-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent><p>{copyTooltip}</p></TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
 
   if (!faculty) return null;
 
@@ -266,42 +263,22 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-row justify-between items-center">
-          <CardTitle>Permissions Summary</CardTitle>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={copyPermissionsToClipboard}
-                  disabled={isLoading || !data.length}
-                >
-                  <ClipboardCopy className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent><p>{copyTooltip}</p></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-        <CardDescription>Permissions for {faculty.name}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="data-table-container">
-          <DataTable table={table}>
-            {/* Removed DataTableToolbar to eliminate filter text boxes */}
-          </DataTable>
-        </div>
-        {data.some(g => g.error) && (
-          <div className="mt-4 space-y-1 text-sm text-destructive">
-            {data.filter(g => g.error).map(g => (
-              <p key={g.groupId}>Error loading {g.groupName}: {g.error}</p>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <CombinedTable
+      type="faculty-permissions"
+      title="Permissions Summary"
+      description={`Permissions for ${faculty.name}`}
+      data={tableData}
+      isLoading={isLoading}
+      error={null}
+      emptyTitle="No Permissions Data"
+      emptyDescription={`No permissions data available for ${faculty.name}.`}
+      emptyMessage="No permission groups associated with this faculty."
+      processData={(data) => Array.isArray(data) ? data : []}
+      columns={columns}
+      defaultColumns={defaultColumns}
+      pageSize={10}
+      onRowClick={handleRowClick}
+      customActions={copyButton}
+    />
   );
 }

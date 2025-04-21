@@ -6,7 +6,7 @@ import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
 import { useRouter } from "next/navigation";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { ModelDataReview } from "@/components/data-query/table";
+import { CombinedTable } from "@/components/shared/combined-table";
 
 export function ModelPermissionsReview({
   groupName,
@@ -22,19 +22,10 @@ export function ModelPermissionsReview({
     columnHelper.accessor("model_name", {
       header: "Model Name",
       cell: info => (
-        <button
-          onClick={() => {
-            const modelId = Array.isArray(info.row.original.model_id)
-              ? info.row.original.model_id[0]
-              : info.row.original.model_id;
-            const modelName = info.getValue();
-            router.push(`/explore-model?modelId=${modelId}&modelName=${modelName}`);
-          }}
-          className="flex items-center gap-2 text-primary hover:underline"
-        >
+        <div className="flex items-center gap-2">
           <Database className="h-4 w-4" />
           <span className="font-medium">{info.getValue()}</span>
-        </button>
+        </div>
       ),
     }),
     columnHelper.accessor("perm_create", {
@@ -88,7 +79,11 @@ export function ModelPermissionsReview({
   ], [router]);
 
   // Process function to transform the data
-  const processPermissions = (permissionsData: any[]) => {
+  const processPermissions = (permissionsData: any[] | null) => {
+    if (!permissionsData || !Array.isArray(permissionsData)) {
+      return [];
+    }
+    
     return permissionsData.map(perm => ({
       ...perm,
       model_name: Array.isArray(perm.model_id) ?
@@ -104,9 +99,19 @@ export function ModelPermissionsReview({
     cell: () => 'No data available',
     accessorKey: 'empty',
   }];
+  
+  // Handle row click to navigate to the explore model page
+  const handleRowClick = (row: any) => {
+    const modelId = Array.isArray(row.original.model_id)
+      ? row.original.model_id[0]
+      : row.original.model_id;
+    const modelName = row.original.model_name;
+    router.push(`/explore-model?modelId=${modelId}&modelName=${modelName}`);
+  };
 
   return (
-    <ModelDataReview
+    <CombinedTable
+      type="role-permissions"
       title={`Model Permissions ${groupName ? `for ${groupName}` : ''}`}
       description="Detailed view of permission settings by model"
       data={permissions}
@@ -119,6 +124,7 @@ export function ModelPermissionsReview({
       columns={columns}
       defaultColumns={defaultColumns}
       pageSize={10}
+      onRowClick={handleRowClick}
     />
   );
 }
