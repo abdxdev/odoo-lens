@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { ModelPermissionsReviewProps, ProcessedPermission } from "@/types/permissions";
+import { GroupPermissionsData, ProcessedPermission } from "@/types/permissions";
 import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
 import { useRouter } from "next/navigation";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { CombinedTable } from "@/components/shared/combined-table";
+import { CombinedTable } from "@/components/shared/table";
 
 export function ModelPermissionsReview({
   groupName,
   permissions = [],
   isLoading = false,
   error = null
-}: ModelPermissionsReviewProps) {
+}: GroupPermissionsData) {
   const router = useRouter();
   const columnHelper = createColumnHelper<ProcessedPermission>();
 

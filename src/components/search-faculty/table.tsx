@@ -9,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { ClipboardCopy, Tag } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatusCard } from '@/components/status-card';
-import { CombinedTable } from '@/components/shared/combined-table';
+import { CombinedTable } from '@/components/shared/table';
 import {
   ColumnDef,
 } from '@tanstack/react-table';

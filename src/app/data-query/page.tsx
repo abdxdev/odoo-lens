@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { DataQueryForm } from "@/components/data-query/search";
+import { DataQueryForm } from "@/components/data-query/form";
 import { DataTable } from "@/components/data-table";
 import { DataQueryParams, DataQueryResult } from "@/types/data-query";
 import { executeDataQuery } from "@/lib/data-query";

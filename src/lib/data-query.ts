@@ -1,5 +1,3 @@
-
-
 import { DataQueryParams, DataQueryResult } from "@/types/data-query";
 
 

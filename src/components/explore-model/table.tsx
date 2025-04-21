@@ -1,11 +1,22 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { ModelFields } from "@/types/fields";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { CombinedTable } from "@/components/shared/combined-table";
+import { CombinedTable } from "@/components/shared/table";
+
+export interface ModelFields {
+  string: string;
+  type: string;
+  required: boolean;
+  readonly: boolean;
+  relation?: string;
+  selection?: [string, string][];
+  company_dependent?: boolean;
+  domain?: string[];
+  context?: Record<string, any>;
+}
 
 interface ModelFieldsReviewProps {
   modelId: number;
@@ -101,7 +112,7 @@ export function ModelFieldsReview({
     if (!fieldsData) {
       return [];
     }
-    
+
     return Object.entries(fieldsData).map(([fieldName, fieldData]) => ({
       id: fieldName,
       name: fieldName,

@@ -1,12 +1,3 @@
-export interface ModelField {
-  name: string;
-  string: string;
-  type: string;
-  required: boolean;
-  readonly: boolean;
-  relation?: string;
-}
-
 export interface DataQueryResult {
   records: any[];
   length: number;

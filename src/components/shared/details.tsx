@@ -4,7 +4,7 @@ import React from "react";
 import { Database, Shield } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { SearchType } from "./combined-search";
+import { SearchType } from "./search";
 
 interface SelectedItem {
   id: number;

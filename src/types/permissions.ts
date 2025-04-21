@@ -17,12 +17,6 @@ export interface PermissionSummary {
   delete: number;
 }
 
-export interface GroupPermissionData {
-  groupId: number;
-  groupName: string;
-  permissionCounts: PermissionSummary;
-}
-
 export interface GroupPermissionsData {
   groupId: number;
   groupName: string;
@@ -34,20 +28,6 @@ export interface GroupPermissionsData {
 
 export interface ProcessedPermission extends GroupPermission {
   model_name: string;
-}
-
-export interface ModelPermissionsReviewProps {
-  groupId?: number;
-  groupName?: string;
-  permissions?: GroupPermission[];
-  isLoading?: boolean;
-  error?: string | null;
-}
-
-export interface StatusCardProps {
-  title: React.ReactNode;
-  description: React.ReactNode;
-  children: React.ReactNode;
 }
 
 export interface PermissionAnalysisData {

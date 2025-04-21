@@ -30,4 +30,3 @@ export function getCommonPinningStyles<TData>({
     zIndex: isPinned ? 1 : 0,
   };
 }
-

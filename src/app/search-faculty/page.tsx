@@ -4,7 +4,7 @@ import { SearchFaculty } from "@/components/search-faculty/search"
 import { FacultyDetails } from "@/components/search-faculty/details"
 import { FacultyPermissions } from "@/components/search-faculty/table";
 import { PermissionsAIAnalysis } from "@/components/search-faculty/ai-analysis";
-import { ChartComponent } from "@/components/chart-component";
+import { ChartComponent } from "@/components/search-faculty/chart";
 import { useState, useEffect } from "react"
 import { Faculty } from "@/types/faculty"
 import { motion } from "framer-motion";

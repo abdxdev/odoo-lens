@@ -14,13 +14,12 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { GroupPermissionData, PermissionSummary } from "@/types/permissions";
+import { PermissionAnalysisData, PermissionSummary } from "@/types/permissions";
 
 interface ChartComponentProps {
-  permissionsData: GroupPermissionData[];
+  permissionsData: PermissionAnalysisData[];
 }
 
-// Permission type labels
 const PERMISSION_LABELS = {
   create: "Create",
   read: "Read (View)",

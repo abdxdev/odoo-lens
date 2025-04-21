@@ -2,8 +2,8 @@
 
 import { useState, useEffect, ReactNode } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { CombinedSearch, SearchType } from "@/components/shared/combined-search";
-import { CombinedDetails } from "@/components/shared/combined-details";
+import { CombinedSearch, SearchType } from "@/components/shared/search";
+import { CombinedDetails } from "@/components/shared/details";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 

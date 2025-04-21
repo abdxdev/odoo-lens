@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ModelField, DataQueryParams } from '@/types/data-query';
+import { DataQueryParams } from '@/types/data-query';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,15 @@ import allTablesData from "@/data/all_tables.json";
 
 interface DataQueryFormProps {
   onSubmitQuery: (queryParams: DataQueryParams) => void;
+}
+
+interface ModelField {
+  name: string;
+  string: string;
+  type: string;
+  required: boolean;
+  readonly: boolean;
+  relation?: string;
 }
 
 export function DataQueryForm({ onSubmitQuery }: DataQueryFormProps) {

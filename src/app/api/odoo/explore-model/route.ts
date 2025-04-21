@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ODOO_URL, HEADERS } from '@/lib/constants';
+import { HEADERS } from '@/lib/constants';
 
 // Helper function to generate a random number (similar to Python's random_number)
 const getRandomNumber = (digits: number): number => {
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   };
 
   try {
-    const response = await fetch(`${ODOO_URL}/web/dataset/call_kw`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ODOO_URL}/web/dataset/call_kw`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(payload),

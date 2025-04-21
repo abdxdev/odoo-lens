@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ODOO_URL, HEADERS } from '@/lib/constants';
+import { HEADERS } from '@/lib/constants';
 
 const generateRandomId = (digits: number): number => {
   const min = Math.pow(10, digits - 1);
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     };
 
 
-    const response = await fetch(`${ODOO_URL}/web/dataset/search_read`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ODOO_URL}/web/dataset/search_read`, {
       method: "POST",
       headers: {
         ...HEADERS,

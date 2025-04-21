@@ -2,9 +2,8 @@
 
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { StatusCardProps } from "@/types/permissions";
 
-export function StatusCard({ title, description, children }: StatusCardProps) {
+export function StatusCard({ title, description, children }: { title: React.ReactNode; description: React.ReactNode; children: React.ReactNode; }) {
   return (
     <Card>
       <CardHeader>
