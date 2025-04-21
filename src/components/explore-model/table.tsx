@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 import { CombinedTable } from "@/components/shared/table";
 
-export interface ModelFields {
+interface ModelFields {
   string: string;
   type: string;
   required: boolean;

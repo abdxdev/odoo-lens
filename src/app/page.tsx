@@ -27,6 +27,7 @@ interface FeatureCardProps {
   icon: string;
   link: string;
   buttonText: string;
+  className?: string;
 }
 
 interface FeatureBoxProps {
@@ -61,7 +62,7 @@ export default function Home() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-6"
       >
         <FeatureCard
           title="Search Faculty"
@@ -86,6 +87,15 @@ export default function Home() {
           link="/explore-model"
           buttonText="Discover"
         />
+
+        <FeatureCard
+          title="Data Query"
+          description="Run customized queries to extract specific data from your Odoo instance"
+          icon="/file.svg"
+          link="/data-query"
+          buttonText="Query Data"
+          className="md:col-span-2 lg:col-span-1"
+        />
       </motion.section>
 
       {/* About Section */}
@@ -106,36 +116,15 @@ export default function Home() {
               Odoo Lens provides comprehensive visibility into your Odoo ERP system&apos;s permission structure and faculty management. Our application helps administrators and managers gain insights, optimize access controls, and efficiently manage user roles.
             </p>
           </div>
-          <div className="space-y-4">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6"
-            >
-              <FeatureBox
-                title="Permission Analysis"
-                description="Visualize and understand complex permission structures with intuitive interfaces."
-              />
-              <FeatureBox
-                title="Faculty Management"
-                description="Easily search and manage faculty profiles and their associated access rights."
-              />
-              <FeatureBox
-                title="Model Exploration"
-                description="Explore and understand Odoo data models and their relationships for better system comprehension."
-              />
-            </motion.div>
-          </div>
         </div>
       </motion.section>
     </motion.main>
   );
 }
 
-function FeatureCard({ title, description, icon, link, buttonText }: FeatureCardProps) {
+function FeatureCard({ title, description, icon, link, buttonText, className }: FeatureCardProps) {
   return (
-    <motion.div variants={item}>
+    <motion.div variants={item} className={className}>
       <Card className="h-full transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]">
         <CardHeader>
           <div className="flex justify-center mb-4">
@@ -153,27 +142,10 @@ function FeatureCard({ title, description, icon, link, buttonText }: FeatureCard
             {description}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex justify-center">
+        <CardContent className="flex justify-center h-full items-end">
           <Button asChild>
             <Link href={link}>{buttonText}</Link>
           </Button>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-}
-
-function FeatureBox({ title, description }: FeatureBoxProps) {
-  return (
-    <motion.div variants={item}>
-      <Card className="h-full transition-all duration-300 hover:shadow-md hover:translate-y-[-3px] hover:bg-primary/5">
-        <CardHeader>
-          <h3 className="font-medium">{title}</h3>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground">
-            {description}
-          </p>
         </CardContent>
       </Card>
     </motion.div>
