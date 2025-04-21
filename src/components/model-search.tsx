@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { AsyncSelect } from "@/components/async-select";
+import React, { useState, useEffect } from "react";
+import { Combobox, ComboboxOption } from "@/components/ui/combobox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import allTablesData from "@/data/all_tables.json";
 
@@ -9,26 +9,19 @@ interface ModelSearchProps {
   onSelectModel: (model: { id: number; name: string }) => void;
 }
 
-interface Model {
-  id: number;
-  model: string;
-}
-
 export function ModelSearch({ onSelectModel }: ModelSearchProps) {
   const [selectedModelId, setSelectedModelId] = useState<string>("");
-  const modelsDataRef = useRef<Record<string, Model>>({});
-
-  const fetchModels = async (query: string = ""): Promise<Model[]> => {
-    const filteredModels = allTablesData.filter((model) => 
-      !query || model.model.toLowerCase().includes(query.toLowerCase())
-    );
+  const [modelOptions, setModelOptions] = useState<ComboboxOption[]>([]);
+  
+  useEffect(() => {
+    // Transform data into combobox options format
+    const options: ComboboxOption[] = allTablesData.map((model) => ({
+      value: model.id.toString(),
+      label: model.model
+    }));
     
-    filteredModels.forEach(model => {
-      modelsDataRef.current[model.id.toString()] = model;
-    });
-    
-    return filteredModels;
-  };
+    setModelOptions(options);
+  }, []);
 
   const handleModelChange = (modelId: string) => {
     setSelectedModelId(modelId);
@@ -37,12 +30,12 @@ export function ModelSearch({ onSelectModel }: ModelSearchProps) {
       return;
     }
 
-    const selected = modelsDataRef.current[modelId];
+    const selectedModel = allTablesData.find(model => model.id.toString() === modelId);
 
-    if (selected) {
+    if (selectedModel) {
       onSelectModel({
-        id: selected.id,
-        name: selected.model
+        id: selectedModel.id,
+        name: selectedModel.model
       });
     }
   };
@@ -56,30 +49,13 @@ export function ModelSearch({ onSelectModel }: ModelSearchProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
-        <AsyncSelect<Model>
-          fetcher={fetchModels}
-          preload={true}
-          filterFn={(model, query) => model.model.toLowerCase().includes(query.toLowerCase())}
-          renderOption={(model) => (
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col">
-                <div className="font-medium">{model.model}</div>
-              </div>
-            </div>
-          )}
-          getOptionValue={(model) => model.id.toString()}
-          getDisplayValue={(model) => (
-            <div className="flex items-center gap-2 text-left">
-              <div className="flex flex-col leading-tight">
-                <div className="font-medium">{model.model}</div>
-              </div>
-            </div>
-          )}
-          notFound={<div className="py-6 text-center text-sm">No models found</div>}
-          label="Models"
-          placeholder="Search models..."
+        <Combobox
+          options={modelOptions}
           value={selectedModelId}
           onChange={handleModelChange}
+          placeholder="Search models..."
+          emptyText="No models found"
+          label="Models"
           width="100%"
           triggerClassName="h-10 text-base"
         />

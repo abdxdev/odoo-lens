@@ -1,17 +1,12 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { DataTable } from "@/components/data-table";
-import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { ModelPermissionsReviewProps, ProcessedPermission } from "@/types/permissions";
-import { DataTableToolbar } from "@/components/data-table-toolbar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useDataTable } from "@/hooks/use-data-table";
-import type { Column, ColumnDef } from "@tanstack/react-table";
-import { StatusCard } from "@/components/status-card";
 import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
 import { useRouter } from "next/navigation";
+import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
+import { ModelDataReview } from "@/components/model-data-review";
 
 export function ModelPermissionsReview({
   groupName,
@@ -20,145 +15,110 @@ export function ModelPermissionsReview({
   error = null
 }: ModelPermissionsReviewProps) {
   const router = useRouter();
+  const columnHelper = createColumnHelper<ProcessedPermission>();
 
-  const processedPermissions = useMemo<ProcessedPermission[]>(() =>
-    permissions.map(perm => ({
+  // Define the columns for the permissions table
+  const columns = useMemo(() => [
+    columnHelper.accessor("model_name", {
+      header: "Model Name",
+      cell: info => (
+        <button
+          onClick={() => {
+            const modelId = Array.isArray(info.row.original.model_id)
+              ? info.row.original.model_id[0]
+              : info.row.original.model_id;
+            const modelName = info.getValue();
+            router.push(`/explore-model?modelId=${modelId}&modelName=${modelName}`);
+          }}
+          className="flex items-center gap-2 text-primary hover:underline"
+        >
+          <Database className="h-4 w-4" />
+          <span className="font-medium">{info.getValue()}</span>
+        </button>
+      ),
+    }),
+    columnHelper.accessor("perm_create", {
+      header: PERMISSION_LABELS.create,
+      cell: info => (
+        <div className="flex justify-center">
+          {info.getValue() ? (
+            <Check className="h-5 w-5 text-success" />
+          ) : (
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+    }),
+    columnHelper.accessor("perm_read", {
+      header: PERMISSION_LABELS.read,
+      cell: info => (
+        <div className="flex justify-center">
+          {info.getValue() ? (
+            <Check className="h-5 w-5 text-success" />
+          ) : (
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+    }),
+    columnHelper.accessor("perm_write", {
+      header: PERMISSION_LABELS.update,
+      cell: info => (
+        <div className="flex justify-center">
+          {info.getValue() ? (
+            <Check className="h-5 w-5 text-success" />
+          ) : (
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+    }),
+    columnHelper.accessor("perm_unlink", {
+      header: PERMISSION_LABELS.delete,
+      cell: info => (
+        <div className="flex justify-center">
+          {info.getValue() ? (
+            <Check className="h-5 w-5 text-success" />
+          ) : (
+            <X className="h-5 w-5 text-muted-foreground" />
+          )}
+        </div>
+      ),
+    }),
+  ], [router]);
+
+  // Process function to transform the data
+  const processPermissions = (permissionsData: any[]) => {
+    return permissionsData.map(perm => ({
       ...perm,
       model_name: Array.isArray(perm.model_id) ?
         perm.model_id[1] as string :
         perm.model_name || 'Unknown Model'
-    })),
-    [permissions]);
-
-  const createPermissionColumn = (
-    id: string,
-    title: string,
-  ): ColumnDef<ProcessedPermission> => ({
-    id,
-    accessorKey: id,
-    header: ({ column }: { column: Column<ProcessedPermission, unknown> }) => (
-      <DataTableColumnHeader column={column} title={title} />
-    ),
-    cell: ({ cell }) => (
-      <div className="flex justify-center">
-        {cell.getValue<boolean>() ? (
-          <Check className="h-5 w-5 text-success" />
-        ) : (
-          <X className="h-5 w-5 text-muted-foreground" />
-        )}
-      </div>
-    ),
-    meta: {
-      label: title,
-      placeholder: "Filter...",
-      variant: "boolean",
-    },
-    enableColumnFilter: true,
-  });
-
-  const columns = useMemo<ColumnDef<ProcessedPermission>[]>(
-    () => [
-      {
-        id: "model_name",
-        accessorFn: (row) => row.model_name,
-        header: ({ column }: { column: Column<ProcessedPermission, unknown> }) => (
-          <DataTableColumnHeader column={column} title="Model Name" />
-        ),
-        cell: ({ row }) => (
-          <button
-            onClick={() => {
-              const modelName = Array.isArray(row.original.model_id) 
-                ? row.original.model_id[0] 
-                : row.original.model_name;
-              router.push(`/explore-model?model=${modelName}`);
-            }}
-            className="flex items-center gap-2 text-primary hover:underline"
-          >
-            <Database className="h-4 w-4" />
-            <span className="font-medium">{row.getValue("model_name")}</span>
-          </button>
-        ),
-        meta: {
-          label: "Model Name",
-          placeholder: "Search models...",
-          variant: "text",
-          icon: Database,
-        },
-        enableColumnFilter: true,
-      },
-      createPermissionColumn("perm_create", PERMISSION_LABELS.create),
-      createPermissionColumn("perm_read", PERMISSION_LABELS.read),
-      createPermissionColumn("perm_write", PERMISSION_LABELS.update),
-      createPermissionColumn("perm_unlink", PERMISSION_LABELS.delete)
-    ],
-    [router]
-  );
-
-  const handleRowClick = (model: ProcessedPermission) => {
-    const queryParams = new URLSearchParams({
-      modelId: model.model_id.toString(),
-      modelName: model.model_name
-    }).toString();
-
-    router.push(`/explore-model?${queryParams}`);
+    }));
   };
 
-  const { table } = useDataTable({
-    data: processedPermissions,
-    columns,
-    pageCount: 1,
-    initialState: {
-      sorting: [{ id: "model_name", desc: false }],
-    },
-    getRowId: (row) => row.id.toString(),
-    onRowClick: (row) => {
-      handleRowClick(row.original);
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <StatusCard
-        title={<Skeleton className="h-8 w-1/3" />}
-        description={<Skeleton className="h-4 w-1/2" />}
-      >
-        <Skeleton className="h-64 w-full" />
-      </StatusCard>
-    );
-  }
-
-  if (error) {
-    return (
-      <StatusCard
-        title="Error Loading Permissions"
-        description="Failed to load permissions data"
-      >
-        <div className="text-destructive">{error}</div>
-      </StatusCard>
-    );
-  }
-
-  if (!permissions.length) {
-    return (
-      <StatusCard
-        title="No Permissions Data"
-        description={groupName ? `No permissions data available for ${groupName}` : 'Select a group to view permissions'}
-      >
-        <p>No permission data available to display.</p>
-      </StatusCard>
-    );
-  }
+  // Default empty column
+  const defaultColumns: ColumnDef<ProcessedPermission>[] = [{
+    id: 'empty',
+    header: 'No Data',
+    cell: () => 'No data available',
+    accessorKey: 'empty',
+  }];
 
   return (
-    <StatusCard
+    <ModelDataReview
       title={`Model Permissions ${groupName ? `for ${groupName}` : ''}`}
       description="Detailed view of permission settings by model"
-    >
-      <div className="data-table-container">
-        <DataTable table={table}>
-          <DataTableToolbar table={table} />
-        </DataTable>
-      </div>
-    </StatusCard>
+      data={permissions}
+      isLoading={isLoading}
+      error={error}
+      emptyTitle="No Permissions Data"
+      emptyDescription={groupName ? `No permissions data available for ${groupName}` : 'Select a group to view permissions'}
+      emptyMessage="No permission data available to display."
+      processData={processPermissions}
+      columns={columns}
+      defaultColumns={defaultColumns}
+      pageSize={10}
+    />
   );
 }

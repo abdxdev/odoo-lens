@@ -1,16 +1,11 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { DataTable } from "@/components/data-table";
-import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { ModelFields } from "@/types/fields";
-import { DataTableToolbar } from "@/components/data-table-toolbar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useDataTable } from "@/hooks/use-data-table";
-import type { Column, ColumnDef } from "@tanstack/react-table";
-import { StatusCard } from "@/components/status-card";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
+import { ModelDataReview } from "@/components/model-data-review";
 
 interface ModelFieldsReviewProps {
   modelId: number;
@@ -36,75 +31,35 @@ export function ModelFieldsReview({
   isLoading = false,
   error = null
 }: ModelFieldsReviewProps) {
-  const processedFields = useMemo<ProcessedField[]>(() => {
-    return Object.entries(fields).map(([fieldName, fieldData]) => ({
-      id: fieldName,
-      name: fieldName,
-      type: fieldData.type || 'unknown',
-      label: fieldData.string || fieldName,
-      required: fieldData.required || false,
-      readonly: fieldData.readonly || false,
-      relation: fieldData.relation,
-    }));
-  }, [fields]);
+  const columnHelper = createColumnHelper<ProcessedField>();
 
-  const columns = useMemo<ColumnDef<ProcessedField>[]>(() => [
-    {
-      id: "name",
-      accessorKey: "name",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Field Name" />
-      ),
-      cell: ({ row }) => (
+  // Define the columns for the fields table
+  const columns = useMemo(() => [
+    columnHelper.accessor("name", {
+      header: "Field Name",
+      cell: info => (
         <div className="flex items-center gap-2">
           <Database className="h-4 w-4 text-muted-foreground" />
-          <span className="font-medium">{row.getValue("name")}</span>
+          <span className="font-medium">{info.getValue()}</span>
         </div>
       ),
-      meta: {
-        label: "Field Name",
-        placeholder: "Search fields...",
-        variant: "text",
-        icon: Database,
-      },
-      enableColumnFilter: true,
-    },
-    {
-      id: "label",
-      accessorKey: "label",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Label" />
+    }),
+    columnHelper.accessor("label", {
+      header: "Label",
+      cell: info => <span>{info.getValue()}</span>,
+    }),
+    columnHelper.accessor("type", {
+      header: "Type",
+      cell: info => (
+        <Badge variant="outline" className="lowercase">
+          {info.getValue()}
+        </Badge>
       ),
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <span>{row.getValue("label")}</span>
-        </div>
-      ),
-      enableColumnFilter: false,
-    },
-    {
-      id: "type",
-      accessorKey: "type",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Type" />
-      ),
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="lowercase">
-            {row.getValue("type")}
-          </Badge>
-        </div>
-      ),
-      enableColumnFilter: false,
-    },
-    {
-      id: "relation",
-      accessorKey: "relation",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Relation" />
-      ),
-      cell: ({ row }) => {
-        const relation = row.original.relation;
+    }),
+    columnHelper.accessor("relation", {
+      header: "Relation",
+      cell: info => {
+        const relation = info.getValue();
         return relation ? (
           <div className="flex items-center gap-2">
             <LinkIcon className="h-4 w-4 text-muted-foreground" />
@@ -114,97 +69,68 @@ export function ModelFieldsReview({
           <div className="text-muted-foreground">-</div>
         );
       },
-      enableColumnFilter: false,
-    },
-    {
-      id: "required",
-      accessorKey: "required",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Required" />
-      ),
-      cell: ({ cell }) => (
+    }),
+    columnHelper.accessor("required", {
+      header: "Required",
+      cell: info => (
         <div className="flex justify-center">
-          {cell.getValue<boolean>() ? (
+          {info.getValue() ? (
             <Check className="h-5 w-5 text-success" />
           ) : (
             <X className="h-5 w-5 text-muted-foreground" />
           )}
         </div>
       ),
-      enableColumnFilter: false,
-    },
-    {
-      id: "readonly",
-      accessorKey: "readonly",
-      header: ({ column }: { column: Column<ProcessedField, unknown> }) => (
-        <DataTableColumnHeader column={column} title="Read Only" />
-      ),
-      cell: ({ cell }) => (
+    }),
+    columnHelper.accessor("readonly", {
+      header: "Read Only",
+      cell: info => (
         <div className="flex justify-center">
-          {cell.getValue<boolean>() ? (
+          {info.getValue() ? (
             <Check className="h-5 w-5 text-success" />
           ) : (
             <X className="h-5 w-5 text-muted-foreground" />
           )}
         </div>
       ),
-      enableColumnFilter: false,
-    },
+    }),
   ], []);
 
-  const { table } = useDataTable({
-    data: processedFields,
-    columns,
-    pageCount: 1,
-    initialState: {
-      sorting: [{ id: "name", desc: false }],
-    },
-    getRowId: (row) => row.id.toString(),
-  });
+  // Process function to transform the data
+  const processFields = (fieldsData: Record<string, ModelFields>) => {
+    return Object.entries(fieldsData).map(([fieldName, fieldData]) => ({
+      id: fieldName,
+      name: fieldName,
+      type: fieldData.type || 'unknown',
+      label: fieldData.string || fieldName,
+      required: fieldData.required || false,
+      readonly: fieldData.readonly || false,
+      relation: fieldData.relation,
+    }));
+  };
 
-  if (isLoading) {
-    return (
-      <StatusCard
-        title={<Skeleton className="h-8 w-1/3" />}
-        description={<Skeleton className="h-4 w-1/2" />}
-      >
-        <Skeleton className="h-64 w-full" />
-      </StatusCard>
-    );
-  }
-
-  if (error) {
-    return (
-      <StatusCard
-        title="Error Loading Fields"
-        description="There was an error loading the model fields."
-      >
-        <div className="text-destructive">{error}</div>
-      </StatusCard>
-    );
-  }
-
-  if (processedFields.length === 0 && !isLoading) {
-    return (
-      <StatusCard
-        title="No Fields Found"
-        description="No fields were found for this model."
-      >
-        <div>Try selecting a different model or checking your connection.</div>
-      </StatusCard>
-    );
-  }
+  // Default empty column
+  const defaultColumns: ColumnDef<ProcessedField>[] = [{
+    id: 'empty',
+    header: 'No Data',
+    cell: () => 'No data available',
+    accessorKey: 'empty',
+  }];
 
   return (
-    <StatusCard
+    <ModelDataReview
       title={`${modelName} Fields`}
-      description={`Showing ${processedFields.length} fields for model ${modelName}`}
-    >
-      <div className="data-table-container">
-        <DataTable table={table}>
-          <DataTableToolbar table={table} />
-        </DataTable>
-      </div>
-    </StatusCard>
+      description={`Fields for model ${modelName}`}
+      data={fields}
+      isLoading={isLoading}
+      error={error}
+      emptyTitle="No Fields Found"
+      emptyDescription="No fields were found for this model."
+      emptyMessage="Try selecting a different model or checking your connection."
+      processData={processFields}
+      columns={columns}
+      defaultColumns={defaultColumns}
+      pageSize={10}
+    />
   );
 }

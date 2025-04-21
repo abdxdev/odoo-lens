@@ -17,6 +17,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar"
 import { OdooLensLogo } from "@/components/ui/odoo-lens-logo"
+import { Search, Shield, Database, FileQuestion } from "lucide-react"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -30,16 +31,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           title: "Search Faculty",
           url: "/search-faculty",
           isActive: pathname === "/search-faculty",
+          icon: <Search className="h-4 w-4 mr-2" />,
+          description: "Async search functionality for faculty members"
         },
         {
           title: "Review Permissions",
           url: "/review-permissions",
           isActive: pathname === "/review-permissions",
+          icon: <Shield className="h-4 w-4 mr-2" />,
+          description: "ShadCN UI-based search for permissions review"
         },
         {
           title: "Explore Model",
           url: "/explore-model",
           isActive: pathname === "/explore-model",
+          icon: <Database className="h-4 w-4 mr-2" />,
+          description: "ShadCN UI-based model search and exploration"
+        },
+        {
+          title: "Data Query",
+          url: "/data-query",
+          isActive: pathname === "/data-query",
+          icon: <FileQuestion className="h-4 w-4 mr-2" />,
+          description: "ShadCN UI-based data query interface"
         },
       ],
     },
@@ -62,7 +76,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={item.isActive}>
-                      <Link href={item.url}>{item.title}</Link>
+                      <Link href={item.url} className="flex items-center">
+                        {item.icon}
+                        {item.title}
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

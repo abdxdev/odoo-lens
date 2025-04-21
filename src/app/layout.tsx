@@ -24,7 +24,7 @@ export default function RootLayout({
             <AppSidebar />
             <RootLayoutContent>
               <div className="flex justify-center w-full">
-                <div className="max-w-full md:max-w-3xl 2xl:max-w-6xl w-full px-4 py-6">
+                <div className="max-w-full md:max-w-3xl 2xl:max-w-6xl w-full p-6">
                   {children}
                 </div>
               </div>

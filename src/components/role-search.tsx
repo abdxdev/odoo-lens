@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { AsyncSelect } from "@/components/async-select";
+import React, { useState, useEffect } from "react";
+import { Combobox, ComboboxOption } from "@/components/ui/combobox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import resGroupsData from "@/data/res.groups.json";
 
@@ -9,26 +9,19 @@ interface RoleSearchProps {
   onSelectRole: (role: { id: number; name: string }) => void;
 }
 
-interface Role {
-  id: number;
-  full_name: string;
-}
-
 export function RoleSearch({ onSelectRole }: RoleSearchProps) {
   const [selectedRoleId, setSelectedRoleId] = useState<string>("");
-  const rolesDataRef = useRef<Record<string, Role>>({});
-
-  const fetchRoles = async (query: string = ""): Promise<Role[]> => {
-    const filteredRoles = resGroupsData.filter((role) => 
-      !query || role.full_name.toLowerCase().includes(query.toLowerCase())
-    );
+  const [roleOptions, setRoleOptions] = useState<ComboboxOption[]>([]);
+  
+  useEffect(() => {
+    // Transform data into combobox options format
+    const options: ComboboxOption[] = resGroupsData.map((role) => ({
+      value: role.id.toString(),
+      label: role.full_name
+    }));
     
-    filteredRoles.forEach(role => {
-      rolesDataRef.current[role.id.toString()] = role;
-    });
-    
-    return filteredRoles;
-  };
+    setRoleOptions(options);
+  }, []);
 
   const handleRoleChange = (roleId: string) => {
     setSelectedRoleId(roleId);
@@ -37,12 +30,12 @@ export function RoleSearch({ onSelectRole }: RoleSearchProps) {
       return;
     }
 
-    const selected = rolesDataRef.current[roleId];
+    const selectedRole = resGroupsData.find(role => role.id.toString() === roleId);
 
-    if (selected) {
+    if (selectedRole) {
       onSelectRole({
-        id: selected.id,
-        name: selected.full_name
+        id: selectedRole.id,
+        name: selectedRole.full_name
       });
     }
   };
@@ -56,30 +49,13 @@ export function RoleSearch({ onSelectRole }: RoleSearchProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
-        <AsyncSelect<Role>
-          fetcher={fetchRoles}
-          preload={true}
-          filterFn={(role, query) => role.full_name.toLowerCase().includes(query.toLowerCase())}
-          renderOption={(role) => (
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col">
-                <div className="font-medium">{role.full_name}</div>
-              </div>
-            </div>
-          )}
-          getOptionValue={(role) => role.id.toString()}
-          getDisplayValue={(role) => (
-            <div className="flex items-center gap-2 text-left">
-              <div className="flex flex-col leading-tight">
-                <div className="font-medium">{role.full_name}</div>
-              </div>
-            </div>
-          )}
-          notFound={<div className="py-6 text-center text-sm">No roles found</div>}
-          label="Roles"
-          placeholder="Search roles..."
+        <Combobox
+          options={roleOptions}
           value={selectedRoleId}
           onChange={handleRoleChange}
+          placeholder="Search roles..."
+          emptyText="No roles found"
+          label="Roles"
           width="100%"
           triggerClassName="h-10 text-base"
         />
