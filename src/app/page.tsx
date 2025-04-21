@@ -21,20 +21,6 @@ const item = {
   show: { y: 0, opacity: 1 }
 };
 
-interface FeatureCardProps {
-  title: string;
-  description: string;
-  icon: string;
-  link: string;
-  buttonText: string;
-  className?: string;
-}
-
-interface FeatureBoxProps {
-  title: string;
-  description: string;
-}
-
 export default function Home() {
   return (
     <motion.main
@@ -117,7 +103,7 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ title, description, icon, link, buttonText, className }: FeatureCardProps) {
+function FeatureCard({ title, description, icon, link, buttonText, className }: { title: string; description: string; icon: string; link: string; buttonText: string; className?: string; }) {
   return (
     <motion.div variants={item} className={className}>
       <Card className="h-full transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]">
