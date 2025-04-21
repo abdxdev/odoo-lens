@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ModelFieldsReview } from "@/components/model-fields-review";
-import { ModelSearch } from "@/components/model-search";
-import { ModelDetails } from "@/components/model-details";
+import { ModelFieldsReview } from "@/components/explore-model/table";
+import { ModelSearch } from "@/components/explore-model/search";
+import { ModelDetails } from "@/components/explore-model/details";
 import { ModelFields } from "@/types/fields";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";

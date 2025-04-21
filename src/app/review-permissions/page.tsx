@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ModelPermissionsReview } from "@/components/model-permissions-review";
-import { RoleSearch } from "@/components/role-search";
-import { RoleDetails } from "@/components/role-details";
+import { ModelPermissionsReview } from "@/components/review-permissions/table";
+import { RoleSearch } from "@/components/review-permissions/search";
+import { RoleDetails } from "@/components/review-permissions/details";
 import { GroupPermission } from "@/types/permissions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -53,7 +53,7 @@ export default function ReviewPermissionsPage() {
       setError(null);
 
       try {
-        const res = await fetch(`/api/odoo/permissions?group_id=${selectedRole.id}`);
+        const res = await fetch(`/api/odoo/review-permissions?group_id=${selectedRole.id}`);
         if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
 
         const data = await res.json();

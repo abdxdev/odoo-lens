@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ODOO_URL, HEADERS } from '@/lib/constants'; // Import HEADERS
+import { ODOO_URL, HEADERS } from '@/lib/constants';
 
-// Helper function to generate a random number (similar to Python's random_number)
+
 const getRandomNumber = (digits: number): number => {
   const min = Math.pow(10, digits - 1);
   const max = Math.pow(10, digits) - 1;
@@ -16,14 +16,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'group_id is required' }, { status: 400 });
   }
 
-  // Get session ID from environment variable
+
   const sessionId = process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
 
   if (!sessionId) {
     return NextResponse.json({ error: 'Session ID not configured' }, { status: 500 });
   }
 
-  // Use imported HEADERS and session ID from env var
+
   const headers = {
     ...HEADERS,
     'Cookie': `session_id=${sessionId}`,
@@ -35,10 +35,10 @@ export async function GET(request: NextRequest) {
     params: {
       model: 'ir.model.access',
       method: 'search_read',
-      args: [[['group_id', '=', parseInt(groupId, 10)]]], // Ensure group_id is an integer
+      args: [[['group_id', '=', parseInt(groupId, 10)]]],
       kwargs: {
         fields: ['model_id', 'perm_read', 'perm_write', 'perm_create', 'perm_unlink'],
-        limit: 1000, // Adjust limit as needed
+        limit: 1000,
       },
     },
     id: getRandomNumber(9),

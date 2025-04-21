@@ -5,7 +5,7 @@ import { ModelFields } from "@/types/fields";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { ModelDataReview } from "@/components/model-data-review";
+import { ModelDataReview } from "@/components/data-query/table";
 
 interface ModelFieldsReviewProps {
   modelId: number;

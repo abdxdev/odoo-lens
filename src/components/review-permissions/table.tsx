@@ -6,7 +6,7 @@ import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
 import { useRouter } from "next/navigation";
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { ModelDataReview } from "@/components/model-data-review";
+import { ModelDataReview } from "@/components/data-query/table";
 
 export function ModelPermissionsReview({
   groupName,

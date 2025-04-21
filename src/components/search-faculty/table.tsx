@@ -76,7 +76,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
 
       const results = await Promise.allSettled(faculty.res_group_id?.map(async (groupId: number) => {
         try {
-          const res = await fetch(`/api/odoo/permissions?group_id=${groupId}`);
+          const res = await fetch(`/api/odoo/review-permissions?group_id=${groupId}`);
           if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
 
           const permissions: GroupPermission[] = await res.json();

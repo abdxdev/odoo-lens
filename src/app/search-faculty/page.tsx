@@ -1,9 +1,9 @@
 "use client";
 
-import { SearchFaculty } from "@/components/search-faculty"
-import { FacultyDetails } from "@/components/faculty-details"
-import { FacultyPermissions } from "@/components/faculty-permissions";
-import { PermissionsAIAnalysis } from "@/components/permissions-ai-analysis";
+import { SearchFaculty } from "@/components/search-faculty/search"
+import { FacultyDetails } from "@/components/search-faculty/details"
+import { FacultyPermissions } from "@/components/search-faculty/table";
+import { PermissionsAIAnalysis } from "@/components/search-faculty/ai-analysis";
 import { ChartComponent } from "@/components/chart-component";
 import { useState, useEffect } from "react"
 import { Faculty } from "@/types/faculty"

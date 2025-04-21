@@ -18,14 +18,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-interface Option {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  description?: string;
-  icon?: React.ReactNode;
-}
-
 interface AsyncSelectProps<T> {
   /** Async function to fetch options */
   fetcher: (query?: string) => Promise<T[]>;

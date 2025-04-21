@@ -1,8 +1,30 @@
 import { AsyncSelect } from '@/components/async-select'
-import { Faculty } from '@/types/faculty'
 import { useState, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { searchFaculty } from '@/lib/api/faculty'
+import { Faculty } from '@/types/faculty';
+
+export async function searchFaculty(query: string = "", limit: number = 10): Promise<Faculty[]> {
+  if (!query.trim()) {
+    return [];
+  }
+
+  try {
+    const url = new URL('/api/odoo/search-faculty', window.location.origin);
+    url.searchParams.append('query', query);
+    url.searchParams.append('limit', limit.toString());
+
+    const response = await fetch(url.toString());
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching faculty data:", error);
+    return [];
+  }
+}
 
 interface SearchFacultyProps {
   onSelectFaculty?: (faculty: Faculty | null) => void;
@@ -78,4 +100,3 @@ export function SearchFaculty({ onSelectFaculty }: SearchFacultyProps) {
     </Card>
   );
 }
- 
