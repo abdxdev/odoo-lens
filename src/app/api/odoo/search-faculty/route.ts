@@ -1,28 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { HEADERS } from '@/lib/constants';
 
-
 const generateRandomId = (): number => {
   return Math.floor(Math.random() * 900000000) + 100000000;
 };
 
 export async function GET(request: NextRequest) {
   try {
-
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('query') || '';
     const limit = parseInt(searchParams.get('limit') || '10');
+    // Get the client-provided session key from the request header
+    const clientSessionKey = request.headers.get('x-odoo-session-key');
 
-
-    const sessionId = process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
+    // First try to use the session key provided by the client, then fall back to env variable
+    const sessionId = clientSessionKey || process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
 
     if (!sessionId) {
       return NextResponse.json(
         { error: 'Session ID not configured' },
-        { status: 500 }
+        { status: 401 }
       );
     }
-
 
     const payload = {
       "jsonrpc": "2.0",
@@ -50,7 +49,6 @@ export async function GET(request: NextRequest) {
       "id": generateRandomId(),
     };
 
-
     const response = await fetch(`${process.env.NEXT_PUBLIC_ODOO_URL}/web/dataset/search_read`, {
       method: "POST",
       headers: {
@@ -61,6 +59,16 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
+      const text = await response.text();
+      
+      // Try to detect session expiration issues
+      if (text.includes("session_id") || text.includes("Session expired") || text.includes("Odoo Login")) {
+        return NextResponse.json(
+          { error: 'Session Expired: Please update your Odoo session key' },
+          { status: 401 }
+        );
+      }
+      
       return NextResponse.json(
         { error: `API request failed with status ${response.status}` },
         { status: response.status }
@@ -68,7 +76,22 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-
+    
+    // Check for Odoo errors that might indicate session issues
+    if (data.error) {
+      const errorText = JSON.stringify(data.error);
+      if (errorText.includes("session") || errorText.includes("login") || errorText.includes("auth")) {
+        return NextResponse.json(
+          { error: 'Session Expired: Please update your Odoo session key' },
+          { status: 401 }
+        );
+      }
+      
+      return NextResponse.json(
+        { error: `Odoo error: ${JSON.stringify(data.error)}` },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(data.result?.records || []);
   } catch (error) {

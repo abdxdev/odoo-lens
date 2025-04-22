@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export interface ComboboxOption {
   value: string
@@ -33,6 +34,7 @@ interface ComboboxProps {
   triggerClassName?: string
   label?: string
   width?: string
+  maxHeight?: string
 }
 
 export function Combobox({
@@ -45,6 +47,7 @@ export function Combobox({
   triggerClassName,
   label,
   width = "auto",
+  maxHeight = "300px",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -118,27 +121,29 @@ export function Combobox({
               onValueChange={setSearchQuery}
             />
             <CommandEmpty>{emptyText}</CommandEmpty>
-            <CommandGroup>
-              {filteredOptions.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  // Important: Use label here for search, not value
-                  value={option.label}
-                  onSelect={() => {
-                    onChange(option.value === value ? "" : option.value)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === option.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {option.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <ScrollArea className="overflow-auto" style={{ maxHeight }}>
+              <CommandGroup>
+                {filteredOptions.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    // Important: Use label here for search, not value
+                    value={option.label}
+                    onSelect={() => {
+                      onChange(option.value === value ? "" : option.value)
+                      setOpen(false)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === option.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {option.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </ScrollArea>
           </Command>
         </PopoverContent>
       </Popover>

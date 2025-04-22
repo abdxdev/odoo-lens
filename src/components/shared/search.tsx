@@ -16,7 +16,7 @@ interface CombinedSearchProps {
 export function CombinedSearch({ type, onSelect }: CombinedSearchProps) {
   const [selectedId, setSelectedId] = useState<string>("");
   const [options, setOptions] = useState<ComboboxOption[]>([]);
-  
+
   useEffect(() => {
     if (type === "model") {
       const modelOptions: ComboboxOption[] = allTablesData.map((model) => ({
@@ -60,8 +60,8 @@ export function CombinedSearch({ type, onSelect }: CombinedSearchProps) {
   };
 
   const title = type === "model" ? "Search Models" : "Search Roles";
-  const description = type === "model" 
-    ? "Search and select a model to explore its fields" 
+  const description = type === "model"
+    ? "Search and select a model to explore its fields"
     : "Search and select a role to view its permissions";
   const placeholder = type === "model" ? "Search models..." : "Search roles...";
   const emptyText = type === "model" ? "No models found" : "No roles found";

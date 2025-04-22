@@ -1,4 +1,5 @@
 import { GroupPermission, PermissionSummary } from '@/types/permissions';
+import { odooApiRequest } from './utils';
 
 // Permission types and labels
 export const PERMISSION_TYPES = ['create', 'read', 'update', 'delete'] as const;
@@ -60,7 +61,10 @@ export function calculateTotalPermissions(groups: { summary: PermissionSummary, 
  * Fetch role permissions data for a specific group
  */
 export async function getGroupPermissions(id: number): Promise<any> {
-  const res = await fetch(`/api/odoo/review-permissions?group_id=${id}`);
-  if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
-  return await res.json();
+  // Use odooApiRequest which prioritizes the GUI-set session key
+  return await odooApiRequest(
+    `/api/odoo/review-permissions`,
+    'GET',
+    { group_id: id }
+  );
 }

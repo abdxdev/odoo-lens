@@ -44,6 +44,17 @@ export function ModelFieldsReview({
 }: ModelFieldsReviewProps) {
   const columnHelper = createColumnHelper<ProcessedField>();
 
+  // Create a reusable function for boolean cell rendering
+  const renderBooleanCell = (value: boolean) => (
+    <div className="flex justify-center">
+      {value ? (
+        <Check className="h-5 w-5 text-success" />
+      ) : (
+        <X className="h-5 w-5 text-muted-foreground" />
+      )}
+    </div>
+  );
+
   // Define the columns for the fields table
   const columns = useMemo(() => [
     columnHelper.accessor("name", {
@@ -57,7 +68,6 @@ export function ModelFieldsReview({
     }),
     columnHelper.accessor("label", {
       header: "Label",
-      cell: info => <span>{info.getValue()}</span>,
     }),
     columnHelper.accessor("type", {
       header: "Type",
@@ -83,35 +93,17 @@ export function ModelFieldsReview({
     }),
     columnHelper.accessor("required", {
       header: "Required",
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
+      cell: info => renderBooleanCell(info.getValue()),
     }),
     columnHelper.accessor("readonly", {
       header: "Read Only",
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
+      cell: info => renderBooleanCell(info.getValue()),
     }),
   ], []);
 
   // Process function to transform the data
   const processFields = (fieldsData: Record<string, ModelFields> | null) => {
-    if (!fieldsData) {
-      return [];
-    }
+    if (!fieldsData) return [];
 
     return Object.entries(fieldsData).map(([fieldName, fieldData]) => ({
       id: fieldName,
@@ -123,14 +115,6 @@ export function ModelFieldsReview({
       relation: fieldData.relation,
     }));
   };
-
-  // Default empty column
-  const defaultColumns: ColumnDef<ProcessedField>[] = [{
-    id: 'empty',
-    header: 'No Data',
-    cell: () => 'No data available',
-    accessorKey: 'empty',
-  }];
 
   return (
     <CombinedTable
@@ -145,7 +129,7 @@ export function ModelFieldsReview({
       emptyMessage="Try selecting a different model or checking your connection."
       processData={processFields}
       columns={columns}
-      defaultColumns={defaultColumns}
+      defaultColumns={[{ id: 'empty', header: 'No Data', cell: () => 'No data available', accessorKey: 'empty' }]}
       pageSize={10}
     />
   );

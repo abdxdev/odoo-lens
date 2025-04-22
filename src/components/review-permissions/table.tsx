@@ -17,6 +17,17 @@ export function ModelPermissionsReview({
   const router = useRouter();
   const columnHelper = createColumnHelper<ProcessedPermission>();
 
+  // Create permission cell render function to reduce repetition
+  const renderPermissionCell = (value: boolean) => (
+    <div className="flex justify-center">
+      {value ? (
+        <Check className="h-5 w-5 text-success" />
+      ) : (
+        <X className="h-5 w-5 text-muted-foreground" />
+      )}
+    </div>
+  );
+
   // Define the columns for the permissions table
   const columns = useMemo(() => [
     columnHelper.accessor("model_name", {
@@ -28,85 +39,28 @@ export function ModelPermissionsReview({
         </div>
       ),
     }),
-    columnHelper.accessor("perm_create", {
-      header: PERMISSION_LABELS.create,
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
-    }),
-    columnHelper.accessor("perm_read", {
-      header: PERMISSION_LABELS.read,
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
-    }),
-    columnHelper.accessor("perm_write", {
-      header: PERMISSION_LABELS.update,
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
-    }),
-    columnHelper.accessor("perm_unlink", {
-      header: PERMISSION_LABELS.delete,
-      cell: info => (
-        <div className="flex justify-center">
-          {info.getValue() ? (
-            <Check className="h-5 w-5 text-success" />
-          ) : (
-            <X className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-      ),
-    }),
-  ], [router]);
+    ...Object.entries(PERMISSION_LABELS).map(([key, label]) => 
+      columnHelper.accessor(`perm_${key}` as keyof ProcessedPermission, {
+        header: label,
+        cell: info => renderPermissionCell(info.getValue() as boolean),
+      })
+    )
+  ], []);
 
-  // Process function to transform the data
+  // Process permissions data
   const processPermissions = (permissionsData: any[] | null) => {
-    if (!permissionsData || !Array.isArray(permissionsData)) {
-      return [];
-    }
+    if (!permissionsData?.length) return [];
     
     return permissionsData.map(perm => ({
       ...perm,
-      model_name: Array.isArray(perm.model_id) ?
-        perm.model_id[1] as string :
-        perm.model_name || 'Unknown Model'
+      model_name: Array.isArray(perm.model_id) ? perm.model_id[1] : perm.model_name || 'Unknown Model'
     }));
   };
 
-  // Default empty column
-  const defaultColumns: ColumnDef<ProcessedPermission>[] = [{
-    id: 'empty',
-    header: 'No Data',
-    cell: () => 'No data available',
-    accessorKey: 'empty',
-  }];
-  
-  // Handle row click to navigate to the explore model page
+  // Handle row click to navigate to explore model page
   const handleRowClick = (row: any) => {
-    const modelId = Array.isArray(row.original.model_id)
-      ? row.original.model_id[0]
-      : row.original.model_id;
-    const modelName = row.original.model_name;
-    router.push(`/explore-model?modelId=${modelId}&modelName=${modelName}`);
+    const modelId = Array.isArray(row.original.model_id) ? row.original.model_id[0] : row.original.model_id;
+    router.push(`/explore-model?modelId=${modelId}&modelName=${row.original.model_name}`);
   };
 
   return (
@@ -118,11 +72,10 @@ export function ModelPermissionsReview({
       isLoading={isLoading}
       error={error}
       emptyTitle="No Permissions Data"
-      emptyDescription={groupName ? `No permissions data available for ${groupName}` : 'Select a group to view permissions'}
-      emptyMessage="No permission data available to display."
+      emptyDescription={groupName ? `No permissions for ${groupName}` : 'Select a group to view permissions'}
       processData={processPermissions}
       columns={columns}
-      defaultColumns={defaultColumns}
+      defaultColumns={[{ id: 'empty', header: 'No Data', cell: () => 'No data available', accessorKey: 'empty' }]}
       pageSize={10}
       onRowClick={handleRowClick}
     />

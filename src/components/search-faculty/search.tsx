@@ -2,6 +2,7 @@ import { AsyncSelect } from '@/components/async-select'
 import { useState, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Faculty } from '@/types/faculty';
+import { odooApiRequest } from '@/lib/utils';
 
 async function searchFaculty(query: string = "", limit: number = 10): Promise<Faculty[]> {
   if (!query.trim()) {
@@ -9,17 +10,12 @@ async function searchFaculty(query: string = "", limit: number = 10): Promise<Fa
   }
 
   try {
-    const url = new URL('/api/odoo/search-faculty', window.location.origin);
-    url.searchParams.append('query', query);
-    url.searchParams.append('limit', limit.toString());
-
-    const response = await fetch(url.toString());
-
-    if (!response.ok) {
-      throw new Error(`API request failed with status ${response.status}`);
-    }
-
-    return await response.json();
+    // Use the dedicated odooApiRequest function that prioritizes the client session key
+    return await odooApiRequest(
+      '/api/odoo/search-faculty',
+      'GET',
+      { query, limit }
+    );
   } catch (error) {
     console.error("Error fetching faculty data:", error);
     return [];
