@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Search, Shield, Database, FileQuestion } from "lucide-react";
 import { ShowcaseSection } from "@/components/home/showcase-section";
-import { Tract } from "@/components/ui/tract";
+// import { Tract } from "@/components/ui/tract";
 
 const container = {
   hidden: { opacity: 0 },

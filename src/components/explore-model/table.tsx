@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import { CombinedTable } from "@/components/shared/table";
 
 interface ModelFields {
@@ -15,7 +15,7 @@ interface ModelFields {
   selection?: [string, string][];
   company_dependent?: boolean;
   domain?: string[];
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 interface ModelFieldsReviewProps {
@@ -99,7 +99,7 @@ export function ModelFieldsReview({
       header: "Read Only",
       cell: info => renderBooleanCell(info.getValue()),
     }),
-  ], []);
+  ], [columnHelper]);
 
   // Process function to transform the data
   const processFields = (fieldsData: Record<string, ModelFields> | null) => {

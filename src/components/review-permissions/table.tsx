@@ -5,7 +5,7 @@ import { GroupPermissionsData, ProcessedPermission } from "@/types/permissions";
 import { Database, Check, X } from "lucide-react";
 import { PERMISSION_LABELS } from "@/lib/permissions";
 import { useRouter } from "next/navigation";
-import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import { CombinedTable } from "@/components/shared/table";
 
 export function ModelPermissionsReview({
@@ -17,7 +17,7 @@ export function ModelPermissionsReview({
   const router = useRouter();
   const columnHelper = createColumnHelper<ProcessedPermission>();
 
-  // Create permission cell render function to reduce repetition
+
   const renderPermissionCell = (value: boolean) => (
     <div className="flex justify-center">
       {value ? (
@@ -28,7 +28,7 @@ export function ModelPermissionsReview({
     </div>
   );
 
-  // Define the columns for the permissions table
+
   const columns = useMemo(() => [
     columnHelper.accessor("model_name", {
       header: "Model Name",
@@ -39,26 +39,26 @@ export function ModelPermissionsReview({
         </div>
       ),
     }),
-    ...Object.entries(PERMISSION_LABELS).map(([key, label]) => 
+    ...Object.entries(PERMISSION_LABELS).map(([key, label]) =>
       columnHelper.accessor(`perm_${key}` as keyof ProcessedPermission, {
         header: label,
         cell: info => renderPermissionCell(info.getValue() as boolean),
       })
     )
-  ], []);
+  ], [columnHelper]);
 
-  // Process permissions data
-  const processPermissions = (permissionsData: any[] | null) => {
-    if (!permissionsData?.length) return [];
-    
+
+  const processPermissions = (permissionsData: ProcessedPermission[] | Record<string, unknown> | null) => {
+    if (!Array.isArray(permissionsData) || !permissionsData.length) return [];
+
     return permissionsData.map(perm => ({
       ...perm,
       model_name: Array.isArray(perm.model_id) ? perm.model_id[1] : perm.model_name || 'Unknown Model'
     }));
   };
 
-  // Handle row click to navigate to explore model page
-  const handleRowClick = (row: any) => {
+
+  const handleRowClick = (row: { original: ProcessedPermission }) => {
     const modelId = Array.isArray(row.original.model_id) ? row.original.model_id[0] : row.original.model_id;
     router.push(`/explore-model?modelId=${modelId}&modelName=${row.original.model_name}`);
   };

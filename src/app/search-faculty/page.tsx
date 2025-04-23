@@ -26,7 +26,7 @@ const item = {
 
 export default function Home() {
   const [selectedFaculty, setSelectedFaculty] = useState<Faculty | null>(null);
-  const [groupPermissionsData, setGroupPermissionsData] = useState<any[]>([]);
+  const [groupPermissionsData, setGroupPermissionsData] = useState<Record<string, unknown>[]>([]);
   const [isLoadingPermissions, setIsLoadingPermissions] = useState<boolean>(false);
 
   const handleSelectFaculty = (faculty: Faculty | null) => {

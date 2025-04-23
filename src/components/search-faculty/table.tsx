@@ -77,7 +77,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       const results = await Promise.allSettled(faculty.res_group_id?.map(async (groupId: number) => {
         try {
           const permissions: GroupPermission[] = await odooApiRequest(
-            `/api/odoo/review-permissions?group_id=${groupId}`, 
+            `/api/odoo/review-permissions?group_id=${groupId}`,
             'GET'
           );
           const summary = calculatePermissionSummary(permissions);
@@ -152,11 +152,11 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       });
   };
 
-  const handleRowClick = (row: any) => {
-    if (!row.original.isLoading && !row.original.error) {
-      const groupId = row.original.groupId;
-      const groupName = row.original.groupName;
-      
+  const handleRowClick = (row: TableDataRow) => {
+    if (!row.isLoading && !row.error) {
+      const groupId = row.groupId;
+      const groupName = row.groupName;
+
       const queryParams = new URLSearchParams({
         groupId: groupId.toString(),
         groupName: groupName
@@ -166,7 +166,7 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
     }
   };
 
-  const tableData = useMemo(() => 
+  const tableData = useMemo(() =>
     data.map(group => ({
       ...group,
       create: group.summary.create,
@@ -174,9 +174,9 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
       update: group.summary.update,
       delete: group.summary.delete
     })),
-  [data]);
+    [data]);
 
-  // Define columns for the data table - simplified version
+
   const columns = useMemo<ColumnDef<TableDataRow>[]>(() => [
     {
       accessorKey: "groupName",

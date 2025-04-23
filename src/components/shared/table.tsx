@@ -13,25 +13,28 @@ import {
   getFilteredRowModel,
 } from '@tanstack/react-table';
 
-interface CombinedTableProps<TData, TValue> {
+// Define table row type
+type TableRow = Record<string, unknown>;
+
+interface CombinedTableProps<TData extends TableRow, TValue> {
   type: "model-fields" | "role-permissions" | "data-query" | "faculty-permissions";
   title: string;
   description?: string;
-  data: TData[] | Record<string, any>;
+  data: TData[] | Record<string, unknown>;
   isLoading?: boolean;
   error?: string | null;
   emptyTitle?: string;
   emptyDescription?: string;
   emptyMessage?: string;
-  processData: (data: TData[] | Record<string, any>) => any[];
-  columns: ColumnDef<any, TValue>[];
-  defaultColumns?: ColumnDef<any, TValue>[];
+  processData: (data: TData[] | Record<string, unknown>) => TData[];
+  columns: ColumnDef<TData, TValue>[];
+  defaultColumns?: ColumnDef<TData, TValue>[];
   pageSize?: number;
-  onRowClick?: (row: any) => void;
+  onRowClick?: (row: TData) => void;
   customActions?: React.ReactNode;
 }
 
-export function CombinedTable<TData, TValue>({
+export function CombinedTable<TData extends TableRow, TValue>({
   type,
   title,
   description,
@@ -56,9 +59,9 @@ export function CombinedTable<TData, TValue>({
     header: 'No Data',
     cell: () => 'No data available',
     accessorKey: 'empty',
-  }] as ColumnDef<any, TValue>[];
+  }] as ColumnDef<TData, TValue>[];
 
-  const tableOptions: any = {
+  const tableOptions = {
     data: processedData,
     columns: processedData.length > 0 ? columns : finalDefaultColumns,
     getCoreRowModel: getCoreRowModel(),
@@ -70,11 +73,8 @@ export function CombinedTable<TData, TValue>({
         pageSize,
       },
     },
+    ...(onRowClick && { onRowClick }),
   };
-
-  if (onRowClick) {
-    tableOptions.onRowClick = onRowClick;
-  }
 
   const table = useReactTable(tableOptions);
 
@@ -111,13 +111,14 @@ export function CombinedTable<TData, TValue>({
     );
   }
 
+  // Using the type prop to set a data-type attribute for potential styling/logic
   return (
     <StatusCard
       title={title}
       description={description || `Showing ${processedData.length} items`}
       actions={customActions}
     >
-      <div className="data-table-container">
+      <div className="data-table-container" data-table-type={type}>
         <DataTable table={table} />
       </div>
     </StatusCard>

@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get client session key from request headers first
+
     const clientSessionKey = request.headers.get('x-odoo-session-key');
-    
-    // Only use the session key from the client header or request body, don't fall back to env variable
+
+
     const sessionId = sessionKey || clientSessionKey;
 
     if (!sessionId) {
@@ -32,9 +32,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let domain: any[] = [];
+    const domain: Array<[string, string, string | number | boolean]> = [];
     if (filterField && filterValue !== undefined && filterValue !== '') {
-      domain.push([filterField, '=', filterValue]);
+      domain.push([filterField, 'ilike', filterValue]);
     }
 
     const payload = {
@@ -69,15 +69,15 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const text = await response.text();
-      
-      // Try to detect session expiration issues
+
+
       if (text.includes("session_id") || text.includes("Session expired") || text.includes("Odoo Login")) {
         return NextResponse.json(
           { error: 'Session Expired: Please update your Odoo session key' },
           { status: 401 }
         );
       }
-      
+
       return NextResponse.json(
         { error: `API request failed with status ${response.status}` },
         { status: response.status }
@@ -85,8 +85,8 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    
-    // Check for Odoo errors that might indicate session issues
+
+
     if (data.error) {
       const errorText = JSON.stringify(data.error);
       if (errorText.includes("session") || errorText.includes("login") || errorText.includes("auth")) {
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
           { status: 401 }
         );
       }
-      
+
       return NextResponse.json(
         { error: `Odoo error: ${JSON.stringify(data.error)}` },
         { status: 500 }

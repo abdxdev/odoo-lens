@@ -5,7 +5,7 @@ import { EntityExplorerPage } from "@/components/shared/entity-explorer-page";
 import { getGroupPermissions } from "@/lib/permissions";
 
 export default function ReviewPermissionsPage() {
-  const fetchRolePermissions = async (id: number, name: string) => {
+  const fetchRolePermissions = async (id: number) => {
     return await getGroupPermissions(id);
   };
 

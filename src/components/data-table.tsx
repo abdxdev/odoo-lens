@@ -13,6 +13,9 @@ import {
 import { getCommonPinningStyles } from "@/lib/data-table";
 import { cn } from "@/lib/utils";
 
+// Define a type for the row click handler
+type RowClickHandler<TData> = (row: { original: TData }) => void;
+
 interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   table: TanstackTable<TData>;
   actionBar?: React.ReactNode;
@@ -25,7 +28,9 @@ export function DataTable<TData>({
   className,
   ...props
 }: DataTableProps<TData>) {
-  const hasRowClickHandler = Boolean((table as any).options.onRowClick);
+  // Safely access the options property, checking for onRowClick
+  const onRowClick = table.options as unknown as { onRowClick?: RowClickHandler<TData> };
+  const hasRowClickHandler = Boolean(onRowClick.onRowClick);
 
   return (
     <div
@@ -66,7 +71,7 @@ export function DataTable<TData>({
                   className={cn(
                     hasRowClickHandler && "hover:bg-muted cursor-pointer"
                   )}
-                  onClick={hasRowClickHandler ? () => (table as any).options.onRowClick(row) : undefined}
+                  onClick={hasRowClickHandler ? () => onRowClick.onRowClick?.(row) : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

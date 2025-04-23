@@ -1,5 +1,5 @@
 export interface DataQueryResult {
-  records: any[];
+  records: Record<string, unknown>[];
   length: number;
 }
 

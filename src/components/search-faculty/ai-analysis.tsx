@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PermissionAnalysisData } from '@/types/permissions';
@@ -30,13 +30,7 @@ export function PermissionsAIAnalysis({
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!isLoading && groupPermissionsData.length > 0) {
-      analyzePermissions();
-    }
-  }, [isLoading, groupPermissionsData]);
-
-  const analyzePermissions = async () => {
+  const analyzePermissions = useCallback(async () => {
     if (groupPermissionsData.length === 0) return;
 
     setIsAnalyzing(true);
@@ -68,7 +62,13 @@ export function PermissionsAIAnalysis({
     } finally {
       setIsAnalyzing(false);
     }
-  };
+  }, [groupPermissionsData]);
+
+  useEffect(() => {
+    if (!isLoading && groupPermissionsData.length > 0) {
+      analyzePermissions();
+    }
+  }, [isLoading, groupPermissionsData, analyzePermissions]);
 
   const getRiskBadge = () => {
     if (!riskLevel) return null;

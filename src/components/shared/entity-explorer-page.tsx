@@ -23,13 +23,16 @@ const item = {
   show: { y: 0, opacity: 1 }
 };
 
+// Define a proper type for the entity data
+type EntityData = Record<string, unknown>;
+
 interface EntityExplorerPageProps {
   type: SearchType;
   entityTypeName: string;
   urlIdParam: string;
   urlNameParam: string;
-  fetchDataFn: (id: number, name: string) => Promise<any>;
-  tableComponent: (props: any) => ReactNode;
+  fetchDataFn: (id: number, name: string) => Promise<EntityData>;
+  tableComponent: (props: Record<string, unknown>) => ReactNode;
 }
 
 export function EntityExplorerPage({
@@ -49,7 +52,7 @@ export function EntityExplorerPage({
   const [selectedEntity, setSelectedEntity] = useState<{ id: number; name: string } | null>(
     entityId && entityName ? { id: entityId, name: entityName } : null
   );
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<EntityData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 

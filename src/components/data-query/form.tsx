@@ -84,16 +84,6 @@ export function DataQueryForm({ onSubmitQuery }: DataQueryFormProps) {
     }
   };
 
-  const handleFieldToggle = (field: string) => {
-    setSelectedFields(prev => {
-      if (prev.includes(field)) {
-        return prev.filter(f => f !== field);
-      } else {
-        return [...prev, field];
-      }
-    });
-  };
-
   const handleSelectAllFields = () => {
     setSelectedFields(Object.keys(availableFields));
   };

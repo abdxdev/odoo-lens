@@ -17,7 +17,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -37,8 +36,7 @@ export default function DataQueryPage() {
   const [queryResults, setQueryResults] = useState<DataQueryResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [columns, setColumns] = useState<any[]>([]);
-
+  const [columns, setColumns] = useState<Array<{ id: string; header: string; accessorKey?: string; cell?: () => string }>>([]);
 
   const defaultColumns = [{
     id: 'empty',
@@ -46,7 +44,6 @@ export default function DataQueryPage() {
     cell: () => 'No data available',
     accessorKey: 'empty',
   }];
-
 
   const table = useReactTable({
     data: queryResults?.records || [],
@@ -70,9 +67,8 @@ export default function DataQueryPage() {
       const results = await executeDataQuery(queryParams);
       setQueryResults(results);
 
-
       if (results.records && results.records.length > 0) {
-        const columnHelper = createColumnHelper<any>();
+        const columnHelper = createColumnHelper<Record<string, unknown>>();
         const dynamicColumns = Object.keys(results.records[0]).map(key => {
           return columnHelper.accessor(key, {
             header: key,

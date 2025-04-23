@@ -175,7 +175,7 @@ export function AsyncSelect<T>({
     }, 0);
 
     return () => clearTimeout(timer);
-  }, [debouncedSearchTerm, fetcher, preload, filterFn, options.length]);
+  }, [debouncedSearchTerm, fetcher, preload, filterFn, options, loading]);
 
   const handleSelect = useCallback((currentValue: string) => {
     const newValue = clearable && currentValue === value ? "" : currentValue;

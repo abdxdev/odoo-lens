@@ -14,8 +14,11 @@ export const PERMISSION_LABELS: Record<string, string> = {
 /**
  * Get a group name from its ID using the res.groups.json data
  */
-export function getGroupName(id: number, groupsData: Record<string, any>[]): string {
-  return groupsData.find(g => g.id === id)?.full_name || `Group ID: ${id}`;
+export function getGroupName(id: number, groupsData: Record<string, unknown>[]): string {
+  const group = groupsData.find(g => (g.id as number) === id);
+  return group && typeof group.full_name === 'string' 
+    ? group.full_name 
+    : `Group ID: ${id}`;
 }
 
 /**
@@ -60,7 +63,7 @@ export function calculateTotalPermissions(groups: { summary: PermissionSummary, 
 /**
  * Fetch role permissions data for a specific group
  */
-export async function getGroupPermissions(id: number): Promise<any> {
+export async function getGroupPermissions(id: number): Promise<GroupPermission[]> {
   // Use odooApiRequest which prioritizes the GUI-set session key
   return await odooApiRequest(
     `/api/odoo/review-permissions`,

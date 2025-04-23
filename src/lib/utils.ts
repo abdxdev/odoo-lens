@@ -44,7 +44,7 @@ function dispatchSessionError(error: string) {
 export async function odooApiRequest(
   endpoint: string,
   method: 'GET' | 'POST',
-  params?: Record<string, any>
+  params?: Record<string, unknown>
 ) {
   let sessionKey: string | null = null;
   if (typeof window !== 'undefined') {
@@ -117,7 +117,8 @@ async function handleApiErrorResponse(response: Response) {
       }
       throw new Error(data.error);
     }
-  } catch (e) {
+  } catch {
+    // Unable to parse the response as JSON, just throw a generic error
     throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
   
