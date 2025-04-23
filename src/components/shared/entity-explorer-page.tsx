@@ -32,7 +32,7 @@ interface EntityExplorerPageProps {
   urlIdParam: string;
   urlNameParam: string;
   fetchDataFn: (id: number, name: string) => Promise<EntityData>;
-  tableComponent: (props: Record<string, unknown>) => ReactNode;
+  tableComponent: React.ComponentType<any>;
 }
 
 export function EntityExplorerPage({
