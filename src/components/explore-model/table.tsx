@@ -20,7 +20,7 @@ interface ModelFields {
 
 interface ModelFieldsReviewProps {
   modelId?: number;
-  modelName: string;
+  modelName?: string; // Changed to optional to match TableComponentProps interface
   fields: Record<string, ModelFields>;
   isLoading: boolean;
   error: string | null;
@@ -41,7 +41,7 @@ interface ProcessedField {
 type CellValue = string | boolean | undefined;
 
 export function ModelFieldsReview({
-  modelName,
+  modelName = "", // Provide default empty string for optional modelName
   fields = {},
   isLoading = false,
   error = null
