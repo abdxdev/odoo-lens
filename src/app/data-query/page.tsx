@@ -36,7 +36,7 @@ export default function DataQueryPage() {
   const [queryResults, setQueryResults] = useState<DataQueryResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [columns, setColumns] = useState<Array<{ id: string; header: string; accessorKey?: string; cell?: () => string }>>([]);
+  const [columns, setColumns] = useState<any[]>([]);
 
   const defaultColumns = [{
     id: 'empty',
