@@ -12,7 +12,8 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel
+  getFilteredRowModel,
+  ColumnDef
 } from '@tanstack/react-table';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -36,7 +37,7 @@ export default function DataQueryPage() {
   const [queryResults, setQueryResults] = useState<DataQueryResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [columns, setColumns] = useState<any[]>([]);
+  const [columns, setColumns] = useState<ColumnDef<Record<string, unknown>, unknown>[]>([]);
 
   const defaultColumns = [{
     id: 'empty',
