@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { CombinedSearch, SearchType } from "@/components/shared/search";
 import { CombinedDetails } from "@/components/shared/details";
@@ -26,13 +26,25 @@ const item = {
 // Define a proper type for the entity data
 type EntityData = Record<string, unknown>;
 
+// Define a generic type for table component props
+interface TableComponentProps {
+  modelId?: number;
+  groupId?: number;
+  modelName?: string;
+  groupName?: string;
+  fields?: Record<string, unknown>;
+  permissions?: Record<string, unknown>;
+  isLoading: boolean;
+  error: string | null;
+}
+
 interface EntityExplorerPageProps {
   type: SearchType;
   entityTypeName: string;
   urlIdParam: string;
   urlNameParam: string;
   fetchDataFn: (id: number, name: string) => Promise<EntityData>;
-  tableComponent: React.ComponentType<any>;
+  tableComponent: React.ComponentType<TableComponentProps>;
 }
 
 export function EntityExplorerPage({
