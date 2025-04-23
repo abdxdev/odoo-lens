@@ -20,8 +20,8 @@ interface ModelFields {
 
 interface ModelFieldsReviewProps {
   modelId?: number;
-  modelName?: string; // Changed to optional to match TableComponentProps interface
-  fields: Record<string, ModelFields>;
+  modelName?: string; 
+  fields?: Record<string, ModelFields>; // Made fields optional to match TableComponentProps interface
   isLoading: boolean;
   error: string | null;
 }
@@ -41,7 +41,7 @@ interface ProcessedField {
 type CellValue = string | boolean | undefined;
 
 export function ModelFieldsReview({
-  modelName = "", // Provide default empty string for optional modelName
+  modelName = "", 
   fields = {},
   isLoading = false,
   error = null
@@ -111,7 +111,7 @@ export function ModelFieldsReview({
 
   // Process function to transform the data
   const processFields = (data: Record<string, unknown> | Record<string, ModelFields> | unknown[]) => {
-    if (!data || Array.isArray(data)) return [];
+    if (!data || Array.isArray(data) || Object.keys(data).length === 0) return [];
 
     return Object.entries(data).map(([fieldName, fieldData]) => {
       const field = fieldData as unknown as ModelFields;
