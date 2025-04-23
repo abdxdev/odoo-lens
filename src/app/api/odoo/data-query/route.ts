@@ -19,8 +19,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // First try to use the session key provided by the client, then fall back to env variable
-    const sessionId = sessionKey || process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
+    // Get client session key from request headers first
+    const clientSessionKey = request.headers.get('x-odoo-session-key');
+    
+    // Only use the session key from the client header or request body, don't fall back to env variable
+    const sessionId = sessionKey || clientSessionKey;
 
     if (!sessionId) {
       return NextResponse.json(

@@ -10,6 +10,7 @@ import { ClipboardCopy, Tag } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { StatusCard } from '@/components/status-card';
 import { CombinedTable } from '@/components/shared/table';
+import { odooApiRequest } from '@/lib/utils';
 import {
   ColumnDef,
 } from '@tanstack/react-table';
@@ -75,10 +76,10 @@ export function FacultyPermissions({ faculty }: FacultyPermissionsProps) {
 
       const results = await Promise.allSettled(faculty.res_group_id?.map(async (groupId: number) => {
         try {
-          const res = await fetch(`/api/odoo/review-permissions?group_id=${groupId}`);
-          if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
-
-          const permissions: GroupPermission[] = await res.json();
+          const permissions: GroupPermission[] = await odooApiRequest(
+            `/api/odoo/review-permissions?group_id=${groupId}`, 
+            'GET'
+          );
           const summary = calculatePermissionSummary(permissions);
 
           return { groupId, permissions, summary };

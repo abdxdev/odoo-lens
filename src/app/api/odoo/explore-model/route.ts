@@ -19,17 +19,15 @@ export async function GET(request: NextRequest) {
   // Get the client-provided session key from the request header
   const clientSessionKey = request.headers.get('x-odoo-session-key');
 
-  // First try to use the session key provided by the client, then fall back to env variable
-  const sessionId = clientSessionKey || process.env.NEXT_PUBLIC_ODOO_SESSION_ID;
-
-  if (!sessionId) {
+  // Only use session key from the client header, don't fall back to env variable
+  if (!clientSessionKey) {
     return NextResponse.json({ error: 'Session ID not configured' }, { status: 401 });
   }
 
   // Use imported HEADERS and session ID
   const headers = {
     ...HEADERS,
-    'Cookie': `session_id=${sessionId}`,
+    'Cookie': `session_id=${clientSessionKey}`,
   };
 
   const payload = {

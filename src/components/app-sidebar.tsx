@@ -15,12 +15,22 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarHeader,
+  useSidebar
 } from "@/components/ui/sidebar"
 import { OdooLensLogo } from "@/components/ui/odoo-lens-logo"
 import { Search, Shield, Database, FileQuestion } from "lucide-react"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
+  const { setOpen } = useSidebar()
+
+  React.useEffect(() => {
+    if (pathname === "/") {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }, [pathname, setOpen])
 
   const navItems = [
     {

@@ -3,8 +3,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { Search, Shield, Database, FileQuestion } from "lucide-react";
+import { ShowcaseSection } from "@/components/home/showcase-section";
+import { Tract } from "@/components/ui/tract";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,7 +55,7 @@ export default function Home() {
         <FeatureCard
           title="Search Faculty"
           description="Find and review faculty profiles and their associated permissions"
-          icon="/globe.svg"
+          icon={<Search />}
           link="/search-faculty"
           buttonText="Get Started"
         />
@@ -61,7 +63,7 @@ export default function Home() {
         <FeatureCard
           title="Review Permissions"
           description="Analyze and manage access controls across your Odoo instance"
-          icon="/file.svg"
+          icon={<Shield />}
           link="/review-permissions"
           buttonText="Explore"
         />
@@ -69,7 +71,7 @@ export default function Home() {
         <FeatureCard
           title="Explore Model"
           description="Examine and understand Odoo data models and their relationships"
-          icon="/window.svg"
+          icon={<Database />}
           link="/explore-model"
           buttonText="Discover"
         />
@@ -77,12 +79,60 @@ export default function Home() {
         <FeatureCard
           title="Data Query"
           description="Run customized queries to extract specific data from your Odoo instance"
-          icon="/file.svg"
+          icon={<FileQuestion />}
           link="/data-query"
           buttonText="Query Data"
-          className="md:col-span-2 lg:col-span-1"
         />
       </motion.section>
+
+      {/* Showcase Section */}
+      <ShowcaseSection
+        title="Smart Data Insights"
+        subtitle="Powered by AI and advanced visualization"
+      />
+
+      {/* Image Grid Section */}
+      {/* <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="mt-12 mb-12"
+        >
+        <Tract
+          images={[
+            [
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-1-row-1.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-1-row-2.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-1-row-3.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-1-row-4.png", alt: "UI Block" }
+            ],
+            [
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-1.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-2.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-3.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-4.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-5.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-2-row-6.png", alt: "UI Block" }
+            ],
+            [
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-1.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-2.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-3.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-4.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-5.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-6.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-3-row-7.png", alt: "UI Block" }
+            ],
+            [
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-4-row-1.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-4-row-2.png", alt: "UI Block" },
+              { src: "https://tailwindcss.com/plus-assets/img/heroes/ui-blocks-col-4-row-3.png", alt: "UI Block" }
+            ]
+          ]}
+          columnWidth={1200}
+          className="relative h-[700px] aspect-video"
+        />
+      </motion.section> */}
 
       {/* About Section */}
       <motion.section
@@ -103,19 +153,14 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ title, description, icon, link, buttonText, className }: { title: string; description: string; icon: string; link: string; buttonText: string; className?: string; }) {
+function FeatureCard({ title, description, icon, link, buttonText, className }: { title: string; description: string; icon: React.ReactNode; link: string; buttonText: string; className?: string; }) {
   return (
     <motion.div variants={item} className={className}>
       <Card className="h-full transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px]">
         <CardHeader>
           <div className="flex justify-center mb-4">
             <div className="bg-primary/10 p-3 rounded-full">
-              <Image
-                src={icon}
-                alt={`${title} Icon`}
-                width={32}
-                height={32}
-              />
+              {icon}
             </div>
           </div>
           <CardTitle className="text-center">{title}</CardTitle>
