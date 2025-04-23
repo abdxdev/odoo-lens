@@ -19,7 +19,7 @@ interface ModelFields {
 }
 
 interface ModelFieldsReviewProps {
-  modelId: number;
+  modelId?: number;
   modelName: string;
   fields: Record<string, ModelFields>;
   isLoading: boolean;
