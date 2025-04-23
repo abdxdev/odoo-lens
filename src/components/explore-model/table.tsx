@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { Database, Check, X, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { createColumnHelper } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { CombinedTable } from "@/components/shared/table";
 
 interface ModelFields {
@@ -34,7 +34,11 @@ interface ProcessedField {
   required: boolean;
   readonly: boolean;
   relation?: string;
+  [key: string]: string | boolean | undefined;
 }
+
+// Define a union type to handle both string and boolean values
+type CellValue = string | boolean | undefined;
 
 export function ModelFieldsReview({
   modelName,
@@ -42,8 +46,6 @@ export function ModelFieldsReview({
   isLoading = false,
   error = null
 }: ModelFieldsReviewProps) {
-  const columnHelper = createColumnHelper<ProcessedField>();
-
   // Create a reusable function for boolean cell rendering
   const renderBooleanCell = (value: boolean) => (
     <div className="flex justify-center">
@@ -55,32 +57,36 @@ export function ModelFieldsReview({
     </div>
   );
 
-  // Define the columns for the fields table
-  const columns = useMemo(() => [
-    columnHelper.accessor("name", {
+  // Define the columns for the fields table directly with the correct type
+  const columns = useMemo<ColumnDef<ProcessedField, CellValue>[]>(() => [
+    {
+      accessorKey: "name",
       header: "Field Name",
-      cell: info => (
+      cell: (info) => (
         <div className="flex items-center gap-2">
           <Database className="h-4 w-4 text-muted-foreground" />
-          <span className="font-medium">{info.getValue()}</span>
+          <span className="font-medium">{info.getValue() as string}</span>
         </div>
       ),
-    }),
-    columnHelper.accessor("label", {
+    },
+    {
+      accessorKey: "label",
       header: "Label",
-    }),
-    columnHelper.accessor("type", {
+    },
+    {
+      accessorKey: "type",
       header: "Type",
-      cell: info => (
+      cell: (info) => (
         <Badge variant="outline" className="lowercase">
-          {info.getValue()}
+          {info.getValue() as string}
         </Badge>
       ),
-    }),
-    columnHelper.accessor("relation", {
+    },
+    {
+      accessorKey: "relation",
       header: "Relation",
-      cell: info => {
-        const relation = info.getValue();
+      cell: (info) => {
+        const relation = info.getValue() as string | undefined;
         return relation ? (
           <div className="flex items-center gap-2">
             <LinkIcon className="h-4 w-4 text-muted-foreground" />
@@ -90,34 +96,39 @@ export function ModelFieldsReview({
           <div className="text-muted-foreground">-</div>
         );
       },
-    }),
-    columnHelper.accessor("required", {
+    },
+    {
+      accessorKey: "required",
       header: "Required",
-      cell: info => renderBooleanCell(info.getValue()),
-    }),
-    columnHelper.accessor("readonly", {
+      cell: (info) => renderBooleanCell(info.getValue() as boolean),
+    },
+    {
+      accessorKey: "readonly",
       header: "Read Only",
-      cell: info => renderBooleanCell(info.getValue()),
-    }),
-  ], [columnHelper]);
+      cell: (info) => renderBooleanCell(info.getValue() as boolean),
+    },
+  ], []);
 
   // Process function to transform the data
-  const processFields = (fieldsData: Record<string, ModelFields> | null) => {
-    if (!fieldsData) return [];
+  const processFields = (data: Record<string, unknown> | Record<string, ModelFields> | unknown[]) => {
+    if (!data || Array.isArray(data)) return [];
 
-    return Object.entries(fieldsData).map(([fieldName, fieldData]) => ({
-      id: fieldName,
-      name: fieldName,
-      type: fieldData.type || 'unknown',
-      label: fieldData.string || fieldName,
-      required: fieldData.required || false,
-      readonly: fieldData.readonly || false,
-      relation: fieldData.relation,
-    }));
+    return Object.entries(data).map(([fieldName, fieldData]) => {
+      const field = fieldData as unknown as ModelFields;
+      return {
+        id: fieldName,
+        name: fieldName,
+        type: field.type || 'unknown',
+        label: field.string || fieldName,
+        required: field.required || false,
+        readonly: field.readonly || false,
+        relation: field.relation,
+      };
+    });
   };
 
   return (
-    <CombinedTable
+    <CombinedTable<ProcessedField, CellValue>
       type="model-fields"
       title={`${modelName} Fields`}
       description={`Fields for model ${modelName}`}
