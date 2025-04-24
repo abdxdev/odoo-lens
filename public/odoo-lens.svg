@@ -4,6 +4,7 @@
     <style>
       .cls-1 {
         stroke-width: 0px;
+        fill: #afafaf;
       }
     </style>
   </defs>
