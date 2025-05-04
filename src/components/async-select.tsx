@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { useDebounce } from "use-debounce";
 
@@ -92,8 +92,10 @@ export function AsyncSelect<T>({
 
   const initialFetchRef = useRef(false);
   const searchFetchRef = useRef(false);
+  const lastSearchTermRef = useRef<string | null>(null);
+  const isSearchingRef = useRef(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open && triggerRef.current) {
       const buttonWidth = triggerRef.current.getBoundingClientRect().width;
       setTriggerWidth(buttonWidth);
@@ -139,7 +141,18 @@ export function AsyncSelect<T>({
   useEffect(() => {
     if (loading && !searchFetchRef.current) return;
 
+    const maxRequestsPerRender = 3;
+    let requestCount = 0;
+
     const fetchFilteredOptions = async () => {
+      if (requestCount >= maxRequestsPerRender) {
+        console.warn("Too many search requests in a short time, throttling to prevent infinite loops");
+        setError("Too many requests. Please try again later.");
+        return;
+      }
+      
+      requestCount++;
+
       if (preload) {
         if (debouncedSearchTerm && options.length > 0) {
           const filteredOptions = options.filter((option) =>
@@ -147,8 +160,13 @@ export function AsyncSelect<T>({
           );
           setOptions(filteredOptions);
         } else if (!debouncedSearchTerm && initialFetchRef.current) {
-          const data = await fetcher("");
-          setOptions(data);
+          try {
+            const data = await fetcher("");
+            setOptions(data);
+          } catch (err) {
+            console.error("Error in preload fetching:", err);
+            setError(err instanceof Error ? err.message : 'Failed to fetch options');
+          }
         }
         return;
       }
@@ -160,6 +178,7 @@ export function AsyncSelect<T>({
           setError(null);
           const data = await fetcher(debouncedSearchTerm);
           setOptions(data);
+          lastSearchTermRef.current = debouncedSearchTerm;
         } catch (err) {
           console.error("Error searching:", err);
           setError(err instanceof Error ? err.message : 'Failed to fetch options');
@@ -170,12 +189,14 @@ export function AsyncSelect<T>({
       }
     };
 
-    const timer = setTimeout(() => {
-      fetchFilteredOptions();
-    }, 0);
+    if (debouncedSearchTerm !== lastSearchTermRef.current) {
+      const timer = setTimeout(() => {
+        fetchFilteredOptions();
+      }, 0);
 
-    return () => clearTimeout(timer);
-  }, [debouncedSearchTerm, fetcher, preload, filterFn, options, loading]);
+      return () => clearTimeout(timer);
+    }
+  }, [debouncedSearchTerm, fetcher, preload, filterFn, loading]);
 
   const handleSelect = useCallback((currentValue: string) => {
     const newValue = clearable && currentValue === value ? "" : currentValue;

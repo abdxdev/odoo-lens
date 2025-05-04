@@ -5,17 +5,31 @@ import { Faculty } from '@/types/faculty';
 import { odooApiRequest } from '@/lib/utils';
 
 async function searchFaculty(query: string = "", limit: number = 10): Promise<Faculty[]> {
+  
   if (!query.trim()) {
     return [];
   }
 
+  const now = Date.now();
+  const lastSearchTime = (window as any)._lastFacultySearchTime || 0;
+  const minSearchInterval = 500; 
+  
+  if (now - lastSearchTime < minSearchInterval) {
+    console.warn("Search throttled - too soon after previous search");
+    return [];
+  }
+  
+  (window as any)._lastFacultySearchTime = now;
+
   try {
-    // Use the dedicated odooApiRequest function that prioritizes the client session key
-    return await odooApiRequest(
+    
+    const results = await odooApiRequest(
       '/api/odoo/search-faculty',
       'GET',
       { query, limit }
     );
+    
+    return results;
   } catch (error) {
     console.error("Error fetching faculty data:", error);
     return [];
